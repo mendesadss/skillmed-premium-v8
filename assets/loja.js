@@ -93,7 +93,7 @@
     var detail = event.detail || {}, product = SM.produto(detail.id), props = detail.props || {};
     var name = props['Nome para gravação'];
     if (!product || !product.perso || typeof name !== 'string' || !name.trim() || name.length > 20 || !props.Curso || !props.Arte) return;
-    adicionar(product.id, { 'Curso': String(props.Curso), 'Arte': String(props.Arte), 'Nome para gravação': name }, { abrir: true, origem: detail.origin });
+    adicionar(product.id, { 'Curso': String(props.Curso), 'Arte': String(props.Arte), 'Nome para gravação': name, 'Fonte': String(props.Fonte || 'Clássica') }, { abrir: true, origem: detail.origin });
   });
   var propsHtml = function (l) { var ks = Object.keys(l.props || {}); return ks.length ? '<dl class="cart-props-sm">' + ks.map(function (k) { return '<div><dt>' + esc(k) + ':</dt><dd' + (k === 'Nome para gravação' ? ' class="nome-sm"' : '') + '>' + esc(l.props[k]) + '</dd></div>'; }).join('') + '</dl>' : ''; };
   var fotoLinha = function (line) {
@@ -392,9 +392,10 @@
     var CURSO = {
       med: { nome: 'Medicina', id: 'kit', col: 'medicina', artes: 'med', ext: 'webp', artesN: 8 },
       vet: { nome: 'Veterinária', id: 'vet', col: 'veterinaria', artes: 'vet', ext: 'webp', artesN: 8 },
-      odonto: { nome: 'Odontologia', id: 'odonto', col: 'odontologia', artes: 'odonto', ext: 'webp', artesN: 0 },
+      odonto: { nome: 'Odontologia', id: 'odonto', col: 'odontologia', artes: 'odonto', ext: 'webp', artesN: 1, soArte: '01' },
       enf: { nome: 'Enfermagem', id: 'kit', col: 'enfermagem', artes: 'enf', ext: 'webp', artesN: 0 }
     };
+    var FONTES = { classica: 'Clássica', manuscrita: 'Manuscrita', moderna: 'Moderna' };
     var KNOME = { kit: 'Skillmed Sutura Pro', semestre: 'Kit Semestre Completo', estojo: 'Só o estojo inox gravado' };
     var SEM_EXTRAS = ['Caixa com 24 fios de nylon 4-0', 'Caixa de lâminas de bisturi nº 15', 'Pele simuladora extra com 6 fios'];
     var nome = $('#perso-nome'), semNome = false, focoLeg = 0, mexeu = { curso: false, desenho: false };
@@ -407,10 +408,10 @@
     var nokitUl = $('[data-nokit-lista]'), nokitIco = nokitUl && nokitUl.querySelector('svg') ? nokitUl.querySelector('svg').outerHTML : '';
     var rot = function (d) { return d === '00' ? 'Padrão' : d; };
     /* quantidade 1 a 5: cada unidade tem a propria arte e o proprio nome; o curso e o mesmo da pagina */
-    var units = [{ desenho: '00', nome: '', semNome: false }], ativo = 0, qtdEl = $('[data-qtd]'), unidsEl = $('[data-unids]');
-    var guardar = function () { var d = $('input[name=desenho]:checked'); units[ativo] = { desenho: d ? d.value : '00', nome: nome.value, semNome: semNome }; };
+    var units = [{ desenho: '00', nome: '', semNome: false, fonte: 'classica' }], ativo = 0, qtdEl = $('[data-qtd]'), unidsEl = $('[data-unids]');
+    var guardar = function () { var d = $('input[name=desenho]:checked'); var f = $('input[name=fonte]:checked'); units[ativo] = { desenho: d ? d.value : '00', nome: nome.value, semNome: semNome, fonte: f ? f.value : 'classica' }; };
     var carregar = function (i) {
-      ativo = i; var u = units[i]; marca('input[name=desenho][value="' + u.desenho + '"]');
+      ativo = i; var u = units[i]; marca('input[name=desenho][value="' + u.desenho + '"]'); marca('input[name=fonte][value="' + (u.fonte || 'classica') + '"]');
       nome.value = u.nome; semNome = u.semNome; nome.disabled = semNome;
       var b = $('[data-ohne-name]'); b.setAttribute('aria-pressed', String(semNome)); b.textContent = semNome ? 'Quero gravar um nome' : 'Prefiro sem nome';
       var z = $('[data-zaehler]'); z.textContent = nome.value.length + '/20'; z.classList.toggle('is-warn-sm', nome.value.length >= 17);
@@ -429,17 +430,19 @@
     };
     var mudarQtd = function (n) {
       n = Math.max(1, Math.min(5, n)); guardar();
-      while (units.length < n) units.push({ desenho: '00', nome: '', semNome: false });
+      while (units.length < n) units.push({ desenho: '00', nome: '', semNome: false, fonte: 'classica' });
       units.length = n; if (ativo >= n) ativo = n - 1;
       qtdEl.value = String(n); carregar(ativo); montarUnids(); atualizar();
     };
     var estado = function () {
       var c = $('input[name=curso]:checked').value, k = $('input[name=kit]:checked').value, dEl = $('input[name=desenho]:checked'), d = dEl ? dEl.value : '00';
-      if (Number(d) > CURSO[c].artesN) { marca('input[name=desenho][value="00"]'); d = '00'; }
+      if (CURSO[c].soArte) { if (d !== CURSO[c].soArte) { marca('input[name=desenho][value="' + CURSO[c].soArte + '"]'); d = CURSO[c].soArte; } }
+      else if (Number(d) > CURSO[c].artesN) { marca('input[name=desenho][value="00"]'); d = '00'; }
       if (CURSO[c].artesN === 0) d = '';
       if ((c === 'odonto' || c === 'enf') && k === 'semestre') { marca('input[name=kit][value="kit"]'); k = 'kit'; }
       var pid = k === 'kit' ? CURSO[c].id : k;
-      return { curso: c, kit: k, desenho: d, pid: pid, preco: SM.produto(pid).preis, nome: nome.value.trim() };
+      var fEl = $('input[name=fonte]:checked');
+      return { curso: c, kit: k, desenho: d, fonte: fEl ? fEl.value : 'classica', pid: pid, preco: SM.produto(pid).preis, nome: nome.value.trim() };
     };
     var setTxt = function (sel, t) { var x = $(sel); if (x) x.textContent = t; };
     var atualizar = function () {
@@ -461,7 +464,7 @@
       $('[data-total]').textContent = brl(Math.round((s.preco + presente) * qn * 100) / 100);
       $('[data-sticky-preis]').textContent = brl(Math.round(s.preco * qn * 100) / 100);
       $('[data-sticky-titel]').textContent = (qn > 1 ? qn + ' × ' : '') + nomeKit + ' · ' + cn;
-      setTxt('[data-medida]', s.curso === 'odonto' ? 'Estojo preto com zíper' : 'Estojo inox 18 x 8 x 3 cm');
+      setTxt('[data-medida]', 'Estojo inox 18 x 8 x 3 cm');
       $('[data-qtd-menos]').disabled = qn <= 1; $('[data-qtd-mais]').disabled = qn >= 5;
       rotulosUnids();
       $('[data-eyebrow]').textContent = (s.kit === 'estojo' ? 'Estojo para ' : 'Kit para ') + cn;
@@ -486,7 +489,7 @@
       $('[data-schritt="2"]').classList.toggle('is-done-sm', mexeu.desenho || semArte); $('[data-schritt="3"]').classList.toggle('is-done-sm', semNome || s.nome.length > 1);
       $$('[data-leg]').forEach(function (li, i) { li.classList.toggle('is-on-sm', i === focoLeg); });
       $$('[data-arte-option]').forEach(function (label) {
-        var input = label.querySelector('input'), valor = input.value, disponivel = CURSO[s.curso].artesN > 0 && Number(valor) <= CURSO[s.curso].artesN;
+        var input = label.querySelector('input'), valor = input.value, disponivel = CURSO[s.curso].artesN > 0 && Number(valor) <= CURSO[s.curso].artesN && (!CURSO[s.curso].soArte || valor === CURSO[s.curso].soArte);
         label.hidden = !disponivel; input.disabled = !disponivel;
         if (disponivel) {
           var img = label.querySelector('[data-arte-img]');
@@ -509,17 +512,17 @@
       if (nokitUl) nokitUl.innerHTML = itens.map(function (t) { return '<li>' + nokitIco + '<span>' + esc(t) + '</span></li>'; }).join('');
       setTxt('[data-nokit-curso]', sem ? 'Semestre' : cn);
       var corpo = $('[data-espec-corpo]');
-      if (corpo) corpo.innerHTML = KD.especComum.concat([['Estojo', s.curso === 'odonto' ? 'Estojo preto com zíper' : 'Caixa inox 18 x 8 x 3 cm com gravação a laser'], ['Personalização', dc.perso], ['Uso', KD.uso]]).map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>'; }).join('');
+      if (corpo) corpo.innerHTML = KD.especComum.concat([['Estojo', 'Caixa inox 18 x 8 x 3 cm com gravação a laser'], ['Personalização', dc.perso], ['Uso', KD.uso]]).map(function (r) { return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>'; }).join('');
       // descricao: para quem e e como funciona, pelo curso
       setTxt('[data-para-quem]', dc.para || '');
-      setTxt('[data-como]', s.curso === 'odonto' ? 'Você digita o nome e confere o texto da personalização. A fotografia mostra o estojo preto com os instrumentais e modelos dentais. Não há símbolo de Odontologia disponível nesta prévia.' : semArte ? 'Você digita o nome e confere a prévia. O estojo inox é gravado a laser com o nome e o curso, e o kit chega pronto para treinar.' : 'Você escolhe o curso e o desenho, digita o nome e confere a prévia. O estojo inox é gravado a laser e o kit chega pronto para treinar' + (dc.pele || sem ? ', com a pele simuladora' + (sem ? ' extra' : ' de brinde') : '') + '.');
+      setTxt('[data-como]', semArte ? 'Você digita o nome e confere a prévia. O estojo inox é gravado a laser com o nome e o curso, e o kit chega pronto para treinar.' : 'Você escolhe o curso e o desenho, digita o nome e confere a prévia. O estojo inox é gravado a laser e o kit chega pronto para treinar' + (dc.pele || sem ? ', com a pele simuladora' + (sem ? ' extra' : ' de brinde') : '') + '.');
       setTxt('[data-d2-titulo]', semArte ? 'Nome e curso gravados' : 'Padrão + 8 desenhos');
       setTxt('[data-d2-texto]', semArte ? 'Prévia do nome e curso, sem símbolo inventado.' : 'Escolha o que combina com o curso.');
       var detalhe = $('.pdx-wm4--d2 img'); if (detalhe) { var baseDetalhe = 'assets/img/personalizacao/' + CURSO[s.curso].artes + '/' + (s.curso === 'med' && s.desenho !== '00' ? '07' : (s.desenho || '01')) + '-v5.webp'; detalhe.src = baseDetalhe; detalhe.removeAttribute('srcset'); detalhe.alt = 'Gravação personalizada para ' + cn + ' com o texto Seu nome aqui'; }
       var fotoBarra = $('.sticky-atc-wm4__bild'); if (fotoBarra) fotoBarra.src = src(pastaGaleria, 1, 480);
       if (window.SMMockup) window.SMMockup.render($('[data-mock]'), {
-        nome: semNome ? '' : (s.nome || 'Seu nome aqui'), curso: s.curso === 'vet' ? 'Medicina Veterinária' : cn, desenho: rot(s.desenho), productKind: s.curso === 'odonto' && s.kit !== 'estojo' ? 'odonto' : 'estojo',
-        desenhoUrl: (s.curso === 'med' || s.curso === 'vet') ? 'assets/img/personalizacao/artes-v5/' + s.curso + '-' + s.desenho + '.png' : ''
+        nome: semNome ? '' : (s.nome || 'Seu nome aqui'), curso: s.curso === 'vet' ? 'Medicina Veterinária' : cn, desenho: rot(s.desenho), fonte: s.fonte,
+        desenhoUrl: (s.curso === 'med' || s.curso === 'vet' || s.curso === 'odonto') ? 'assets/img/personalizacao/artes-v5/' + s.curso + '-' + s.desenho + '.png' : ''
       });
     };
     pform.addEventListener('change', function (ev) {
@@ -556,8 +559,8 @@
     var colocar = function () {
       guardar(); var s = estado(), m = $('#perso-msg').value.trim();
       units.forEach(function (u) {
-        var d = CURSO[s.curso].artesN === 0 ? '' : (Number(u.desenho) > CURSO[s.curso].artesN ? '00' : u.desenho);
-        var props = { 'Curso': CURSO[s.curso].nome, 'Arte': d ? rot(d) : 'Sem desenho (Odontologia)', 'Nome para gravação': u.semNome ? 'Sem nome' : u.nome.trim() };
+        var d = CURSO[s.curso].artesN === 0 ? '' : CURSO[s.curso].soArte ? CURSO[s.curso].soArte : (Number(u.desenho) > CURSO[s.curso].artesN ? '00' : u.desenho);
+        var props = { 'Curso': CURSO[s.curso].nome, 'Arte': d ? rot(d) : 'Sem desenho', 'Nome para gravação': u.semNome ? 'Sem nome' : u.nome.trim(), 'Fonte': FONTES[u.fonte || 'classica'] };
         adicionar(s.pid, props, { silencioso: true });
         if ($('[data-presente]').checked) adicionar('presente', { 'Para o estojo de': props['Nome para gravação'], 'Mensagem do cartão': m || 'Sem mensagem' }, { silencioso: true });
       });
@@ -572,6 +575,7 @@
     unidsEl.addEventListener('click', function (ev) { var b = ev.target.closest('[data-unid]'); if (!b) return; guardar(); carregar(Number(b.getAttribute('data-unid'))); focoLeg = 1; atualizar(); });
     $('[data-qtd-menos]').addEventListener('click', function () { mudarQtd(units.length - 1); });
     $('[data-qtd-mais]').addEventListener('click', function () { mudarQtd(units.length + 1); });
+    if (document.fonts && document.fonts.load) { Promise.all([document.fonts.load('48px "Great Vibes"'), document.fonts.load('500 48px Montserrat')]).then(atualizar, function () {}); }
     montarUnids(); fixaAt(); atualizar();
   }
 

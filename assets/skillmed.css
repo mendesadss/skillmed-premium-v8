@@ -745,3 +745,12 @@ html.sm-reveal-on .sm-reveal.is-in { opacity: 1; transform: none; }
 @media screen and (max-width: 749px) {
   .perso-sm .perso-sm__desenhos > label { flex: 0 0 11.2rem; }
 }
+
+/* v8 rodada 2: seletor de fonte da gravacao (3 opcoes) */
+.perso-sm__fonte { margin: 1.4rem 0 0; padding: 0; border: 0; min-width: 0; }
+.perso-sm__fonte-l { padding: 0; margin: 0 0 .6rem; font-size: 1.4rem; font-weight: 600; color: #0C1A2E; }
+.perso-sm__wahl--fonte span { min-height: 4.4rem; padding: .6rem .4rem; }
+.perso-sm__wahl--fonte b { font-size: 1.7rem; font-weight: 500; }
+.fonte-classica-sm { font-family: Georgia, serif; font-style: italic; }
+.fonte-manuscrita-sm { font-family: "Great Vibes", "Snell Roundhand", cursive; font-size: 2.1rem !important; font-weight: 400 !important; }
+.fonte-moderna-sm { font-family: Montserrat, "Helvetica Neue", Arial, sans-serif; font-size: 1.5rem !important; }
