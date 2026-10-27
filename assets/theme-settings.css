@@ -1,0 +1,82 @@
+/* = {% style %} de layout/theme.liquid (Dawn 16) com os valores do customizador da SkillMed.
+   Gerado por _fonte/gerar.mjs (objeto SETTINGS em _fonte/partes/base.mjs). Nao editar a mao. */
+:root,
+.color-scheme-1 {
+  --color-background: 244,247,251; --gradient-background: #F4F7FB; --color-foreground: 12,26,46;
+  --color-background-contrast: 12,26,46; --color-shadow: 12,26,46; --color-button: 10,125,59; --color-button-text: 255,255,255;
+  --color-secondary-button: 244,247,251; --color-secondary-button-text: 12,26,46; --color-link: 12,26,46;
+  --color-badge-foreground: 12,26,46; --color-badge-background: 244,247,251; --color-badge-border: 12,26,46;
+  --payment-terms-background-color: rgb(244,247,251);
+}
+.color-scheme-2 {
+  --color-background: 255,255,255; --gradient-background: #FFFFFF; --color-foreground: 12,26,46;
+  --color-background-contrast: 12,26,46; --color-shadow: 12,26,46; --color-button: 10,125,59; --color-button-text: 255,255,255;
+  --color-secondary-button: 255,255,255; --color-secondary-button-text: 12,26,46; --color-link: 12,26,46;
+  --color-badge-foreground: 12,26,46; --color-badge-background: 255,255,255; --color-badge-border: 12,26,46;
+  --payment-terms-background-color: rgb(255,255,255);
+}
+.color-scheme-3 {
+  --color-background: 232,240,252; --gradient-background: #E8F0FC; --color-foreground: 12,26,46;
+  --color-background-contrast: 12,26,46; --color-shadow: 12,26,46; --color-button: 10,125,59; --color-button-text: 255,255,255;
+  --color-secondary-button: 232,240,252; --color-secondary-button-text: 12,26,46; --color-link: 12,26,46;
+  --color-badge-foreground: 12,26,46; --color-badge-background: 232,240,252; --color-badge-border: 12,26,46;
+  --payment-terms-background-color: rgb(232,240,252);
+}
+.color-scheme-4 {
+  --color-background: 12,26,46; --gradient-background: #0C1A2E; --color-foreground: 244,247,251;
+  --color-background-contrast: 244,247,251; --color-shadow: 12,26,46; --color-button: 255,255,255; --color-button-text: 12,26,46;
+  --color-secondary-button: 12,26,46; --color-secondary-button-text: 244,247,251; --color-link: 244,247,251;
+  --color-badge-foreground: 244,247,251; --color-badge-background: 12,26,46; --color-badge-border: 244,247,251;
+  --payment-terms-background-color: rgb(12,26,46);
+}
+.color-scheme-5 {
+  --color-background: 230,244,236; --gradient-background: #E6F4EC; --color-foreground: 12,26,46;
+  --color-background-contrast: 12,26,46; --color-shadow: 12,26,46; --color-button: 10,125,59; --color-button-text: 255,255,255;
+  --color-secondary-button: 230,244,236; --color-secondary-button-text: 12,26,46; --color-link: 12,26,46;
+  --color-badge-foreground: 12,26,46; --color-badge-background: 230,244,236; --color-badge-border: 12,26,46;
+  --payment-terms-background-color: rgb(230,244,236);
+}
+.color-scheme-6 {
+  --color-background: 10,22,38; --gradient-background: #0A1626; --color-foreground: 215,227,241;
+  --color-background-contrast: 215,227,241; --color-shadow: 12,26,46; --color-button: 90,146,234; --color-button-text: 10,22,38;
+  --color-secondary-button: 10,22,38; --color-secondary-button-text: 215,227,241; --color-link: 215,227,241;
+  --color-badge-foreground: 215,227,241; --color-badge-background: 10,22,38; --color-badge-border: 215,227,241;
+  --payment-terms-background-color: rgb(10,22,38);
+}
+body, .color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4, .color-scheme-5, .color-scheme-6 { color: rgba(var(--color-foreground), 0.86); background-color: rgb(var(--color-background)); }
+:root {
+  --font-body-family: 'Figtree', 'Figtree Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif; --font-body-style: normal; --font-body-weight: 400; --font-body-weight-bold: 600;
+  --font-heading-family: 'Figtree', 'Figtree Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif; --font-heading-style: normal; --font-heading-weight: 600;
+  --font-body-scale: 1; --font-heading-scale: 1;
+  --media-padding: 0px; --media-border-opacity: 0; --media-border-width: 0px; --media-radius: 6px;
+  --media-shadow-opacity: 0; --media-shadow-horizontal-offset: 0px; --media-shadow-vertical-offset: 0px; --media-shadow-blur-radius: 0px; --media-shadow-visible: 0;
+  --page-width: 132rem; --page-width-margin: 0rem;
+  --product-card-image-padding: 0rem; --product-card-corner-radius: 0.6rem; --product-card-text-alignment: left;
+  --product-card-border-width: 0rem; --product-card-border-opacity: 0; --product-card-shadow-opacity: 0; --product-card-shadow-visible: 0;
+  --product-card-shadow-horizontal-offset: 0rem; --product-card-shadow-vertical-offset: 0rem; --product-card-shadow-blur-radius: 0rem;
+  --collection-card-image-padding: 0rem; --collection-card-corner-radius: 0.6rem; --collection-card-text-alignment: left;
+  --collection-card-border-width: 0rem; --collection-card-border-opacity: 0; --collection-card-shadow-opacity: 0; --collection-card-shadow-visible: 0;
+  --collection-card-shadow-horizontal-offset: 0rem; --collection-card-shadow-vertical-offset: 0rem; --collection-card-shadow-blur-radius: 0rem;
+  --blog-card-image-padding: 0rem; --blog-card-corner-radius: 0.6rem; --blog-card-text-alignment: left; --blog-card-border-width: 0rem; --blog-card-border-opacity: 0;
+  --blog-card-shadow-opacity: 0; --blog-card-shadow-visible: 0; --blog-card-shadow-horizontal-offset: 0rem; --blog-card-shadow-vertical-offset: 0rem; --blog-card-shadow-blur-radius: 0rem;
+  --badge-corner-radius: 0.3rem;
+  --popup-border-width: 1px; --popup-border-opacity: 0.1; --popup-corner-radius: 8px; --popup-shadow-opacity: 0.1;
+  --popup-shadow-horizontal-offset: 0px; --popup-shadow-vertical-offset: 12px; --popup-shadow-blur-radius: 32px;
+  --drawer-border-width: 0px; --drawer-border-opacity: 0; --drawer-shadow-opacity: 0.14; --drawer-shadow-horizontal-offset: 0px; --drawer-shadow-vertical-offset: 0px; --drawer-shadow-blur-radius: 40px;
+  --spacing-sections-desktop: 0px; --spacing-sections-mobile: 0px;
+  --grid-desktop-vertical-spacing: 40px; --grid-desktop-horizontal-spacing: 24px;
+  --grid-mobile-vertical-spacing: 20px; --grid-mobile-horizontal-spacing: 12px;
+  --text-boxes-border-opacity: 0; --text-boxes-border-width: 0px; --text-boxes-radius: 6px; --text-boxes-shadow-opacity: 0; --text-boxes-shadow-visible: 0;
+  --text-boxes-shadow-horizontal-offset: 0px; --text-boxes-shadow-vertical-offset: 0px; --text-boxes-shadow-blur-radius: 0px;
+  --buttons-radius: 4px; --buttons-radius-outset: 5px; --buttons-border-width: 1px; --buttons-border-opacity: 1;
+  --buttons-shadow-opacity: 0; --buttons-shadow-visible: 0; --buttons-shadow-horizontal-offset: 0px; --buttons-shadow-vertical-offset: 0px; --buttons-shadow-blur-radius: 0px; --buttons-border-offset: 0.3px;
+  --inputs-radius: 4px; --inputs-border-width: 1px; --inputs-border-opacity: 0.35; --inputs-shadow-opacity: 0;
+  --inputs-shadow-horizontal-offset: 0px; --inputs-margin-offset: 0px; --inputs-shadow-vertical-offset: 0px; --inputs-shadow-blur-radius: 0px; --inputs-radius-outset: 5px;
+  --variant-pills-radius: 6px; --variant-pills-border-width: 1px; --variant-pills-border-opacity: 0.2; --variant-pills-shadow-opacity: 0;
+  --variant-pills-shadow-horizontal-offset: 0px; --variant-pills-shadow-vertical-offset: 0px; --variant-pills-shadow-blur-radius: 0px;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { box-sizing: border-box; font-size: calc(var(--font-body-scale) * 62.5%); height: 100%; }
+body { display: flex; flex-direction: column; min-height: 100%; margin: 0; font-size: 1.5rem; letter-spacing: 0.01rem; line-height: calc(1 + 0.6 / var(--font-body-scale));
+  font-family: var(--font-body-family); font-style: var(--font-body-style); font-weight: var(--font-body-weight); }
+@media screen and (min-width: 750px) { body { font-size: 1.6rem; } }

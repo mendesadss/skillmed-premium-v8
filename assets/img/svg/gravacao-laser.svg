@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+  <title id="t">Gravação a laser no estojo inox</title>
+  <desc id="d">Cabeçote de laser gravando um nome na tampa de um estojo de aço inox.</desc>
+  <defs>
+    <linearGradient id="aco" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f6f8"/><stop offset=".42" stop-color="#c9d0d6"/><stop offset=".55" stop-color="#eceff2"/><stop offset="1" stop-color="#b3bbc3"/>
+    </linearGradient>
+    <linearGradient id="feixe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5fb0ff" stop-opacity=".1"/><stop offset="1" stop-color="#5fb0ff" stop-opacity=".95"/>
+    </linearGradient>
+    <radialGradient id="brilho" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#9fd0ff"/><stop offset="1" stop-color="#5fb0ff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="escovado" width="4" height="400" patternUnits="userSpaceOnUse">
+      <rect width="1" height="400" fill="#ffffff" opacity=".35"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="#0b1b2e"/>
+  <g opacity=".08" stroke="#8ab6e8">
+    <path d="M0 80h640M0 160h640M0 240h640M0 320h640M80 0v400M160 0v400M240 0v400M320 0v400M400 0v400M480 0v400M560 0v400"/>
+  </g>
+  <!-- estojo -->
+  <g transform="translate(70 190)">
+    <rect width="500" height="170" rx="22" fill="#5d6873"/>
+    <rect y="0" width="500" height="160" rx="22" fill="url(#aco)"/>
+    <rect width="500" height="160" rx="22" fill="url(#escovado)"/>
+    <rect x="10" y="10" width="480" height="140" rx="15" fill="none" stroke="#ffffff" stroke-opacity=".7"/>
+    <!-- desenho: ECG -->
+    <path d="M150 64h44l10-18 14 36 12-28 8 10h44" fill="none" stroke="#56616b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- nome: parte já gravada e parte a gravar -->
+    <text x="250" y="116" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="30" letter-spacing="6" fill="#4a5560">DRA. ANA</text>
+    <text x="376" y="116" font-family="IBM Plex Mono, Menlo, monospace" font-size="30" letter-spacing="6" fill="#4a5560" opacity=".22">LIMA</text>
+  </g>
+  <!-- cabeçote (deslocado para o fim do nome, nada cobre as letras) --><g transform="translate(100 0)">
+  <rect x="268" y="18" width="104" height="70" rx="10" fill="#1d3049" stroke="#3a5a80"/>
+  <rect x="300" y="88" width="40" height="22" rx="4" fill="#27425f"/>
+  <circle cx="290" cy="40" r="5" fill="#0b8a3e"/>
+  <rect x="304" y="34" width="54" height="6" rx="3" fill="#3a5a80"/>
+  <rect x="304" y="48" width="38" height="6" rx="3" fill="#3a5a80"/>
+  <!-- feixe -->
+  <polygon points="314,110 326,110 321,314 319,314" fill="url(#feixe)"/>
+  </g>
+  <!-- ponto de gravação: abaixo da linha do texto, as letras seguem legíveis -->
+  <circle cx="420" cy="320" r="12" fill="url(#brilho)"/>
+  <circle cx="420" cy="320" r="3" fill="#ffffff"/>
+</svg>

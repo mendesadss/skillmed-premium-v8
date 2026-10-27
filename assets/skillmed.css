@@ -1,0 +1,747 @@
+/* SkillMed v2: camada da SkillMed, carregada por ULTIMO (depois do Dawn e da camada wohnmira-v4 da Porare).
+   1) qualidade de texto (nada quebrado, nada fora da diagramacao)  2) logo e cores de link/selecao
+   3) componentes novos: personalizacao, checkout simulado, propriedades no carrinho, pontos, video  4) ajustes de midia 16:9 */
+
+/* ---------- 1. qualidade de texto ---------- */
+h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4, .h5 { text-wrap: balance; overflow-wrap: normal; word-break: normal; hyphens: manual; }
+p, li, dd, td, .rte, .caption, small { text-wrap: pretty; }
+.button, .button__label-wm4, .price, .price-item, .bundle-wm4__price, .badge-sm, .chip-wm4, .cart-count-bubble, .header__menu-item span, .perso-sm__total strong, .totals__total-value, .summe-wm4 dd,
+.link-wm4, .card__set-wm4, .koll-count-wm4, .perso-sm__wahl small, .perso-sm__zaehler, .slider-counter, .warum-wm4__nr, .vid-pp-sm { white-space: nowrap; }
+.button { max-width: 100%; }
+.nome-sm, .perso-sm__nome, [data-lg-nome], .perso-sm__input { overflow-wrap: anywhere; white-space: normal; }
+.nobr-wm4 { white-space: nowrap; }
+
+/* ---------- 2. logo, links e selecao ---------- */
+.header-wm4 .logo-wm4.logo-wm4, .footer-brand-wm4 img.logo-wm4--hell.logo-wm4--hell, .logo-sm.logo-sm { width: 13rem; height: auto; aspect-ratio: 2.5; margin-left: 0 !important; max-width: none; border-radius: 0; }
+@media screen and (max-width: 989px) { .header-wm4 .logo-wm4.logo-wm4 { width: 10rem; } }
+.footer-brand-wm4 img.logo-wm4--hell.logo-wm4--hell { width: 12.5rem; }
+::selection { background: rgba(24, 89, 190, .16); color: #0C1A2E; }
+.rte a, .link-wm4, .faq-wm4__more a, .rabatt-band-wm4 a, .aviso-sm a { color: #1859BE; }
+.rte a:hover, .link-wm4:hover, .breadcrumbs-wm4 a:hover { color: #0C1A2E; }
+.color-scheme-4 .rte a, .color-scheme-6 a { color: inherit; }
+.eyebrow-wm4 { color: #1859BE; }
+.trust-wm4__list .icon, .anlass-kachel-wm4 > .icon, .nutzen-wm4 .icon, .check-wm4 .icon, .pdx-vorteile .icon, .service-line-wm4 .icon, .announcement-bar__message .icon, .rabatt-band-wm4 .icon, .weihnachts-hinweis-wm4 .icon { color: #1859BE; }
+.footer-promise-wm4 .icon { color: #5A92EA; }
+.chip-wm4[aria-current='page'], .facet-checkbox > input:checked + .facet-checkbox__box-wm4, .facets-toggle-wm4__n { background: #1859BE; border-color: #1859BE; }
+.product-form__input.bundle-wm4 input[type='radio']:checked + label { border-color: #1859BE; box-shadow: inset 0 0 0 1px #1859BE; background: #F3F7FD; }
+.thumbnail[aria-current="true"] { border-color: #1859BE !important; }
+.field__input:focus, .select__select:focus { border-color: #1859BE !important; box-shadow: 0 0 0 3px rgba(24, 89, 190, .14) !important; }
+:focus-visible { outline-color: #1859BE; }
+.color-scheme-4 :focus-visible, .color-scheme-6 :focus-visible { outline-color: #8DB4F2; }
+.cart-count-bubble { background: #1859BE; color: #FFFFFF; }
+
+/* ---------- 3. midia 16:9 da SkillMed nos componentes da Porare ---------- */
+.kachel-wm4__media .asset-wm4 { object-fit: cover; width: 100%; height: 100%; }
+.kachel-wm4__media .kachel-sm__svg { object-fit: contain; padding: .8rem; background: #E8F0FC; }
+.raum-karte-wm4__media .asset-wm4 { object-fit: cover; }
+.set-sm .set-wm4__fotos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.set-wm4__fotos img { background: #F6F4F0 !important; mix-blend-mode: normal; object-fit: contain !important; }
+.set-wm4__preis span + span { display: block; }
+.editorial-wm4__media .asset-wm4 { object-fit: cover; }
+.pdp-sm .product-media-container img { object-fit: cover; }
+.pdp-sm .thumbnail img { object-fit: cover; }
+.pdx-media--svg-sm { display: grid; place-items: center; padding: 2.4rem; border-radius: var(--wm-radius); background: #E8F0FC; }
+.pdx-media--svg-sm img { width: 100%; height: auto; }
+.pdx-media--video-sm { position: relative; display: flex; justify-content: center; border-radius: var(--wm-radius); overflow: hidden; background: #0C1A2E; }
+.pdx-media--video-sm video { display: block; width: auto; max-width: 100%; height: auto; max-height: 56rem; aspect-ratio: 540 / 962; }
+@media screen and (max-width: 749px) { .pdx-media--video-sm video { max-height: 48rem; } }
+.vid-pp-sm { position: absolute; left: 1.2rem; bottom: 1.2rem; min-height: 4.4rem; padding: 0 1.6rem; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .94); color: #0C1A2E; font: 600 1.4rem/1 var(--font-body-family); cursor: pointer; }
+.pontos-sm > li { display: flex; flex-direction: column; }
+.pontos-sm__ic { display: grid; place-items: center; padding: 1.2rem; border-radius: var(--wm-radius); background: #FFFFFF; border: 1px solid #E3EAF3; }
+.pontos-sm__ic svg { width: 100%; max-width: 16rem; height: auto; }
+@media screen and (min-width: 750px) and (max-width: 1099px) { .pontos-sm { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+@media screen and (max-width: 749px) { .pontos-sm { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 2rem 1.2rem; } }
+.svg-wm4 { width: 100%; height: auto; }
+
+/* ---------- 4. personalizacao (componente NOVO) ---------- */
+@font-face { font-family: "IBM Plex Mono"; src: url(../fonts/IBMPlexMono-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+.perso-sm { display: grid; gap: 1.6rem; margin: 2rem 0 1.6rem; padding: 2rem; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-lg); background: #FFFFFF; }
+@media screen and (max-width: 374px) { .perso-sm { padding: 1.6rem 1.2rem; } }
+.perso-sm__kopf { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1.2rem; }
+.perso-sm__kopf .h3 { margin: 0; font-size: 2rem; }
+.badge-sm { display: inline-flex; align-items: center; min-height: 2.8rem; padding: 0 1rem; border-radius: 999px; background: #E6F4EC; color: #08652F; font-size: 1.3rem; font-weight: 600; }
+.perso-sm__mock { border-radius: var(--wm-radius); background: linear-gradient(180deg, #EEF3F9, #E3EAF3); padding: .8rem; }
+.perso-sm__mock svg { display: block; width: 100%; height: auto; }
+.perso-sm__mock img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 1rem; background: #fff; }
+.perso-sm__mock figcaption { margin-top: .7rem; color: #53667d; font-size: 1.2rem; line-height: 1.45; text-align: center; }
+.perso-sm__mock figcaption span { display: block; margin-top: .25rem; color: #173b70; }
+.perso-sm__mock figcaption strong { color: #0c1a2e; }
+.perso-sm__legende { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; margin: 0; }
+.perso-sm__legende li { display: grid; gap: .2rem; min-width: 0; padding: .8rem 1rem; border: 1px solid #E3EAF3; border-radius: var(--wm-radius-btn); }
+.perso-sm__legende li.is-on-sm { border-color: #1859BE; box-shadow: inset 0 0 0 1px #1859BE; }
+.perso-sm__legende small { font-size: 1.2rem; color: #44546A; }
+.perso-sm__legende b { font-size: 1.4rem; line-height: 1.3; color: #0C1A2E; }
+.perso-sm__schritt { display: grid; gap: 1rem; margin: 0; padding: 1.6rem 0 0; min-width: 0; border: 0; border-top: 1px solid #E3EAF3; }
+.perso-sm__h { display: flex; align-items: center; gap: 1rem; margin: 0; padding: 0; font-size: 1.6rem; font-weight: 600; color: #0C1A2E; }
+legend.perso-sm__h { float: left; width: 100%; margin-bottom: 1rem; }
+legend.perso-sm__h + * { clear: both; }
+.perso-sm__n { display: inline-grid; place-items: center; flex: none; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: #0C1A2E; color: #FFFFFF; font-size: 1.4rem; }
+.is-done-sm .perso-sm__n { background: #0A7D3B; }
+.perso-sm__n--ok { background: #0A7D3B; }
+.perso-sm__n .icon { width: 1.6rem; height: 1.6rem; }
+.perso-sm__aux { margin-left: auto; font-size: 1.4rem; font-weight: 400; color: #44546A; white-space: nowrap; }
+.perso-sm__input, .perso-sm__textarea { width: 100%; min-height: 4.8rem; padding: 1.2rem 1.4rem; border: 1px solid rgba(12, 26, 46, .35); border-radius: var(--wm-radius-btn); background: #FFFFFF; color: #0C1A2E; font: 500 1.7rem/1.3 var(--font-body-family); }
+.perso-sm__textarea { min-height: 9rem; resize: vertical; font-size: 1.6rem; }
+.perso-sm__input[aria-invalid="true"] { border-color: #B42318; box-shadow: 0 0 0 1px #B42318; }
+.perso-sm__input:disabled { background: #EEF3F9; color: #44546A; }
+.perso-sm__hilfe { display: flex; justify-content: space-between; gap: 1.2rem; font-size: 1.4rem; color: #44546A; }
+.perso-sm__hilfe label { color: #0C1A2E; font-weight: 600; }
+.perso-sm__zaehler.is-warn-sm { color: #B42318; font-weight: 600; }
+.perso-sm__link { justify-self: start; min-height: 4.4rem; padding: 0; border: 0; background: none; color: #1859BE; font: 600 1.5rem var(--font-body-family); text-decoration: underline; text-underline-offset: .3rem; cursor: pointer; }
+.perso-sm__link--mitte { justify-self: center; text-align: center; white-space: normal; }
+.perso-sm__fehler { display: flex; align-items: flex-start; gap: .8rem; margin: 0; padding: 1rem 1.2rem; border-radius: var(--wm-radius-btn); background: #FDECEA; color: #8A1C12; font-size: 1.4rem; font-weight: 600; }
+.perso-sm__fehler[hidden] { display: none; }
+.perso-sm__fehler .icon { flex: none; width: 1.8rem; height: 1.8rem; }
+.perso-sm__wahl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.perso-sm__wahl label, .perso-sm__desenhos label { position: relative; display: block; cursor: pointer; }
+.perso-sm__wahl input, .perso-sm__desenhos input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.perso-sm__wahl span { display: grid; gap: .2rem; justify-items: center; min-height: 5.6rem; padding: .8rem .4rem; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-btn); text-align: center; }
+.perso-sm__wahl b { font-size: 1.4rem; line-height: 1.25; color: #0C1A2E; }
+.perso-sm__wahl small { font-size: 1.3rem; color: #44546A; }
+.perso-sm__wahl input:checked + span, .perso-sm__desenhos input:checked + span { border-color: #1859BE; box-shadow: inset 0 0 0 1px #1859BE; background: #F3F7FD; }
+.perso-sm__wahl input:focus-visible + span, .perso-sm__desenhos input:focus-visible + span { outline: 2px solid #1859BE; outline-offset: 2px; }
+.perso-sm__wahl .is-off-sm span { opacity: .45; cursor: not-allowed; }
+.perso-sm__desenhos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; }
+.perso-sm__desenhos span { position: relative; display: block; padding: .4rem; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-btn); background: #FFFFFF; }
+.perso-sm__desenhos img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
+.perso-sm__desenhos i { position: absolute; top: .4rem; left: .4rem; padding: .1rem .5rem; border-radius: 3px; background: rgba(255, 255, 255, .9); font: normal 600 1.2rem/1.4 var(--font-body-family); color: #0C1A2E; }
+.perso-sm__review { display: grid; gap: .6rem; margin: 0; padding: 1.2rem 1.4rem; border-radius: var(--wm-radius-btn); background: #F4F7FB; }
+.perso-sm__review div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 1rem; font-size: 1.5rem; }
+.perso-sm__review dt { color: #44546A; }
+.perso-sm__review dd { margin: 0; font-weight: 600; color: #0C1A2E; }
+.perso-sm__check { display: flex; align-items: flex-start; gap: 1rem; min-height: 4.4rem; padding: 1rem 1.2rem; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-btn); font-size: 1.5rem; line-height: 1.45; color: #0C1A2E; cursor: pointer; }
+.perso-sm__check input { flex: none; width: 2.2rem; height: 2.2rem; margin: .1rem 0 0; accent-color: #0A7D3B; }
+.perso-sm__check--pflicht { background: #F3F7FD; border-color: #8DB4F2; font-weight: 600; }
+.perso-sm__check.is-invalid-sm { border-color: #B42318; box-shadow: 0 0 0 1px #B42318; background: #FFF6F5; }
+.perso-sm__msg { display: grid; gap: .6rem; }
+.perso-sm__msg[hidden] { display: none; }
+.perso-sm__total { display: flex; align-items: baseline; justify-content: space-between; padding-top: .4rem; font-size: 1.6rem; font-weight: 600; color: #0C1A2E; }
+.perso-sm__total strong { font-size: 2.4rem; }
+.perso-sm__kaufen.button { min-height: 5.6rem; font-size: 1.6rem; padding: 0 1.6rem; gap: .8rem; }
+@media screen and (max-width: 374px) { .perso-sm__kaufen.button { font-size: 1.5rem; padding: 0 1rem; } .perso-sm__kaufen .icon { display: none; } }
+.aviso-sm { margin-top: 1.6rem; }
+.pdp-sm .product__title h1 { text-wrap: balance; }
+.pdp-sm .bundle-wm4__sub .bs-spart { color: #08652F; font-weight: 600; }
+
+/* ---------- 5. carrinho e checkout simulado ---------- */
+.cart-props-sm { display: grid; gap: .2rem; margin: .4rem 0 0; font-size: 1.3rem; line-height: 1.4; color: #44546A; }
+.cart-props-sm div { display: flex; flex-wrap: wrap; gap: 0 .4rem; }
+.cart-props-sm dt { font-weight: 400; }
+.cart-props-sm dd { margin: 0; font-weight: 600; color: #0C1A2E; min-width: 0; }
+.cart-yampi-sm { margin: 1rem 0 .4rem; font-size: 1.3rem; line-height: 1.45; text-align: center; color: #44546A; }
+.upsell-sm__t { display: block; font-size: 1.4rem; line-height: 1.35; color: #0C1A2E; }
+.checkout-sm { position: fixed; inset: 0; z-index: 1100; display: grid; place-items: center; padding: 1.6rem; background: rgba(12, 26, 46, .55); }
+.checkout-sm[hidden] { display: none; }
+.checkout-sm__box { display: grid; gap: 1.4rem; width: 100%; max-width: 56rem; max-height: calc(100vh - 3.2rem); overflow: auto; padding: 2.4rem; border-radius: var(--wm-radius-lg); background: #FFFFFF; box-shadow: 0 24px 60px -24px rgba(10, 22, 38, .45); }
+@media screen and (max-width: 374px) { .checkout-sm__box { padding: 1.6rem; } }
+.checkout-sm__kopf { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.checkout-sm__kopf .h3 { margin: 0; }
+.checkout-sm__passos { display: flex; gap: .6rem; margin: 0; font-size: 1.3rem; }
+.checkout-sm__passos li { flex: 1; padding-top: .6rem; border-top: 3px solid #E3EAF3; color: #44546A; }
+.checkout-sm__passos li.is-on { border-color: #0A7D3B; color: #0C1A2E; font-weight: 600; }
+.checkout-sm__aviso { display: flex; gap: .8rem; margin: 0; padding: 1rem 1.2rem; border-radius: var(--wm-radius-btn); background: #E8F0FC; font-size: 1.4rem; color: #0C1A2E; }
+.checkout-sm__aviso .icon { flex: none; width: 2rem; height: 2rem; color: #1859BE; }
+.checkout-sm__itens { display: grid; gap: 1rem; margin: 0; }
+.checkout-sm__item { display: flex; justify-content: space-between; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid #E3EAF3; }
+.checkout-sm__item > div { min-width: 0; }
+.checkout-sm__t { margin: 0; font-weight: 600; font-size: 1.5rem; color: #0C1A2E; }
+
+/* ---------- 6. ajustes de diagramacao ---------- */
+.hero-wm4 .banner__heading { text-wrap: balance; }
+.header__inline-menu .list-menu__item { white-space: nowrap; }
+.footer-promise-wm4 p span { display: block; }
+.footer-promise-wm4 a { color: inherit; text-decoration: underline; text-underline-offset: .2rem; }
+.anlass-kachel-wm4 strong, .raum-karte-wm4__text strong { text-wrap: balance; }
+/* titulo do card sem corte de linhas, para o balance funcionar (sem palavra sozinha na ultima linha) */
+.product-card-wrapper .card__heading, .product-card-wrapper .card__heading a { display: block; -webkit-line-clamp: unset; overflow: visible; text-wrap: balance; }
+/* opcoes de pacote: nome e descricao na coluna 1, preco na 2 (todas as larguras) */
+.product-form__input.bundle-wm4--kit input[type='radio'] + label { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'name preis' 'sub preis'; align-items: center; }
+.bundle-wm4--kit .bundle-wm4__name { grid-area: name; } .bundle-wm4--kit .bundle-wm4__price { grid-area: preis; } .bundle-wm4--kit .bundle-wm4__sub { grid-area: sub; min-width: 0; }
+.bundle-wm4__sub, .bundle-wm4__sub span { white-space: normal; }
+.bundle-wm4--kit.bundle-wm4--kit { grid-template-columns: minmax(0, 1fr); }
+/* "Por curso" com 4 cartoes: 4 colunas no desktop; "Para cada momento" com 5 linhas: a ultima ocupa a largura toda */
+@media screen and (min-width: 990px) { .raum-karten-wm4.raum-karten-wm4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.bundle-wm4--kit label .bundle-wm4__sub, .bundle-wm4--kit label .bundle-wm4__sub span, .bundle-wm4--kit label .bundle-wm4__name { white-space: normal !important; overflow-wrap: normal; }
+/* galeria: as fotos da SkillMed sao 16:9 (a Porare usa packshot 1:1): quadro e miniaturas em 16:9, sem faixa vazia */
+.pdp-sm .product__media-item .product-media-container { aspect-ratio: 1 / 1 !important; height: auto !important; padding: 0 !important; }
+.pdp-sm .product__media-item .product__media, .pdp-sm .product__media-item .product__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pdp-sm .product__media-item .product__media { padding: 0 !important; }
+.pdp-sm .thumbnail { aspect-ratio: 1 / 1 !important; height: auto !important; padding: 0 !important; overflow: hidden; }
+.pdp-sm .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+.pdp-sm .bundle-wm4__sub .bs-spart::before { content: none; }
+.facets__disclosure-vertical.is-leer-wm4 { display: none !important; }
+/* card: foto local 16:9 preenche o quadro (corte central); foto de produto do CDN segue inteira como na Porare */
+.product-card-wrapper .media--foto-sm img { object-fit: cover !important; padding: 0 !important; mix-blend-mode: normal !important; }
+
+/* ===== Revisão visual v2 (contra a Porare) ===== */
+/* Rodapé no celular: promessas em 1 coluna e contatos sem vazar da tela */
+@media (max-width: 749px) {
+  .footer-promise-wm4 { grid-template-columns: 1fr; }
+  .footer-promise-wm4 a, .footer-kontakt-wm4 a { overflow-wrap: anywhere; min-width: 0; }
+}
+/* Vídeos editoriais preenchem o quadro (sem faixa preta lateral) */
+.editorial-wm4 video, .image-with-text__media video { object-fit: cover; width: 100%; height: 100%; }
+/* Hero: faixa clara à esquerda para o título ler bem sobre a foto dos instrumentos */
+@media (min-width: 750px) {
+  .hero-wm4 .hero-wm4__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(244,247,251,.94) 0%, rgba(244,247,251,.82) 34%, rgba(244,247,251,0) 62%); pointer-events: none; }
+}
+/* Monte o semestre: miniaturas do mesmo tamanho, preenchendo o quadro */
+.set-wm4__fotos img { object-fit: contain; width: 100%; height: 100%; background: #F6F4F0; }
+@media (min-width: 750px) {
+  .hero-wm4 .hero-wm4__media::after { background: linear-gradient(90deg, rgba(244,247,251,.96) 0%, rgba(244,247,251,.9) 42%, rgba(244,247,251,0) 78%); }
+  .hero-wm4 .banner__text { max-width: 36ch; }
+}
+@media (min-width: 1200px) {
+  .hero-wm4 .hero-wm4__media::after { background: linear-gradient(90deg, rgba(244,247,251,.96) 0%, rgba(244,247,251,.86) 36%, rgba(244,247,251,0) 64%); }
+}
+
+/* ===== Ajustes 22/10 (base 4391) ===== */
+/* Personalização mais discreta e centralizada */
+.perso-sm { gap: 1.2rem; padding: 1.6rem; margin: 1.6rem 0 1.2rem; }
+.perso-sm__kopf .h3 { font-size: 1.9rem; }
+.perso-sm__mock { width: 100%; max-width: 26rem; margin-inline: auto; padding: .6rem; }
+.perso-sm__legende { max-width: 40rem; margin-inline: auto; width: 100%; }
+/* Desenhos menores: 8 por linha no desktop, 4 no celular */
+.perso-sm__desenhos { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: .6rem; max-width: 46rem; }
+.perso-sm__desenhos span { padding: .2rem; }
+.perso-sm__desenhos i { top: .2rem; left: .2rem; padding: 0 .3rem; }
+@media screen and (max-width: 989px) { .perso-sm__desenhos { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 30rem; } }
+/* Vídeo no formato original 9:16, inteiro; no celular de ponta a ponta */
+.pdx-media--video-sm video { aspect-ratio: 540 / 962; object-fit: contain; }
+@media screen and (max-width: 749px) {
+  .pdx-media--video-sm { width: 100vw; margin-left: calc(50% - 50vw); border-radius: 0; }
+  .pdx-media--video-sm video { width: 100%; max-height: none; }
+}
+/* Carrinho: pagamento seguro com cadeado + bandeiras */
+.cart-yampi-sm { display: flex; align-items: center; justify-content: center; gap: .6rem; font-weight: 600; color: #0C1A2E; }
+.cart-yampi-sm .icon { width: 1.6rem; height: 1.6rem; }
+/* Legenda repetia o resumo do fim: a prévia + o resumo bastam */
+.perso-sm__legende { display: none; }
+/* Só o estojo: sem quadro, sem fundo e sem margem em volta */
+.perso-sm__mock { background: none; padding: 0; border-radius: 0; }
+
+/* ===== Personalização compacta (celular primeiro) ===== */
+.perso-sm { gap: 1rem; padding: 1.4rem 1.4rem; margin: 1.2rem 0 1rem; }
+.perso-sm__kopf { gap: .6rem 1rem; }
+.perso-sm__kopf .h3 { font-size: 1.8rem; }
+.perso-sm__mock { margin-block: 0; }
+.perso-sm__schritt { gap: .7rem; padding-top: 1.1rem; }
+legend.perso-sm__h { margin-bottom: .7rem; }
+.perso-sm__h { gap: .8rem; }
+.perso-sm__input { min-height: 4.6rem; padding: 1rem 1.2rem; }
+.perso-sm__hilfe { font-size: 1.3rem; gap: .8rem; }
+.perso-sm__link { min-height: 4.4rem; margin-top: -.6rem; }
+.perso-sm__wahl { gap: .6rem; }
+.perso-sm__wahl span { min-height: 5rem; padding: .6rem .3rem; }
+.perso-sm__desenhos { gap: .5rem; }
+.perso-sm__review { gap: .4rem; padding: .9rem 1.1rem; }
+.perso-sm__check { padding: .8rem 1rem; gap: .8rem; }
+.perso-sm__msg { gap: .4rem; }
+.perso-sm__total { padding-top: .2rem; }
+/* Celular: caixa mais larga (avança sobre a margem da página) e recuo interno menor */
+@media screen and (max-width: 749px) {
+  .perso-sm { margin-inline: -.7rem; padding: 1.2rem 1rem; gap: .9rem; }
+  .perso-sm__mock { max-width: 24rem; }
+  .perso-sm__wahl span { font-size: 1.4rem; }
+}
+@media screen and (max-width: 359px) { .perso-sm { margin-inline: -.5rem; padding: 1rem .8rem; } }
+/* Grade de desenhos centralizada (mesmo eixo da prévia do estojo) */
+.perso-sm__desenhos { margin-inline: auto; width: 100%; }
+
+/* Desenhos: preenchem a seção, centralizados; número discreto embaixo da miniatura */
+.perso-sm__desenhos { max-width: none; gap: .6rem; }
+@media screen and (min-width: 990px) and (max-width: 1199px) { .perso-sm__desenhos { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 28rem; } }
+@media screen and (min-width: 1200px) { .perso-sm__desenhos { grid-template-columns: repeat(8, minmax(0, 1fr)); max-width: 46rem; gap: .5rem; } .perso-sm__desenhos span { padding: .3rem .2rem .2rem; } .perso-sm__desenhos i { font-size: 1.1rem; } }
+@media screen and (max-width: 989px) { .perso-sm__desenhos { max-width: 32rem; } }
+.perso-sm__desenhos span { display: flex; flex-direction: column; align-items: center; gap: .2rem; padding: .3rem .3rem .2rem; }
+.perso-sm__desenhos i { position: static; padding: 0; background: none; font: normal 500 1.2rem/1.3 var(--font-body-family); color: #44546A; }
+.perso-sm__desenhos input:checked + span i { color: #1859BE; font-weight: 700; }
+/* Mensagem do cartão: começa com 1 linha e cresce enquanto a pessoa escreve */
+.perso-sm__textarea { min-height: 4.6rem; height: 4.6rem; overflow: hidden; resize: none; line-height: 1.45; padding: 1.1rem 1.2rem; }
+
+/* ===== Imagens novas da home e das coleções (Codex, 22/10) ===== */
+/* O banner novo já tem a área de texto calma à esquerda: sem a faixa clara sobre a foto */
+.hero-wm4 .hero-wm4__media::after { display: none; }
+.hero-wm4 .hero-wm4__media picture, .hero-wm4 .hero-wm4__media img { width: 100%; height: 100%; }
+/* Banner da coleção: no desktop a imagem preenche o topo e o texto fica nos 40% da esquerda; no celular a imagem vem acima do título */
+.koll-hero-sm--bild { position: relative; overflow: hidden; }
+.koll-banner-sm img { display: block; width: 100%; height: auto; }
+@media screen and (min-width: 750px) {
+  .koll-hero-sm--bild .koll-banner-sm { position: absolute; inset: 0; }
+  .koll-hero-sm--bild .koll-banner-sm img { height: 100%; object-fit: cover; object-position: right center; }
+  .koll-hero-sm--bild .collection-hero__inner { position: relative; min-height: clamp(26rem, 33.3vw, 48rem); display: flex; align-items: center; }
+  .koll-hero-sm--bild .collection-hero__text-wrapper { max-width: 40%; }
+}
+@media screen and (max-width: 749px) { .koll-banner-sm img { aspect-ratio: 4 / 3; object-fit: cover; } }
+
+
+/* ===== Versão premium (4393) ===== */
+:root { --pm-azul: #5A92EA; --pm-neutro: #5B6778; --pm-sec: 4.4rem; }
+@media screen and (min-width: 750px) { :root { --pm-sec: 8.8rem; } }
+
+/* 10. tipografia */
+h1, .h0, .h1, .banner__heading { font-weight: 600; font-size: 3.4rem; line-height: 1.1; }
+.h2 { font-weight: 600; font-size: 2.6rem; line-height: 1.15; }
+body { font-size: 1.5rem; line-height: 1.55; }
+.caption, small { font-size: 1.2rem; }
+.button { font-size: 1.4rem; font-weight: 600; }
+@media screen and (min-width: 750px) {
+  h1, .h0, .h1, .banner__heading { font-size: 5.6rem; }
+  .h2 { font-size: 4rem; }
+  body { font-size: 1.6rem; }
+  .caption, small { font-size: 1.3rem; }
+  .button { font-size: 1.5rem; }
+}
+h1, h2, h3, .h0, .h1, .h2, .h3 { text-wrap: balance; }
+.collection-hero__title.h1 { font-size: 3.4rem; }
+@media screen and (min-width: 750px) { .collection-hero__title.h1 { font-size: 4.8rem; } }
+
+/* 6. espaçamento entre seções (4,4 rem por faixa = 8,8 rem entre conteúdos; 2,8 no celular = 5,6) */
+[class*="section-template--sm__"][class*="-padding"] { padding-top: calc(var(--pm-sec) / 2) !important; padding-bottom: calc(var(--pm-sec) / 2) !important; }
+.section-template--sm__presente-padding { padding-top: 6.4rem !important; padding-bottom: 6.4rem !important; }
+@media screen and (max-width: 749px) { .section-template--sm__presente-padding { padding-top: 4.8rem !important; padding-bottom: 4.8rem !important; } }
+
+/* 1. cartão de produto */
+.product-card-wrapper .card__inner { border-radius: 1.4rem; overflow: hidden; --ratio-percent: 125%; }
+.product-card-wrapper .card__media .media img { object-fit: cover; }
+.product-card-wrapper .card__set-wm4.card__pilula-sm { position: absolute; left: .8rem; bottom: .8rem; z-index: 2; margin: 0; padding: .3rem .9rem; border-radius: 999px; background: #E8F0FC; color: #0C1A2E; font: 600 1.1rem/1.4 var(--font-body-family); white-space: nowrap; max-width: calc(100% - 1.6rem); overflow: hidden; text-overflow: ellipsis; }
+@media screen and (min-width: 750px) { .product-card-wrapper .card__set-wm4.card__pilula-sm { font-size: 1.2rem; } }
+.product-card-wrapper .card__content { display: block !important; padding: 0 !important; }
+.product-card-wrapper .card__information { display: block !important; padding: 1rem 0 0 !important; }
+.product-card-wrapper .card__heading { margin: 0; font: 500 1.4rem/1.35 var(--font-body-family); min-height: 3.8rem !important; margin: 0 !important; }
+@media screen and (min-width: 750px) { .product-card-wrapper .card__heading { font-size: 1.5rem; min-height: 4.1rem !important; } }
+.product-card-wrapper .card__heading a { font: inherit; }
+.product-card-wrapper .card-information { flex: none; margin: .2rem 0 0 !important; min-height: 0 !important; }
+.product-card-wrapper .price .price-item { font: 700 1.6rem/1.3 var(--font-body-family); color: #0C1A2E; }
+.product-card-wrapper .quick-add,
+.product-card-wrapper:hover .quick-add,
+.product-card-wrapper:focus-within .quick-add { position: static !important; inset: auto !important; opacity: 1 !important; transform: none !important; margin: 1rem 0 0 !important; padding: 0 !important; display: block; visibility: visible !important; }
+.product-card-wrapper .quick-add__submit.button {
+  width: 100% !important; height: 4rem !important; min-height: 4rem !important; padding: 0 1.2rem !important;
+  border-radius: 1rem !important; box-shadow: none !important; display: inline-flex; align-items: center; justify-content: center;
+  font: 600 1.4rem/1 var(--font-body-family); letter-spacing: 0; white-space: nowrap;
+}
+.product-card-wrapper .quick-add__submit .quick-add__icon-wm4 { display: none; }
+.product-card-wrapper .quick-add__submit .button__label-wm4 { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; clip: auto !important; }
+.product-card-wrapper a.quick-add__submit.button { background: transparent !important; color: #0C1A2E !important; border: 1.5px solid #0C1A2E !important; --color-button: 0,0,0; }
+.product-card-wrapper a.quick-add__submit.button::before, .product-card-wrapper a.quick-add__submit.button::after { display: none !important; }
+.product-card-wrapper button.quick-add__submit.button { background: #0A7D3B !important; color: #fff !important; border: 0 !important; }
+.product-card-wrapper .quick-add__submit.button:focus-visible { outline: 2px solid #5A92EA; outline-offset: 2px; }
+
+/* 3. hero no celular: foto em cima (altura contida), texto embaixo sobre #F4F7FB, botões empilhados 48 px */
+@media screen and (max-width: 749px) {
+  .hero-wm4.banner .hero-wm4__media.hero-wm4__media { aspect-ratio: 1200 / 1040 !important; height: auto !important; }
+  .hero-wm4__media .asset-wm4.hero-wm4__img { object-position: 50% 62% !important; }
+  .hero-wm4 .hero-wm4__content { background: #F4F7FB; padding-top: 2rem; }
+  .hero-wm4__buttons { flex-direction: column; }
+  .hero-wm4__buttons .button { width: 100%; min-height: 4.8rem; }
+}
+
+/* 4. faixa de benefícios: carrossel de 1 linha no celular */
+@media screen and (max-width: 749px) {
+  .trust-wm4__list.page-width { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 0; padding-right: 4rem; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 3.6rem), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 3.6rem), transparent); }
+  .trust-wm4__list::-webkit-scrollbar { display: none; }
+  .trust-wm4__list li, .trust-wm4__list li:nth-child(even), .trust-wm4__list li:nth-child(odd) { flex: 0 0 14.8rem; width: 14.8rem; scroll-snap-align: start; border: 0 !important; padding: 1.4rem .8rem !important; }
+  .trust-wm4__list p > span { display: none; }
+  .trust-wm4__list strong { font-size: 1.3rem; line-height: 1.25; white-space: normal; }
+}
+
+/* 5. Escolha pelo curso: rótulo dentro da foto, sobre degradê marinho */
+.kachel-wm4 { position: relative; display: block; border-radius: 1.4rem; overflow: hidden; }
+.kachel-wm4__media { margin: 0; border-radius: 1.4rem; }
+.kachel-wm4__media::after { content: ''; position: absolute; inset: 40% 0 0 0; background: linear-gradient(180deg, rgba(12,26,46,0), rgba(12,26,46,.82)); z-index: 1; pointer-events: none; }
+.kachel-wm4__name { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 1rem 1.2rem; color: #fff; font: 600 1.4rem/1.25 var(--font-body-family); }
+.kachel-wm4:hover .kachel-wm4__name { text-decoration: none; }
+@media screen and (min-width: 750px) { .kachel-wm4__name { font-size: 1.6rem; padding: 1.4rem; } }
+@media screen and (max-width: 749px) { .collection-list.kacheln-wm4.kacheln-wm4 { grid-auto-columns: 13rem; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 3.2rem), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 3.2rem), transparent); } }
+
+/* 7. Monte o semestre: um cartão com moldura branca */
+.set-wm4.set-sm { border: 1px solid #E3E8EF; border-radius: 1.4rem; background: #fff; box-shadow: none; }
+.set-wm4__preis span:not(.set-wm4__spart) { color: #5B6778; text-decoration: line-through; }
+
+/* 8. faixa marinho do presente: botão branco, texto marinho */
+.editorial-wm4--dunkel .button--light { background: #fff; color: #0C1A2E; border-color: #fff; }
+.editorial-wm4--dunkel .button--light:hover { background: #E8F0FC; color: #0C1A2E; }
+
+/* 9. numerais */
+.warum-wm4__nr { font-family: var(--wm-serif); font-weight: 600; font-size: 4rem; line-height: 1; color: #5A92EA; }
+
+/* 11. coleção no celular */
+.back-to-top-wm4 { border-radius: 999px; width: auto; height: 4.4rem; padding: 0 1.6rem; gap: .6rem; grid-auto-flow: column; font: 600 1.3rem/1 var(--font-body-family); }
+.back-to-top-wm4:focus-visible { outline: 2px solid #5A92EA; outline-offset: 3px; }
+@media screen and (max-width: 989px) {
+  .koll-chips-wm4 { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 3.6rem), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 3.6rem), transparent); padding-right: 4.8rem; }
+  .koll-toolbar-wm4 { position: sticky; top: var(--wm-header-h, 5.6rem); z-index: 25; background: #F4F7FB; margin-left: calc(-1 * var(--wm-gutter)); margin-right: calc(-1 * var(--wm-gutter)); padding: .8rem var(--wm-gutter); gap: .8rem; flex-wrap: wrap; }
+  .koll-toolbar-wm4 .facets-toggle-wm4, .koll-sort-wm4 .select__select { height: 4.4rem; min-height: 4.4rem; }
+  .koll-sort-wm4 { margin-left: auto; }
+  .koll-sort-wm4__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .koll-count-wm4 { order: 3; flex: 1 0 100%; font-size: 1.3rem; font-weight: 400; color: #5B6778; }
+}
+@media screen and (max-width: 749px) {
+  .product-grid--wm4, .product-grid--vitrine-wm4.product-grid--vitrine-wm4 { row-gap: 3.2rem !important; }
+  .koll-sort-wm4 .select__select { font-size: 1.4rem; padding: 0 3.2rem 0 1.2rem; }
+  .koll-sort-wm4 .svg-wrapper { right: 1.1rem; }
+}
+/* auditoria: alvo de toque 44 px e legenda 12 px no celular */
+@media screen and (max-width: 749px) {
+  .product-card-wrapper .quick-add__submit.button { height: 4.4rem !important; min-height: 4.4rem !important; }
+  .product-card-wrapper .card__set-wm4.card__pilula-sm { font-size: 1.2rem; }
+}
+.back-to-top-wm4::after { content: 'Topo'; }
+
+/* Ajuste final 4393: sem sobra abaixo do botão do cartão; descrição da coleção na largura toda no celular */
+.product-card-wrapper .card__content { padding-bottom: 0 !important; }
+@media (max-width: 749px) {
+  .collection-hero .collection-hero__text-wrapper { width: 100% !important; max-width: none !important; flex: 1 1 100% !important; }
+  .collection-hero .collection-hero__description { max-width: 60ch; }
+}
+@media (max-width: 749px) { .koll-hero-sm--bild .collection-hero__inner, .koll-hero-wm4 .collection-hero__inner:has(.koll-banner-sm:not([hidden])) { grid-template-columns: minmax(0, 1fr) !important; } .koll-hero-sm--bild .koll-hero-wm4__bild { display: none !important; } }
+
+/* Set de imagens v3: cartões de curso em 4:5, imagem cobre o quadro */
+.kachel-wm4__media, .kachel-wm4__media[class] { aspect-ratio: 4 / 5 !important; }
+.kachel-wm4__media .asset-wm4 { object-fit: cover !important; }
+/* Odontologia ainda sem foto de cena: a foto real do kit entra inteira, sem corte */
+.kachel-wm4[href*="odontologia"] .kachel-wm4__media { background: #fff; }
+.kachel-wm4[href*="odontologia"] .kachel-wm4__media img { object-fit: contain !important; padding: 1.2rem 1.2rem 4rem; }
+
+/* Fotos novas de produto: moldura 4:3, sem filtro, sombra ou mistura de cor */
+.product-card-wrapper .card__inner { --ratio-percent: 100% !important; background: #FFFFFF !important; }
+.product-card-wrapper .card__media .media { background: #FFFFFF; }
+.product-card-wrapper .card__media .media img,
+.product-card-wrapper .media--foto-sm img { object-fit: cover !important; padding: 0 !important; mix-blend-mode: normal !important; filter: none !important; }
+/* Hero no tablet: o produto fica à direita; o corte cai na área livre da esquerda, sob o texto */
+/* Hero no tablet (750 a 1199 px): foto inteira em cima, texto embaixo, como no celular */
+@media screen and (min-width: 750px) and (max-width: 1199px) {
+  .hero-wm4.banner { display: flex !important; flex-direction: column; min-height: 0 !important; }
+  .hero-wm4.banner::before, .hero-wm4.banner::after { display: none !important; }
+  .hero-wm4.banner .hero-wm4__media.hero-wm4__media { position: relative !important; inset: auto !important; width: 100%; height: auto !important; aspect-ratio: 2400 / 816 !important; }
+  .hero-wm4.banner .hero-wm4__content { position: relative !important; min-height: 0 !important; background: #F4F7FB; padding: 3.2rem var(--wm-gutter, 3.2rem) 4rem !important; }
+  .hero-wm4.banner .banner__box { max-width: 64rem; padding: 0 !important; background: none !important; }
+}
+
+/* ===== Mesa de UI, rodada 2 (22/10) ===== */
+/* 1. video "Treine o ponto": 9:16 sem moldura larga; coluna centralizada, no maximo 36 rem (celular: 42 rem) */
+.pdx-media--video-sm { display: block; width: 100%; max-width: 36rem; margin-inline: auto; justify-self: center; background: transparent; border-radius: var(--wm-radius); }
+.pdx-media--video-sm video { display: block; width: 100%; height: auto; max-height: none; aspect-ratio: 540 / 962; object-fit: cover; border-radius: var(--wm-radius); background: #E3EAF3; }
+@media screen and (max-width: 749px) {
+  .pdx-media--video-sm { width: 100%; max-width: 42rem; margin-left: auto; border-radius: var(--wm-radius); }
+  .pdx-media--video-sm video { width: 100%; max-height: none; }
+}
+
+/* 2. fotos locais sem camada desfocada */
+.product-card-wrapper .media--foto-sm { overflow: hidden; background: #FFFFFF; }
+.product-card-wrapper .media--foto-sm::before { content: none; display: none; }
+.product-card-wrapper .media--foto-sm img { position: absolute; z-index: 1; }
+
+/* 3. Monte o semestre: 2x2, miniaturas 4:3 com o mesmo tratamento */
+.set-sm .set-wm4__fotos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; align-content: center; }
+.set-sm .set-wm4__fotos > li { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 1rem; background: #F6F4F0; }
+.set-sm .set-wm4__fotos > li.has-bg-sm::before { content: none; display: none; }
+.set-sm .set-wm4__fotos > li > a { position: absolute; inset: 0; }
+.set-sm .set-wm4__fotos > li img { display: block; width: 100%; height: 100% !important; aspect-ratio: auto !important; object-fit: contain !important; background: transparent !important; mix-blend-mode: normal; border-radius: 0; }
+.set-sm .set-wm4__fotos > li.is-cdn-sm img { mix-blend-mode: multiply; }
+
+/* 4. cartao Odontologia: fundo menta, foto real do kit (o fundo branco some) */
+.kachel-wm4[href*="odontologia"] .kachel-wm4__media, .kachel-wm4[href*="odontologia"] .kachel-wm4__media[class] { background: #E3F1EE !important; }
+.kachel-wm4[href*="odontologia"] .kachel-wm4__media img { object-fit: contain !important; mix-blend-mode: multiply; padding: 0; width: 100%; height: 100%; background: transparent !important; transform: scale(1.04) translateY(-9%); }
+
+/* 5/6. cartao de produto: titulo de 2 linhas, preco colado, botoes alinhados na base */
+.product-grid > li { display: flex; }
+.product-grid > li > .product-card-wrapper { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.product-card-wrapper > .card { display: flex; flex-direction: column; flex: 1; }
+.product-card-wrapper .card__content { display: flex !important; flex-direction: column; flex: 1; }
+.product-card-wrapper .card__information { display: flex !important; flex-direction: column; gap: .6rem; padding-bottom: .4rem !important; }
+.product-card-wrapper .card__heading { min-height: calc(2 * 1.35em) !important; }
+.product-card-wrapper .card-information { margin: 0 !important; }
+.product-card-wrapper .quick-add, .product-card-wrapper:hover .quick-add, .product-card-wrapper:focus-within .quick-add { margin: auto 0 0 !important; padding-top: .6rem !important; }
+.set-wm4__preis span:not(.set-wm4__spart) { font-size: 1.4rem; }
+
+/* 7. PDP no celular e tablet: respiro para a barra fixa nao cobrir a ultima linha */
+@media screen and (max-width: 989px) { body:has([data-pdp]) { padding-bottom: calc(72px + env(safe-area-inset-bottom)); } }
+
+/* 9. personalizacao: resumo em 1 linha; desenhos numa linha so com rolagem horizontal (celular e tablet) */
+.perso-sm__review { display: block; margin: 0; font-size: 1.4rem; font-weight: 600; line-height: 1.4; color: #0C1A2E; }
+@media screen and (max-width: 989px) {
+  .perso-sm__desenhos { display: flex; max-width: none; gap: .8rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: .3rem 3.2rem .3rem .3rem; scroll-padding-inline: .3rem; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 3.2rem), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 3.2rem), transparent); }
+  .perso-sm__desenhos::-webkit-scrollbar { display: none; }
+  .perso-sm__desenhos > label { flex: 0 0 5.6rem; scroll-snap-align: start; }
+}
+
+/* 11/12. tablet (750 a 989): PDP em 2 colunas; miniaturas: as 6 cabem numa linha (ate 1099) */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pdp-wm4.pdp-wm4.product--medium { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 2.4rem; align-items: start; }
+  .pdp-wm4.product--medium .product__media-wrapper { width: auto; max-width: none; }
+  .pdp-wm4.product--medium .product__info-wrapper { margin-top: 0; }
+  .pdp-wm4 .product-media-container { width: 100% !important; }
+  .pdp-wm4 .product__column-sticky.product__column-sticky { position: sticky; top: calc(var(--wm-header-h, 5.6rem) + 1.6rem); }
+}
+@media screen and (min-width: 750px) and (max-width: 1099px) {
+  .pdp-wm4 .thumbnail-list { gap: .8rem; grid-auto-columns: calc((100% - 5 * .8rem) / 6); scroll-snap-type: x mandatory; }
+  .pdp-wm4 .thumbnail-list__item { scroll-snap-align: start; }
+}
+
+/* 14. trio de promessas: "Frete gratis" + linha menor, sem separar "R$" do numero */
+.service-line-wm4 small { display: block; font-size: 1.2rem; font-weight: 400; line-height: 1.3; color: #44546A; }
+
+/* 15. pontos que voce treina: carrossel no celular */
+@media screen and (max-width: 749px) {
+  .pontos-sm { display: flex !important; gap: 1.2rem !important; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: 3.2rem; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 3.2rem), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 3.2rem), transparent); }
+  .pontos-sm::-webkit-scrollbar { display: none; }
+  .pontos-sm > li { flex: 0 0 14rem; scroll-snap-align: start; }
+}
+
+/* 16. chips de colecao: fade so quando a faixa rola */
+.koll-chips-wm4 { scroll-padding-inline: 16px; }
+@media screen and (max-width: 989px) {
+  .koll-chips-wm4 { -webkit-mask-image: none; mask-image: none; }
+  .koll-chips-wm4.is-rola-sm { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 3.6rem), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 3.6rem), transparent); }
+}
+
+/* 17. numerais de "Por que a SkillMed" */
+.warum-wm4__nr { color: #1859BE; }
+
+/* 18. "Para cada momento": 3 + 2 (sem item orfao em largura total) */
+@media screen and (min-width: 750px) {
+  .anlass-kacheln-wm4.shopby-wm4__liste.shopby-wm4__liste { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .anlass-kacheln-wm4 > li { grid-column: span 2; }
+  .anlass-kacheln-wm4 > li:nth-child(n+4) { grid-column: span 3; }
+}
+
+/* 19. PDP compartilhada com o mesmo cabeçalho, carrinho e rodapé do tema */
+.generic-pdp-sm__grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(38rem, .92fr); gap: clamp(3rem, 5vw, 7.2rem); align-items: start; }
+.generic-pdp-sm__gallery { display: grid; grid-template-columns: 8.8rem minmax(0, 1fr); gap: 1.4rem; align-items: start; }
+.generic-pdp-sm__thumbs { display: grid; gap: 1rem; align-content: start; }
+.generic-pdp-sm__thumb { display: block; width: 100%; padding: 0; overflow: hidden; border: 1px solid #D5DFEC; border-radius: .8rem; background: #FFFFFF; cursor: pointer; }
+.generic-pdp-sm__thumb[aria-current="true"] { border: 2px solid #1859BE; }
+.generic-pdp-sm__thumb img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; opacity: 1 !important; }
+.generic-pdp-sm__main { overflow: hidden; border: 1px solid #D5DFEC; border-radius: 1.2rem; background: #FFFFFF; }
+.generic-pdp-sm__main img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; opacity: 1 !important; }
+.generic-pdp-sm__info { padding-top: .8rem; }
+.generic-pdp-sm__eyebrow { margin: 0; color: #1859BE; font-size: 1.2rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+.generic-pdp-sm__info h1 { margin: 1rem 0 1.4rem; color: #0C1A2E; font-size: clamp(3.6rem, 4.4vw, 6rem); line-height: 1; letter-spacing: -.045em; }
+.generic-pdp-sm__rating { display: flex; align-items: center; gap: .9rem; margin-bottom: 2rem; color: #8A5B00; font-size: 1.4rem; font-weight: 600; }
+.generic-pdp-sm__price { margin: 0 0 .4rem; color: #0C1A2E; font-size: 3.4rem; font-weight: 700; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.generic-pdp-sm__installment { margin: 0 0 2.2rem; color: #44546A; font-size: 1.4rem; }
+.generic-pdp-sm__lead { max-width: 62ch; margin: 0 0 2.2rem; color: #30425B; font-size: 1.7rem; line-height: 1.6; }
+.generic-pdp-sm__personal { display: grid; gap: .3rem; margin-bottom: 1.8rem; padding: 1.5rem 1.6rem; border: 1px solid #AAC7F4; border-radius: 1rem; background: #E8F0FC; color: #153C78; font-size: 1.4rem; line-height: 1.5; }
+.generic-pdp-sm__personal[hidden] { display: none; }
+.generic-pdp-sm__personal strong { color: #0D2F67; }
+.generic-pdp-sm__benefits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0 0 2.2rem; }
+.generic-pdp-sm__benefits li { display: flex; align-items: center; gap: .9rem; min-height: 5.2rem; padding: 1rem 1.2rem; border: 1px solid #D5DFEC; border-radius: .8rem; background: #FFFFFF; color: #263950; font-size: 1.3rem; font-weight: 600; }
+.generic-pdp-sm__benefits .icon { width: 2rem; height: 2rem; color: #0A7D3B; flex: none; }
+.generic-pdp-sm__cta { min-height: 5.8rem; font-size: 1.6rem; }
+.generic-pdp-sm__micro { margin: 1rem 0 0; color: #52637A; text-align: center; font-size: 1.2rem; }
+.generic-details-sm { background: #E8F0FC; }
+.generic-details-sm__inner { padding-top: 6rem; padding-bottom: 7.2rem; }
+.generic-details-sm__copy { max-width: 68rem; margin-bottom: 3.2rem; }
+.generic-details-sm__copy h2 { margin: .8rem 0 1rem; }
+.generic-details-sm__copy p:last-child { margin: 0; max-width: 62ch; color: #44546A; font-size: 1.7rem; line-height: 1.6; }
+.product-story-section-sm { padding-top: 6.4rem; padding-bottom: 7.2rem; }
+.product-story-section-sm__head { max-width: 72rem; margin-bottom: 3.2rem; }
+.product-story-section-sm__head h2 { margin: .8rem 0 1rem; }
+.product-story-section-sm__head > p:last-child { margin: 0; color: #44546A; font-size: 1.7rem; line-height: 1.6; }
+.product-story-sm { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.4rem; margin: 0 0 5.6rem; padding: 0; counter-reset: product-story; }
+.product-story-sm__item { min-width: 0; }
+.product-story-sm__item figure { height: 100%; margin: 0; overflow: hidden; border: 1px solid #C8D6E8; border-radius: 1.2rem; background: #FFFFFF; }
+.product-story-sm__item img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: #FFFFFF; }
+.product-story-sm__item figcaption { display: flex; align-items: center; gap: 1.2rem; min-height: 6.6rem; padding: 1.3rem 1.5rem; color: #0C1A2E; }
+.product-story-sm__item figcaption span { color: #1859BE; font-size: 1.3rem; font-weight: 800; letter-spacing: .08em; }
+.product-story-sm__item figcaption strong { font-size: 1.4rem; line-height: 1.35; }
+.generic-details-sm__points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.generic-details-sm__points article { padding: 2.4rem 0 0; border-top: 1px solid #AFC2D9; }
+.generic-details-sm__points article > span { color: #1859BE; font-size: 1.4rem; font-weight: 700; }
+.generic-details-sm__points h3 { margin: 1.2rem 0 .6rem; }
+.generic-details-sm__points p { margin: 0; color: #44546A; line-height: 1.6; }
+.generic-review-sm p { margin: 0; padding: 1.6rem 1.8rem; border-left: 3px solid #1859BE; background: #E8F0FC; color: #304F7B; font-size: 1.3rem; line-height: 1.55; }
+@media screen and (max-width: 989px) {
+  .generic-pdp-sm__grid { grid-template-columns: 1fr; }
+  .generic-pdp-sm__gallery { grid-template-columns: 1fr; }
+  .generic-pdp-sm__thumbs { grid-template-columns: repeat(6, minmax(0, 1fr)); order: 2; gap: .6rem; }
+  .generic-pdp-sm__info { padding-top: 0; }
+  .product-story-sm { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media screen and (max-width: 749px) {
+  .generic-pdp-sm__info h1 { font-size: 3.6rem; }
+  .generic-pdp-sm__benefits, .generic-details-sm__points { grid-template-columns: 1fr; }
+  .generic-details-sm__inner { padding-top: 4.8rem; padding-bottom: 5.6rem; }
+  .product-story-section-sm { padding-top: 4.8rem; padding-bottom: 5.6rem; }
+  .product-story-sm { display: flex; gap: 1.2rem; margin-bottom: 4rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: 3.2rem; }
+  .product-story-sm::-webkit-scrollbar { display: none; }
+  .product-story-sm__item { flex: 0 0 min(82vw, 34rem); scroll-snap-align: start; }
+}
+
+/* 20. limpeza final das vitrines com as novas fotos quadradas */
+.product-card-wrapper .media--foto-sm::before { content: none !important; display: none !important; }
+.product-card-wrapper .card__media img,
+.product-card-wrapper .media--foto-sm img,
+.product-card-wrapper .media--lokal-wm4 img {
+  padding: 0 !important;
+  background: #FFFFFF !important;
+  mix-blend-mode: normal !important;
+  object-fit: cover !important;
+  filter: none !important;
+}
+.product-card-wrapper .card__media .media.media--foto-sm img {
+  padding: 0 !important;
+  background: #FFFFFF !important;
+  mix-blend-mode: normal !important;
+  object-fit: cover !important;
+  filter: none !important;
+}
+.product-card-wrapper .card__inner::after { content: none !important; box-shadow: none !important; }
+
+/* V5: personalizacao compacta, proporcao real e gravacao ao vivo. */
+.perso-sm[hidden] { display:none !important; }
+.perso-sm--produto { width:100%; box-sizing:border-box; }
+.perso-sm--produto .perso-sm__wahl span { min-height:4.4rem; }
+.perso-sm--produto .perso-sm__hilfe { margin:0; }
+.perso-sm--produto [data-product-arts][hidden] { display:none; }
+.perso-sm .perso-sm__wahl--kurs { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.perso-sm .perso-sm__wahl--kurs:has(> label:only-child) { grid-template-columns:1fr; }
+@media (min-width:1200px) { .perso-sm .perso-sm__wahl--kurs:has(> label:nth-child(4)) { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+.perso-sm .perso-sm__mock { width:100%; max-width:34rem; margin:0 auto; padding:0; height:auto; min-height:0; aspect-ratio:2 / 1; overflow:hidden; border-radius:.6rem; }
+.perso-sm .perso-sm__mock svg { display:block; width:100%; height:auto; max-height:none; aspect-ratio:2 / 1; }
+.perso-sm .perso-sm__kopf { min-height:0; padding:0; gap:.5rem; }
+.perso-sm .perso-sm__kopf h2 { font-size:1.7rem; line-height:1.3; margin:0; }
+.perso-sm .perso-sm__kopf .badge-sm { font-size:1.2rem; min-height:2.4rem; padding:.3rem .7rem; }
+.perso-sm .perso-sm__desenhos { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); max-width:none; overflow:visible; padding:0; mask-image:none; -webkit-mask-image:none; gap:.6rem; }
+.perso-sm .perso-sm__desenhos > label { min-width:0; }
+.perso-sm .perso-sm__desenhos > label[hidden] { display:none; }
+.perso-sm .perso-sm__desenhos img { width:100%; height:auto; aspect-ratio:2 / 1; object-fit:contain; }
+@media (max-width:749px) { .perso-sm .perso-sm__mock { max-width:30rem; } }
+/* Banners mobile possuem arquivos e proporcoes proprios, sem corte dos componentes. */
+.kachel-wm4 .kachel-wm4__media, .kachel-wm4 .kachel-wm4__media[class] { aspect-ratio:1 !important; background:#f3f7fc !important; }
+.kachel-wm4 .kachel-wm4__media .asset-wm4 { object-fit:contain !important; transform:none !important; mix-blend-mode:normal !important; filter:none !important; padding:0 !important; background:#f3f7fc !important; }
+.kachel-wm4 .kachel-wm4__media::after { content:none !important; display:none !important; }
+.kachel-wm4 .kachel-wm4__name { position:static; display:block; color:#0c1a2e; background:#fff; padding:1.2rem; }
+@media (max-width:749px) {
+  .hero-wm4__media .asset-wm4.hero-wm4__img { object-fit:contain !important; object-position:50% 50% !important; background:#f3f7fc; }
+  .koll-hero-sm--bild .koll-banner-sm img { aspect-ratio:4 / 3; object-fit:contain; object-position:center; background:#f3f7fc; }
+}
+
+
+/* ===== V5 premium: kit unico por curso, chips da home, barra fixa ===== */
+.product__sub-sm { margin: .4rem 0 0; font-size: 1.5rem; line-height: 1.4; font-weight: 600; color: #08652F; }
+.nokit-curso-sm { display: inline-block; margin-left: .8rem; padding: .2rem .9rem; border-radius: 99px; background: #E6F4EC; color: #08652F; font-size: 1.3rem; font-weight: 700; vertical-align: middle; }
+.perso-sm__aviso { display: flex; align-items: flex-start; gap: .8rem; margin: 0; padding: 1.2rem 1.4rem; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-btn, 4px); background: #F3F7FD; color: #0C1A2E; font-size: 1.4rem; line-height: 1.45; }
+.perso-sm__aviso[hidden], .perso-sm__desenhos[hidden], [data-nutzen-pele][hidden], [data-kurs-preis][hidden], .descb-wm4__band[hidden] { display: none !important; }
+.perso-sm__aviso svg { flex: none; width: 2rem; height: 2rem; }
+.product__media-item.is-off-sm, .thumbnail-list__item.is-off-sm, .product-story-sm__item.is-off-sm { display: none !important; }
+.perso-sm .bundle-wm4__save:empty { display: none; }
+.perso-sm .bundle-wm4__save, [data-v-save] { font-size: 1.3rem; line-height: 1.45; color: #44546A; margin: .8rem 0 0; }
+.hero-chips-sm { display: flex; flex-wrap: wrap; gap: .8rem; margin: 2rem 0 0; padding: 0; }
+.hero-chips-sm a { display: inline-flex; align-items: center; min-height: 4.4rem; padding: 0 1.6rem; border: 1px solid #5A92EA; border-radius: 99px; background: rgba(255,255,255,.7); color: #0C1A2E; font-size: 1.4rem; font-weight: 600; text-decoration: none; transition: background .15s, border-color .15s; }
+.hero-chips-sm a:hover { background: #E8F0FC; border-color: #1859BE; }
+.hero-chips-sm a:focus-visible { outline: 2px solid #1859BE; outline-offset: 2px; }
+@media screen and (max-width: 989px) {
+  html { scroll-padding-bottom: 10rem; }
+  [data-varianten] { display: block; padding-bottom: 1.6rem; }
+  .hero-chips-sm { gap: .6rem; }
+  .hero-chips-sm a { padding: 0 1.3rem; }
+}
+
+
+/* ===== Passada de design premium (24/10/2026): so refinamento, sem mudar conteudo ===== */
+:root {
+  --sm-sombra-1: 0 1px 2px rgba(12,26,46,.06), 0 1px 3px rgba(12,26,46,.06);
+  --sm-sombra-2: 0 2px 4px rgba(12,26,46,.06), 0 8px 20px rgba(12,26,46,.09);
+  --sm-r-1: 8px; --sm-r-2: 12px; --sm-r-3: 16px;
+  --sm-cinza-txt: #44546A; --sm-cinza-borda: #D5DFEC;
+  --sm-ease: cubic-bezier(.2,.7,.2,1);
+}
+html { scroll-behavior: smooth; }
+/* 1. Tipografia */
+.price, .price-item, [data-kurs-preis], [data-v-save], .generic-pdp-sm__price, .product__price, .bundle-wm4__save, [class*="preco"], [class*="price"] { font-variant-numeric: tabular-nums lining-nums; }
+h1, .h1, .h0 { letter-spacing: -.02em; text-wrap: balance; font-weight: 600; }
+h2, .h2 { letter-spacing: -.015em; text-wrap: balance; font-weight: 600; }
+h3, .h3, h4, .card__heading { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+.rte p, .collection-hero__description p, .generic-details-sm__copy p, .footer-block__details-content, [class*="copy"] p { max-width: 65ch; }
+.badge-sm, .generic-pdp-sm__eyebrow, [class*="eyebrow"], .card__pilula-sm, .kicker-wm4 { letter-spacing: .08em; }
+.generic-pdp-sm__eyebrow, [class*="eyebrow"] { text-transform: uppercase; font-weight: 600; font-size: 1.2rem; }
+.footer-block__heading { letter-spacing: .08em; font-weight: 600; }
+/* 2. Superficie: sombras tingidas de marinho, luz de cima, raios 8/12/16 */
+.product-card-wrapper .card__inner { border-radius: var(--sm-r-3); box-shadow: var(--sm-sombra-1); transition: box-shadow .22s var(--sm-ease), transform .22s var(--sm-ease); }
+.button, .button--secondary, .quick-add__submit, .field__input, .select__select { border-radius: var(--sm-r-1); }
+.hero-chips-sm a, .chip-wm4 { border-radius: 99px; }
+/* 3. Estados */
+.button, .chip-wm4, .hero-chips-sm a, .kachel-wm4, .anlass-kachel-wm4, .product-card-wrapper .card__inner, .header__icon, .list-menu__item {
+  transition: background-color .22s var(--sm-ease), border-color .22s var(--sm-ease), color .22s var(--sm-ease), box-shadow .22s var(--sm-ease), transform .22s var(--sm-ease), opacity .22s var(--sm-ease);
+}
+@media (hover: hover) {
+  .product-card-wrapper:hover .card__inner { box-shadow: var(--sm-sombra-2); transform: translateY(-2px); }
+  .kachel-wm4:hover, .anlass-kachel-wm4:hover { box-shadow: var(--sm-sombra-2); transform: translateY(-2px); }
+  .chip-wm4:hover { border-color: #1859BE; background-color: #E8F0FC; }
+  .button--secondary:hover, .quick-add__submit.button--secondary:hover { background-color: #E8F0FC; border-color: #1859BE; }
+}
+.button:active, .chip-wm4:active, .hero-chips-sm a:active, .quick-add__submit:active { transform: scale(.98); }
+.kachel-wm4:active, .anlass-kachel-wm4:active, .product-card-wrapper:active .card__inner { transform: translateY(1px); }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible, .button:focus-visible, .chip-wm4:focus-visible, .kachel-wm4:focus-visible, .anlass-kachel-wm4:focus-visible, .card__heading a:focus-visible {
+  outline: 2px solid #1859BE; outline-offset: 2px; box-shadow: none;
+}
+.color-scheme-4 :is(a,button,summary,input,[tabindex]):focus-visible, .color-scheme-6 :is(a,button,summary,input,[tabindex]):focus-visible { outline-color: #8DB4F2; }
+.field__input:focus-visible { outline-offset: 0; }
+/* 4. Ritmo: botoes alinhados na base em grupos de cartoes */
+.product-grid--wm4 > .grid__item > .card-wrapper, .product-grid--wm4 .card-wrapper > .card, .product-grid--wm4 .card__content { display: flex; flex-direction: column; flex: 1 1 auto; }
+.product-grid--wm4 .card__information { flex: 1 1 auto; display: flex !important; flex-direction: column; }
+.product-grid--wm4 .card__information .card-information { margin-top: auto !important; }
+.product-grid--wm4 .quick-add { margin-top: 1rem; }
+.product-grid--wm4 .card__inner { flex: none; }
+/* 6. Acabamento */
+.skip-to-content-link:not(:focus) { position: absolute !important; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-to-content-link:focus { position: fixed; top: 1rem; left: 1rem; z-index: 10000; min-height: 4.4rem; padding: 1.1rem 1.6rem; border-radius: var(--sm-r-1); background: #0C1A2E; color: #fff; box-shadow: var(--sm-sombra-2); }
+
+/* V6: durante a digitacao, a barra de compra nao cobre a personalizacao. */
+@media (max-width: 989px) {
+  body:has([data-perso]:focus-within) .sticky-atc-wm4 { visibility: hidden; pointer-events: none; }
+}
+.header__menu-item[aria-current="page"], .header__menu-item[aria-current="page"] span { color: #1859BE; font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .6rem; text-decoration-color: #5A92EA; }
+.field__message, .form__message, [data-erro], .field-error-sm { font-size: 1.3rem; line-height: 1.4; color: #B42318; }
+/* 5. Entrada suave ao rolar (so com JS; desligada em reduced-motion) */
+html.sm-reveal-on .sm-reveal { opacity: 0; transform: translateY(8px); transition: opacity .45s var(--sm-ease), transform .45s var(--sm-ease); transition-delay: calc(var(--sm-i, 0) * 60ms); }
+html.sm-reveal-on .sm-reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  html.sm-reveal-on .sm-reveal { opacity: 1; transform: none; }
+  .product-card-wrapper:hover .card__inner, .kachel-wm4:hover, .anlass-kachel-wm4:hover { transform: none; }
+}
+
+/* V7: 9 artes (Padrão + 8). Desktop: uma linha de 9. Abaixo de 1200 px: uma linha que rola, sem item órfão. */
+@media screen and (min-width: 1400px) { .perso-sm .perso-sm__desenhos { grid-template-columns: repeat(9, minmax(0, 1fr)); max-width: 52rem; gap: .5rem; } }
+@media screen and (max-width: 1399px) {
+  .perso-sm .perso-sm__desenhos { display: flex; max-width: none; gap: .8rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: .3rem 3.2rem .3rem .3rem; scroll-padding-inline: .3rem; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+  .perso-sm .perso-sm__desenhos::-webkit-scrollbar { display: none; }
+  .perso-sm .perso-sm__desenhos > label { flex: 0 0 7.2rem; scroll-snap-align: start; }
+}
+
+/* V8 (revisão do dono 27/10): quantidade 1 a 5 com personalização por unidade, medida do estojo, turmas, destaque do kit */
+.perso-sm__qtd { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.2rem; }
+.perso-sm__qtd label { font-size: 1.5rem; color: #0C1A2E; }
+.perso-sm__qtdbox { display: inline-flex; align-items: stretch; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-btn); overflow: hidden; background: #fff; }
+.perso-sm__qtdbox button { width: 4.4rem; min-height: 4.4rem; border: 0; background: #F3F7FD; color: #0C1A2E; font-size: 2rem; cursor: pointer; }
+.perso-sm__qtdbox button:disabled { opacity: .4; cursor: not-allowed; }
+.perso-sm__qtdbox select { min-width: 5.6rem; min-height: 4.4rem; border: 0; border-inline: 1px solid #D5DFEC; text-align: center; text-align-last: center; font-size: 1.6rem; font-weight: 600; color: #0C1A2E; background: #fff; appearance: none; -webkit-appearance: none; }
+.perso-sm__qtdmais { flex-basis: 100%; margin: 0; font-size: 1.3rem; color: #44546A; }
+.perso-sm__qtdmais a { color: #1859BE; text-decoration: underline; }
+.perso-sm__unids { display: flex; flex-wrap: wrap; gap: .6rem; }
+.perso-sm__unids[hidden] { display: none !important; }
+.perso-sm__unids button { min-height: 4.4rem; padding: .6rem 1.2rem; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-btn); background: #fff; color: #0C1A2E; font-size: 1.4rem; line-height: 1.25; text-align: left; cursor: pointer; max-width: 100%; }
+.perso-sm__unids button small { display: block; font-size: 1.2rem; color: #44546A; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 14rem; }
+.perso-sm__unids button[aria-pressed="true"] { border-color: #1859BE; box-shadow: inset 0 0 0 1px #1859BE; background: #F3F7FD; font-weight: 700; }
+.perso-sm__unids button.is-erro-sm { border-color: #B42318; }
+.perso-sm__medida { margin: 0; text-align: center; font-size: 1.3rem; color: #44546A; }
+.destaque-sm { background: #F3F7FD; border: 1px solid #D5DFEC; border-radius: var(--wm-radius-btn); padding: 1rem 1.2rem; }
+.turmas-banner-sm { border-block: 1px solid #D5DFEC; }
+.turmas-banner-sm__in { display: flex; align-items: center; justify-content: space-between; gap: 1.6rem 3rem; padding-block: 2.4rem; flex-wrap: wrap; }
+.turmas-banner-sm__txt { display: flex; gap: 1.2rem; align-items: flex-start; flex: 1 1 32rem; min-width: 0; }
+.turmas-banner-sm__txt .icon { flex: none; width: 3rem; height: 3rem; color: #1859BE; }
+.turmas-banner-sm__txt h2 { margin: 0 0 .4rem; }
+.turmas-banner-sm__txt p { margin: 0; font-size: 1.5rem; line-height: 1.5; }
+.turmas-banner-sm .button { flex: none; max-width: 100%; }
+@media screen and (max-width: 749px) { .turmas-banner-sm .button { width: 100%; } }
+.hero-wm4__eyebrow { text-wrap: balance; }
+/* arte maior no celular (linha que rola; miniatura 2:1 com 11 rem de largura) */
+@media screen and (max-width: 749px) {
+  .perso-sm .perso-sm__desenhos > label { flex: 0 0 11.2rem; }
+}

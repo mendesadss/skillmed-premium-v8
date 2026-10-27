@@ -1,0 +1,166 @@
+/* ===================================================================================================
+   Porare v8-premium (11/10/2026): upgrade UX/UI para loja extremamente premium.
+   Foco: conversão, ticket médio, confiança. Sem estrelas/ratings fake (regra da loja).
+   Mantém layout v7 intacto; adiciona camada de polimento visual e micro-interactions.
+   =================================================================================================== */
+
+/* ---------- 1. seleção, scrollbar e foco global ---------- */
+::selection { background: rgba(46, 74, 60, .15); color: var(--wm-ink); }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--wm-linen); }
+::-webkit-scrollbar-thumb { background: var(--wm-line); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--wm-ink-soft); }
+
+/* ---------- 2. announcement bar: fundo mais escuro, 3 itens com ícone, transição ---------- */
+.utility-bar .announcement-bar__message { gap: 2rem; }
+.utility-bar .announcement-bar__message li { display: flex; align-items: center; gap: .5rem; font-size: 1.3rem; font-weight: 600; letter-spacing: .04em; }
+.utility-bar .announcement-bar__message li .icon { width: 1.4rem; height: 1.4rem; flex-shrink: 0; }
+
+/* ---------- 3. cards: hover premium com sombra e scale ---------- */
+.product-card-wrapper .card-wrapper { transition: transform var(--wm-dur-slow) var(--wm-ease), box-shadow var(--wm-dur-slow) var(--wm-ease); }
+@media (hover: hover) and (pointer: fine) {
+  .product-card-wrapper:hover .card-wrapper { transform: translateY(-3px); box-shadow: 0 12px 32px -8px rgba(42, 36, 32, .14), 0 4px 12px -4px rgba(42, 36, 32, .08); }
+  .product-card-wrapper .card__media img { transition: transform 400ms var(--wm-ease); }
+  .product-card-wrapper:hover .card__media img { transform: scale(1.04); }
+}
+/* preço do card mais destaque */
+.product-card-wrapper .price-item--regular { font-size: 1.7rem; letter-spacing: -.01em; }
+/* título do card: peso semi-bold */
+.product-card-wrapper .card__heading a { font-weight: 500; }
+/* fundo do card com cantos melhores */
+.product-card-wrapper .card__inner { border-radius: 10px !important; }
+
+/* ---------- 4. quick-add: botão "In den Warenkorb" no card mais premium ---------- */
+@media (hover: hover) and (pointer: fine) and (min-width: 990px) {
+  .product-card-wrapper .quick-add { transition: opacity var(--wm-dur) var(--wm-ease), transform var(--wm-dur) var(--wm-ease), box-shadow var(--wm-dur) var(--wm-ease); }
+  .product-card-wrapper:hover .quick-add { box-shadow: 0 4px 16px -4px rgba(46, 74, 60, .4); }
+}
+
+/* ---------- 5. botões: transição mais premium e hover mais rico ---------- */
+.button, .button--primary, .shopify-payment-button__button { transition: background-color var(--wm-dur) var(--wm-ease), transform var(--wm-dur) var(--wm-ease), box-shadow var(--wm-dur) var(--wm-ease) !important; }
+.button:not(:disabled):hover, .button--primary:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 4px 16px -4px rgba(46, 74, 60, .36); }
+.button:not(:disabled):active { transform: translateY(0); }
+/* botão primário desktop: mais alto */
+@media screen and (min-width: 750px) {
+  .button.button--primary { min-height: 5.6rem; font-size: 1.6rem; letter-spacing: .03em; }
+}
+
+/* ---------- 6. PDP: melhorias de conversão ---------- */
+/* buybox: mais respiro acima do preço */
+.pdp-wm4 .product__info-container { gap: 0; }
+/* preço na PDP: maior destaque */
+.pdp-wm4 .price .price-item--regular { font-size: 3rem !important; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+/* caixa de delivery: destaque mais rico */
+.buybox-wm4 .delivery-wm4 { background: linear-gradient(135deg, #EFF6F0 0%, #E3EBE4 100%) !important; border-color: rgba(46, 74, 60, .18) !important; }
+/* trust trio abaixo do botão: ícones maiores e texto mais legível */
+.service-line-wm4 { gap: 2rem !important; }
+.service-line-wm4 .trust-wm4__item { gap: .6rem; }
+.service-line-wm4 .icon { width: 2rem; height: 2rem; }
+.service-line-wm4 strong { font-size: 1.3rem; font-weight: 600; }
+/* separador suave entre seções da PDP */
+.pdp-wm4 .product__description { padding-top: 2rem; border-top: 1px solid var(--wm-line-soft); margin-top: 2rem; }
+/* galeria: thumbnail ativo com borda de destaque */
+.thumbnail[aria-current="true"] { border: 2px solid var(--wm-pine) !important; border-radius: 4px; }
+/* sticky ATC no mobile: sombra mais proeminente */
+@media screen and (max-width: 989px) {
+  .sticky-atc-wm4 { box-shadow: 0 -4px 24px -8px rgba(42, 36, 32, .2) !important; }
+}
+/* breadcrumb: mais sutil */
+.breadcrumbs li, .breadcrumbs a { font-size: 1.25rem; color: var(--wm-ink-soft); }
+.breadcrumbs a:hover { color: var(--wm-pine); text-decoration: underline; }
+
+/* ---------- 7. coleção: cards e filtros premium ---------- */
+.facets__label { font-weight: 600; font-size: 1.4rem; }
+/* koll-chips: tags de filtro mais premium */
+.koll-chip-wm4 { border-radius: 20px !important; transition: background var(--wm-dur) var(--wm-ease), border-color var(--wm-dur) var(--wm-ease); }
+/* grid da coleção: respiro entre cards */
+@media screen and (min-width: 990px) {
+  .product-grid.grid { --grid-desktop-horizontal-spacing: 28px; --grid-desktop-vertical-spacing: 48px; }
+}
+
+/* ---------- 8. home: seções com entrada suave ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .section-announcement-bar { animation: none; }
+}
+
+/* ---------- 9. trust cards na home (v7 seção 4): estilo mais premium ---------- */
+.trust-wm4--karten .trust-wm4__list li { transition: box-shadow var(--wm-dur-slow) var(--wm-ease), transform var(--wm-dur-slow) var(--wm-ease); }
+@media (hover: hover) and (pointer: fine) {
+  .trust-wm4--karten .trust-wm4__list li:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -8px rgba(42, 36, 32, .12); }
+}
+
+/* ---------- 10. footer: refinamento ---------- */
+.footer a { transition: color var(--wm-dur) var(--wm-ease), opacity var(--wm-dur) var(--wm-ease); }
+.footer a:hover { opacity: .8; }
+
+/* ---------- 11. campos de input: foco mais elegante ---------- */
+.field__input:focus, .select__select:focus { border-color: var(--wm-pine) !important; box-shadow: 0 0 0 3px rgba(46, 74, 60, .12) !important; outline: none !important; }
+
+/* ---------- 12. modal de busca: entrada mais suave ---------- */
+.suche-overlay-wm4:not([hidden]) { animation: fadeIn 180ms var(--wm-ease); }
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+.suche-overlay-wm4__box { animation: slideDown 220ms var(--wm-ease); }
+@keyframes slideDown { from { transform: translateY(-8px); opacity: .5 } to { transform: none; opacity: 1 } }
+
+/* ---------- 13. mobile: otimizações de toque e legibilidade ---------- */
+@media screen and (max-width: 749px) {
+  /* preço na PDP mobile: tamanho adequado */
+  .pdp-wm4 .price .price-item--regular { font-size: 2.6rem !important; }
+  /* espaçamento do buybox no mobile */
+  .product__info-container.pdp-wm4 > * + * { margin-top: .8rem; }
+  /* botão ATC mobile: mais alto */
+  .buy-row-wm4 .button--primary { min-height: 5.6rem; font-size: 1.7rem; }
+  /* trust trio: 3 colunas no mobile */
+  .service-line-wm4 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+
+/* ---------- 14. imagens lazy: fade-in suave ao carregar ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  img[loading="lazy"] { opacity: 0; transition: opacity 300ms ease; }
+  img[loading="lazy"].loaded, img[loading="lazy"].is-loaded { opacity: 1; }
+}
+
+/* ---------- 15. badge Neu para produtos da coleção Weihnachten (ids 4xxx) ---------- */
+/* sera aplicado via data-id no loja.js (nao precisa de CSS extra, o .badge--soldout da Dawn serve de base) */
+
+/* ---------- 16. accordion / FAQ: linha sutil de separação ---------- */
+.accordion .accordion__content { border-top: 1px solid var(--wm-line-soft); margin-top: 0; padding-top: 1.2rem; }
+.accordion summary.accordion__title { letter-spacing: -.005em; }
+@media (hover: hover) { .accordion summary.accordion__title:hover { color: var(--wm-pine); } }
+
+/* ---------- 17. Passt dazu e Mehr aus: títulos de seção mais elegantes ---------- */
+.karten-wm4__titel { font-size: 2rem; font-weight: 600; letter-spacing: -.01em; }
+@media screen and (min-width: 750px) { .karten-wm4__titel { font-size: 2.4rem; } }
+/* grid de relacionados: 4 colunas no desktop */
+@media screen and (min-width: 1100px) {
+  .karten-wm4 .product-grid.grid--4-col-desktop { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ---------- 18. carrinho: estilo mais premium ---------- */
+.cart-item__name { font-weight: 600; font-size: 1.5rem; }
+.totals__total-value { font-size: 2.4rem; font-weight: 700; }
+
+/* ---------- 19. seção hero na home: text-shadow para legibilidade sobre foto ---------- */
+#Banner-template--wm__hero[data-ton="dunkel"] .banner__heading,
+#Banner-template--wm__hero[data-ton="dunkel"] .banner__text { text-shadow: 0 1px 4px rgba(0, 0, 0, .2); }
+
+/* ---------- 20. Lieferzeit: destaque de cor verde no nome do dia ---------- */
+.delivery-wm4 .liefertag-wm4 { color: var(--wm-success); font-weight: 600; }
+
+/* Imagens de produto da V2: sem mistura, halo ou sombra artificial */
+.product-card-wrapper .card__media img,
+.product-card-wrapper .media--lokal-wm4 img {
+  padding: 0 !important;
+  background: #FFFFFF;
+  mix-blend-mode: normal !important;
+  object-fit: cover !important;
+}
+.product-card-wrapper .card__inner::after {
+  content: none !important;
+  box-shadow: none !important;
+}
+.pdp-wm4 .product__media-container,
+.pdp-wm4 .global-media-settings,
+.pdp-wm4 .product__media {
+  box-shadow: none !important;
+}

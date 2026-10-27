@@ -1,0 +1,160 @@
+/* Porare v6 · revisao independente (07/10/2026, nota 6,0, 26 defeitos). Ultima camada (depois de layout.css).
+   Tabela defeito -> correcao em PROGRESSO.md ("Revisao independente"). Prints em _prints/v6-revisao/. */
+
+/* ---------- item 6: cards com fundo unico e ocupacao parecida ----------
+   fundo #FAF6F0 em todos; foto em contain; o recorte do card (p<id>-01-packshot-karte, gerado no importador) ja traz o produto centrado
+   com o maior lado em 84 % do quadro; foto sem recorte (foto antiga) ganha 8 % de respiro. darken funde o fundo branco OU creme do packshot no creme
+   (multiply escureceria o creme do proprio packshot e desenharia um quadrado). */
+.product-card-wrapper .card__inner, .product-card-wrapper .card__media .media, .product-card-wrapper .media--lokal-wm4 { background: #FAF6F0; }
+.product-card-wrapper .card__media img, .product-card-wrapper .media--lokal-wm4 img { object-fit: contain; padding: 8%; box-sizing: border-box; mix-blend-mode: darken; }
+.product-card-wrapper .media--karte-wm4 img { padding: 0; }
+.product-card-wrapper .card__inner::after { box-shadow: inset 0 0 0 1px rgba(42, 36, 32, .05); }
+.cart-item__image, .upsell-wm4 img, .sticky-atc-wm4__bild, .predictive-search__image { background: #FAF6F0; object-fit: contain; mix-blend-mode: darken; }
+
+/* ---------- item 13: titulo curto no card (titel-karte.json); 3 linhas reservadas no celular, 2 no desktop; nunca reticencias com o titulo curto ---------- */
+.product-card-wrapper .card__heading.h5 { -webkit-line-clamp: 3; min-height: calc(3 * 1.35em); }
+@media screen and (min-width: 750px) { .product-card-wrapper .card__heading.h5 { -webkit-line-clamp: 2; min-height: calc(2 * 1.35em); } }
+
+/* ---------- itens 3, 11 e 14: descricao. Imagem e texto em 1fr 1fr, foto em cover com altura maxima de 520 px; texto ate 56ch ---------- */
+.descb-wm4__band { padding: 4.8rem 0; }
+@media screen and (min-width: 750px) { .descb-wm4__band { padding: 6.4rem 0; } }
+.descb-wm4 .rte p, .descb-wm4__vorteile p { max-width: 56ch; }
+.descb-wm4__split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.4rem; align-items: center; }
+@media screen and (min-width: 750px) { .descb-wm4__split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(3.2rem, 5vw, 8rem); } }
+/* foto quadrada de ate 520 px, encostada no texto (sem cortar produto em faixa larga) */
+.descb-wm4__media--split { aspect-ratio: 1; width: 100%; }
+@media screen and (min-width: 750px) { .descb-wm4__media--split { width: min(100%, 52rem); justify-self: end; } }
+.descb-wm4__split .descb-wm4__text { max-width: 60rem; }
+.descb-wm4__split .descb-wm4__text > h2 { margin: 0 0 1.6rem; }
+/* bloco sem foto propria: abertura centrada (D1) */
+.descb-wm4__intro { max-width: 72rem; margin: 0 auto; text-align: center; }
+.descb-wm4__intro h2 { margin: 0 0 1.2rem; }
+.descb-wm4__intro .rte p { margin: 0 auto; font-size: 1.7rem; line-height: 1.55; }
+@media screen and (min-width: 990px) { .descb-wm4__intro .rte p { font-size: 1.8rem; } }
+/* beneficios (D2) em lista com check: ao lado da foto, ou em colunas so de texto */
+.descb-wm4__vorteile { display: grid; gap: 2.4rem; margin: 0; padding: 0; }
+.descb-wm4__vorteile li { display: flex; align-items: flex-start; gap: 1.6rem; }
+.descb-wm4__vorteile .icon { flex: none; width: var(--wm-icon); height: var(--wm-icon); margin-top: .2rem; color: var(--wm-pine); }
+.descb-wm4__vorteile h3 { margin: 0 0 .4rem; font-size: 1.7rem; }
+@media screen and (min-width: 990px) { .descb-wm4__vorteile h3 { font-size: 1.8rem; } .descb-wm4__vorteile p, .descb-wm4__liste li { font-size: 1.6rem; } }
+.descb-wm4__vorteile p { margin: 0; color: var(--wm-ink-soft); }
+@media screen and (min-width: 750px) { .descb-wm4__vorteile--spalten { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 4rem; } }
+/* passos (D3) sem foto: numeros em colunas */
+@media screen and (min-width: 750px) { .descb-wm4__liste--spalten { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 3.2rem; } }
+.descb-wm4__liste--spalten li { align-items: flex-start; }
+.descb-wm4__d6 .descb-wm4__kopf { margin-bottom: 2.4rem; }
+.descb-wm4__raster { --n: 4; }
+@media screen and (min-width: 750px) { .descb-wm4__raster { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); } }
+
+/* ---------- itens 4, 8, 9: "Das ist im Paket" (foto 03 + lista) e "Maße & Material" (foto 06 + tabela) ---------- */
+.specs-wm4__wrap { display: block; }
+.specs-wm4__band { padding: 4.8rem 0; background: var(--wm-white); }
+.specs-wm4__band + .specs-wm4__band { background: var(--wm-paper); }
+@media screen and (min-width: 750px) { .specs-wm4__band { padding: 6.4rem 0; } }
+.specs-wm4.specs-wm4 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.4rem; align-items: center; }
+@media screen and (min-width: 750px) {
+  .specs-wm4--bild.specs-wm4--bild { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(3.2rem, 5vw, 8rem); }
+  .specs-wm4--rev .specs-wm4__media { order: 2; }
+  .specs-wm4--zwei.specs-wm4--zwei { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(3.2rem, 5vw, 8rem); align-items: start; }
+}
+.specs-wm4--text .specs-wm4__col { max-width: 72rem; }
+.specs-wm4__media { position: relative; aspect-ratio: 1; width: 100%; overflow: hidden; border-radius: var(--wm-radius); background: var(--wm-paper); }
+@media screen and (min-width: 750px) { .specs-wm4__media { width: min(100%, 52rem); justify-self: end; } .specs-wm4--rev .specs-wm4__media { justify-self: start; } }
+.specs-wm4__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.specs-wm4__col > h2 { margin: 0 0 2rem; }
+.specs-wm4__col .spec-table-wm4 { width: 100%; }
+/* "nicht enthalten": nota abaixo da lista, icone de info, cor suave */
+.specs-wm4__hinweis { display: grid; gap: .6rem; margin: 1.6rem 0 0; padding: 1.2rem 0 0; border-top: 1px solid var(--wm-line-soft); font-size: 1.5rem; color: var(--wm-ink-soft); }
+.specs-wm4__hinweis li { display: flex; align-items: flex-start; gap: 1rem; line-height: 1.45; }
+.specs-wm4__hinweis .icon { flex: none; width: 2rem; height: 2rem; margin-top: .1rem; color: var(--wm-ink-soft); }
+.nutzen-wm4 li.nutzen-wm4__hinweis, .nutzen-wm4 li.nutzen-wm4__hinweis .icon { color: var(--wm-ink-soft); }
+
+/* ---------- item 5: marcador discreto de dado que falta + aviso unico de rascunho nas paginas legais ---------- */
+.offen-wm4 { font-size: .875em; font-style: italic; color: var(--wm-ink-soft); }
+.footer .offen-wm4 { color: rgba(237, 230, 218, .7); }
+.entwurf-wm4 { margin: 0 0 2.4rem; font-size: 1.4rem; color: var(--wm-ink-soft); }
+
+/* ---------- item 10: newsletter do rodape (campo flexivel, rotulo legivel) ---------- */
+.footer-news-wm4 .newsletter-form, .footer-news-wm4__form { max-width: none; width: 100%; }
+.footer-news-wm4__row { align-items: stretch; }
+.footer-news-wm4__row .field { flex: 1 1 auto; min-width: 0; }
+.footer-news-wm4 .field__input { height: 4.8rem; min-height: 4.8rem; }
+.footer-news-wm4 .field__label, .footer-news-wm4 .field__input::placeholder { color: var(--wm-ink-soft); }
+.footer-news-wm4__button { min-height: 4.8rem; height: 4.8rem; padding: 0 2.4rem; }
+@media screen and (min-width: 990px) { .footer-news-wm4 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; } }
+
+/* ---------- item 18: logo do rodape = wordmark do header ---------- */
+.footer-brand-wm4 { margin: 0 0 1.6rem; }
+.footer-brand-wm4__link { display: inline-flex; }
+.footer-brand-wm4 img.logo-wm4--hell { width: 16rem; height: 4rem; border-radius: 0; margin-left: calc(-.24 * 16rem); }
+
+/* ---------- item 23: links do rodape com alvo de 44 px no celular ---------- */
+@media screen and (max-width: 749px) {
+  .footer-block__details-content .list-menu__item--link, .footer-cookie-wm4 { min-height: 4.4rem; display: flex; align-items: center; }
+  .footer-kontakt-wm4 a { min-height: 4.4rem; display: inline-flex; align-items: center; }
+}
+
+/* ---------- item 19: gaveta com 2 itens (rodape compacto; o 2o item visivel em 1440x900 e 390x844) ---------- */
+cart-drawer .drawer__footer { padding-top: 1.2rem; padding-bottom: calc(1.2rem + env(safe-area-inset-bottom)); }
+cart-drawer .summe-wm4 > div:not(.summe-wm4__gesamt) { display: none; }
+cart-drawer .summe-wm4__gesamt { margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; font-size: 1.7rem; }
+cart-drawer .tax-note { margin-top: .2rem !important; font-size: 1.3rem; }
+cart-drawer .cart__ctas { margin-top: 1rem !important; }
+cart-drawer .additional-checkout-buttons { margin-top: .8rem !important; }
+cart-drawer .cart-pay-wm4 { margin-top: .8rem; }
+cart-drawer .cart-pay-wm4 .list-payment { justify-content: center; }
+cart-drawer .cart-service-wm4 { margin-top: .6rem; }
+.cart-item__meta-wm4:empty { display: none; }
+cart-drawer .cart-item { padding-top: 1.2rem; padding-bottom: 1.2rem; }
+@media screen and (max-height: 920px) { cart-drawer .cart-pay-wm4 { display: none; } }
+@media screen and (max-width: 749px) { cart-drawer .cart-upsell-wm4 { padding-top: 1.4rem; padding-bottom: 1.6rem; } }
+
+/* ---------- item 20: data de entrega sem quebra no meio ---------- */
+[data-lieferdatum], [data-lieferfenster] { white-space: nowrap; }
+
+/* ---------- item 15: seletor de kit abaixo de 400 px = 1 coluna, uma linha por opcao (nome e conteudo a esquerda, preco a direita) ---------- */
+@media screen and (max-width: 399px) {
+  .bundle-wm4--kit.bundle-wm4--kit { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+  .product-form__input.bundle-wm4--kit input[type='radio'] + label { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'name preis' 'sub preis'; align-items: center; column-gap: 1.2rem; row-gap: .1rem; min-height: 5.2rem; padding: .8rem 1.2rem; }
+  .bundle-wm4--kit .bundle-wm4__name { grid-area: name; }
+  .bundle-wm4--kit .bundle-wm4__price { grid-area: preis; font-size: 1.6rem; }
+  .bundle-wm4--kit .bundle-wm4__sub { grid-area: sub; }
+}
+
+/* ---------- item 21: "Passt dazu" sempre em linhas completas (sem buraco nem card orfao) ---------- */
+@media screen and (max-width: 749px) { .product-grid--passt-wm4 > .grid__item:last-child:nth-child(odd):not(:first-child) { display: none; } }
+@media screen and (min-width: 750px) {
+  .product-grid--passt-wm4:has(> .grid__item:nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .product-grid--passt-wm4:has(> .grid__item:nth-child(2):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media screen and (min-width: 750px) and (max-width: 1099px) { .product-grid--passt-wm4:has(> .grid__item:nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* "Mehr aus" no desktop: 3 produtos em 3 colunas (sem buraco); abaixo de 1100 continua a linha rolavel */
+@media screen and (min-width: 1100px) {
+  .product-grid--wm4-scroll:has(> .grid__item:nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .product-grid--wm4-scroll:has(> .grid__item:nth-child(2):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- item 24: "Alle ansehen" na mesma linha do titulo (tambem no celular) ---------- */
+.head-wm4 { flex-wrap: nowrap; align-items: baseline; }
+.head-wm4 > :first-child { flex: 1 1 auto; }
+.head-wm4 > .link-wm4 { flex: none; white-space: nowrap; }
+
+/* ---------- item 22: pergunta do FAQ sem limite em ch no celular ---------- */
+@media screen and (max-width: 749px) { .accordion summary .accordion__title, .accordion summary { max-width: none; } }
+
+/* ---------- item 17: Rechtliches. Celular: trilha e H1, sumario recolhido, texto. Desktop: sumario fixo a esquerda ---------- */
+.legal-wm4__kopf .main-page-title { margin: .8rem 0 1.6rem; }
+.legal-wm4__toc { padding: 0; }
+.legal-wm4__toc-details > summary { display: flex; align-items: center; justify-content: space-between; min-height: 4.8rem; padding: 0 1.6rem; margin: 0; cursor: pointer; list-style: none; }
+.legal-wm4__toc-details > summary::-webkit-details-marker { display: none; }
+.legal-wm4__toc-details > summary::after { content: ''; width: .9rem; height: .9rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-25%) rotate(45deg); transition: transform var(--wm-dur) var(--wm-ease); }
+.legal-wm4__toc-details[open] > summary::after { transform: translateY(25%) rotate(-135deg); }
+.legal-wm4__toc-details > ol { padding: 0 1.6rem 1.2rem; }
+@media screen and (min-width: 990px) {
+  .legal-wm4:not(.legal-wm4--eins) { grid-template-columns: 26rem minmax(0, 1fr); grid-template-areas: 'toc kopf' 'toc body'; column-gap: 8rem; row-gap: 0; }
+  .legal-wm4__kopf { grid-area: kopf; }
+  .legal-wm4:not(.legal-wm4--eins) .legal-wm4__toc { grid-area: toc; align-self: start; padding: 1.2rem .8rem; }
+  .legal-wm4:not(.legal-wm4--eins) .legal-wm4__body { grid-area: body; }
+  .legal-wm4__toc-details > summary { cursor: default; pointer-events: none; }
+  .legal-wm4__toc-details > summary::after { display: none; }
+}

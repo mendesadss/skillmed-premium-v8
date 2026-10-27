@@ -1,0 +1,66 @@
+/* Wohnmira v4 · grade de produtos e card-product
+   Densidade como nas lojas alemas: 2 colunas no celular, 3 no tablet, 4 no desktop (CSS grid: cards da mesma linha com a mesma altura).
+   Card: foto quadrada com Merkzettel (canto superior direito) e selo do Set (superior esquerdo); titulo inteiro (3 linhas no celular, 2 no desktop);
+   preco; preco por Stueck do Set; "inkl. MwSt., versandkostenfrei" e Lieferzeit (PAngV e o que o comprador alemao procura no card).
+   Botao: no celular e em tela de toque e um icone de 44 px sobre a foto (sem 12 botoes de texto repetidos na tela);
+   no desktop com mouse aparece "In den Warenkorb" sobre a foto no hover e no foco. Em todos os casos o botao fica na mesma altura entre cards da linha. */
+.product-grid--wm4 { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.2rem; row-gap: 2.8rem; margin: 0; padding: 0; list-style: none; }
+.product-grid--wm4 > .grid__item { display: flex; flex-direction: column; width: auto !important; max-width: none !important; min-width: 0; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .product-grid--wm4 { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 2rem; row-gap: 4rem; } }
+@media screen and (min-width: 1100px) { .product-grid--wm4 { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 2.4rem; row-gap: 4.8rem; } }
+/* colecao com barra lateral: 3 colunas ate 1279, 4 a partir de 1280 */
+@media screen and (min-width: 990px) and (max-width: 1279px) { .product-grid--wm4-sidebar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* linha rolavel (Sets, "Mehr aus") abaixo de 1100 px: mostra 2,3 cards no celular (a borda cortada indica que rola) */
+@media screen and (max-width: 1099px) {
+  .product-grid--wm4-scroll { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 43%; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--wm-gutter);
+    margin: 0 calc(-1 * var(--wm-gutter)); padding: .4rem var(--wm-gutter) 1.6rem; scrollbar-width: thin; scrollbar-color: var(--wm-line) transparent; }
+  .product-grid--wm4-scroll > .grid__item { scroll-snap-align: start; }
+}
+@media screen and (min-width: 750px) and (max-width: 1099px) { .product-grid--wm4-scroll { grid-auto-columns: 30%; } }
+
+.product-card-wrapper { position: relative; flex: 1 1 auto; display: flex; flex-direction: column; height: auto; container-type: inline-size; }
+.product-card-wrapper .card { position: relative; flex: 1 1 auto; display: flex; flex-direction: column; height: auto; text-decoration: none; }
+.product-card-wrapper .card__inner { border-radius: var(--wm-radius); overflow: hidden; background: var(--wm-white); }
+.product-card-wrapper .card__inner::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(42, 36, 32, .06); pointer-events: none; }
+.product-card-wrapper .card__media .media { background: var(--wm-white); }
+.product-card-wrapper .card__media img { mix-blend-mode: multiply; object-fit: contain; transition: transform .6s var(--wm-ease) !important; }
+.product-card-wrapper .media--lokal-wm4 img { mix-blend-mode: normal; object-fit: cover; }
+@media (hover: hover) { .product-card-wrapper:hover .card__media img { transform: scale(1.03); } }
+.card__media.is-broken-wm4::after { content: 'Produktbild folgt'; position: absolute; inset: 0; display: grid; place-items: center; color: var(--wm-ink-soft); font-size: var(--wm-fs-caption); }
+/* selo do Set sobre a foto (card__badge do Dawn) */
+.card__badge-wrap-wm4 { position: absolute !important; inset: 0 auto auto 0 !important; z-index: 2; padding: .8rem !important; width: auto !important; height: auto !important; pointer-events: none; }
+.card__badge-wrap-wm4 .card__badge { margin: 0; }
+
+.product-card-wrapper .card--standard > .card__content { display: flex; flex-direction: column; flex: 1 1 auto; padding: 1.2rem .2rem 0; grid-template-rows: none; }
+.product-card-wrapper .card__information { display: flex; flex-direction: column; flex: 1 1 auto; padding: 0; }
+.product-card-wrapper .card__heading.h5 { margin: 0 0 .6rem; font-family: var(--font-body-family); font-size: 1.5rem; font-weight: 500; line-height: 1.35; letter-spacing: 0; color: var(--wm-ink);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 4.05em; word-break: normal; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+@media screen and (min-width: 750px) { .product-card-wrapper .card__heading.h5 { font-size: 1.6rem; -webkit-line-clamp: 2; min-height: 2.7em; } }
+.product-card-wrapper .card__heading a { text-decoration: none; }
+.product-card-wrapper .card__heading a:hover { text-decoration: underline; text-underline-offset: .3rem; }
+.product-card-wrapper .card__heading a::after { z-index: 1; border-radius: var(--wm-radius); }
+.product-card-wrapper .card-information { display: flex; flex-direction: column; gap: .3rem; }
+.product-card-wrapper .card-information .price { margin: 0; font-size: 1.7rem; font-weight: 600; letter-spacing: 0; color: var(--wm-ink); }
+.product-card-wrapper .price-item { color: var(--wm-ink); }
+.card__set-wm4 { margin: 0; font-size: var(--wm-fs-caption); line-height: 1.4; color: var(--wm-set-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card__set-wm4 strong { font-weight: 600; }
+.card__set-wm4 abbr[title] { text-decoration: none; }
+.card__meta-wm4 { margin: .2rem 0 0; font-size: var(--wm-fs-caption); line-height: 1.45; color: var(--wm-ink-soft); }
+.card__meta-wm4 abbr[title] { text-decoration: none; }
+
+/* quick-add: icone de 44 px sobre a foto, canto inferior direito (celular, tablet e toque) */
+.product-card-wrapper .quick-add { position: absolute; z-index: 3; right: .8rem; top: calc(100cqw - 4.4rem - .8rem); margin: 0; grid-row-start: auto; }
+.product-card-wrapper .quick-add__submit.button { width: 4.4rem; height: 4.4rem; min-height: 4.4rem; padding: 0; border-radius: 50%; --wm-btn-bd: rgba(42, 36, 32, .18); box-shadow: var(--wm-shadow-sm); }
+.product-card-wrapper .quick-add__submit .button__label-wm4 { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.quick-add__icon-wm4 { width: 2.2rem !important; height: 2.2rem !important; }
+.product-card-wrapper .quick-add__submit.is-added-wm4 { --wm-btn-bg: var(--wm-success); --wm-btn-bd: var(--wm-success); --wm-btn-fg: #FFF; }
+
+/* quick-add com texto sobre a foto: desktop com mouse */
+@media screen and (min-width: 990px) and (hover: hover) and (pointer: fine) {
+  .product-card-wrapper .quick-add { left: 1.2rem; right: 1.2rem; top: calc(100cqw - 4.4rem - 1.2rem); opacity: 0; transform: translateY(.6rem); transition: opacity var(--wm-dur) var(--wm-ease), transform var(--wm-dur) var(--wm-ease); }
+  .product-card-wrapper:hover .quick-add, .product-card-wrapper:focus-within .quick-add, .product-card-wrapper .quick-add:has(.is-added-wm4, .is-loading-wm4) { opacity: 1; transform: none; }
+  .product-card-wrapper .quick-add__submit.button { width: 100%; height: 4.4rem; padding: 0 1.2rem; border-radius: var(--wm-radius-btn); --wm-btn-bg: rgba(255, 255, 255, .97); --wm-btn-bd: rgba(42, 36, 32, .25); box-shadow: 0 8px 20px -12px rgba(42, 36, 32, .45); }
+  .product-card-wrapper .quick-add__submit.button:hover { --wm-btn-bg: var(--wm-pine); }
+  .product-card-wrapper .quick-add__submit .button__label-wm4 { position: static !important; width: auto; height: auto; overflow: visible; clip: auto; }
+  .product-card-wrapper .quick-add__submit .quick-add__icon-wm4 { display: none; }
+}

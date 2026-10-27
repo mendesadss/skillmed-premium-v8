@@ -1,0 +1,48 @@
+/* ---------- rev6 (08/10): produto INTEIRO em toda imagem de produto (nada de cover cortando) ----------
+   Descricao e Paket: a caixa assume a proporcao nativa da imagem (width/height do <img>), sem recorte. Onde a caixa e fixa (galeria, miniaturas,
+   gaveta, sets, busca, cards): object-fit contain sobre creme. object-position do pos-imagens.json nao e mais usado. */
+.pdx-media, .pdx-media--1x1, .pdx-media--fill, .pdx-media--4x3 { aspect-ratio: auto !important; height: auto !important; min-height: 0 !important; max-height: none !important; background: transparent; }
+.pdx-media img { position: static; inset: auto; width: 100%; height: auto; object-fit: contain; border-radius: var(--wm-radius); background: var(--wm-linen); }
+@media screen and (min-width: 750px) {
+  .pdx-split > .pdx-media--fill, .pdx-split > .pdx-fig { align-self: center; }
+  .pdx-split > .pdx-media--fill { height: auto !important; aspect-ratio: auto !important; }
+}
+.pdx-cols, .pdx-raster { align-items: start; }
+.pdx-fig > .pdx-media--fill { aspect-ratio: auto !important; max-height: none !important; }
+/* galeria da PDP e miniaturas: contain sobre creme */
+.pdp-wm4 .product__media img, .pdp-wm4 .product__media .asset-wm4 { object-fit: contain !important; background: var(--wm-linen, #F5EFE6); }
+.pdp-wm4 .thumbnail img { object-fit: contain !important; background: var(--wm-linen, #F5EFE6); }
+/* gaveta, sugestoes, sets, busca, tiles e blocos da home */
+.cart-item__image, .upsell-wm4 img, .predictive-search__image, .sticky-atc-wm4__bild { object-fit: contain !important; }
+.set-wm4__teile img, .set-wm4__fotos img { object-fit: contain !important; background: #FAF6F0; }
+.kachel-wm4__media, .kachel-wm4__media[class] { aspect-ratio: 1 !important; }
+.kachel-wm4__media .asset-wm4 { object-fit: contain; }
+.editorial-wm4__media, .color-scheme-3 .editorial-wm4__media, .color-scheme-1 .editorial-wm4__media { aspect-ratio: 1 !important; }
+.editorial-wm4__media .asset-wm4 { object-fit: contain; }
+.vorteil-wm4__media .asset-wm4, .specs-wm4__media img { object-fit: contain; }
+
+/* ---------- Produktbeschreibung com imagem sticky (08/10) ---------- */
+.pdx-lang__text h2 { margin: 0 0 2.4rem; }
+.pdx-lang__blk + .pdx-lang__blk { margin-top: 2.8rem; }
+.pdx-lang__blk h3 { margin: 0 0 .6rem; font-size: 1.7rem; line-height: 1.35; }
+.pdx-lang__bilder { display: grid; margin-bottom: 2.4rem; }
+.pdx-lang__bild { grid-area: 1 / 1; opacity: 0; transition: opacity .5s var(--wm-ease, ease); pointer-events: none; }
+.pdx-lang__bild.is-aktiv { opacity: 1; pointer-events: auto; }
+.pdx-lang__bild img { display: block; width: 100%; height: auto; border-radius: var(--wm-radius); background: var(--wm-linen); }
+@media (prefers-reduced-motion: reduce) { .pdx-lang__bild { transition: none; } }
+@media screen and (max-width: 989px) { .pdx-lang__bild:not(:first-child) { display: none; } }
+@media screen and (min-width: 990px) {
+  .pdx-lang { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3.2rem, 5vw, 8rem); align-items: start; }
+  .pdx-lang:not(.pdx-lang--bild) .pdx-lang__text { grid-column: 2; }
+  .pdx-lang__bilder { position: sticky; top: 10rem; margin-bottom: 0; align-self: start; }
+  .pdx-lang__blk h3 { font-size: 1.8rem; }
+  .pdx-lang__blk + .pdx-lang__blk { margin-top: 3.6rem; }
+}
+
+/* ---------- 08/10: logo final (direcao B do Codex, _fonte/logo-final.py) ----------
+   SVG recortado no contorno das letras: sem margem transparente, entao a borda esquerda do "P" e a borda da imagem (margin-left 0
+   substitui a compensacao de 24,53 % do PNG provisorio). Proporcao 4,1267. Desktop 132 x 32 (header e rodape), celular 120 x 29
+   (minimo de leitura da folha de protecao do Codex). Altura do header inalterada. */
+.logo-pic-wm4 { display: contents; }
+.header-wm4 .logo-wm4.logo-wm4, .footer-brand-wm4 img.logo-wm4--hell.logo-wm4--hell { width: 13.2rem; max-width: none; height: auto; aspect-ratio: 4.1267; margin-left: 0; border-radius: 0; flex: none; }
+@media screen and (max-width: 989px) { .header-wm4 .logo-wm4.logo-wm4 { width: 12rem; } }

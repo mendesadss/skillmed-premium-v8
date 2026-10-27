@@ -1,0 +1,153 @@
+/* Porare v6 · revisao de layout (07/10/2026). Ultima camada: container unico, PDP sem vazio lateral, Kategorien em largura total,
+   icones padronizados (24 px desktop, 22 px celular), ritmo de 8 px, cards sem corte de titulo. Prints em _prints/v6-layout/. */
+
+/* ---------- 1. container unico: header, migalhas, secoes e PDP com a mesma largura maxima (1440 px de conteudo) ---------- */
+:root { --page-width: 144rem; --wm-icon: 2.2rem; }
+@media screen and (min-width: 750px) { :root { --wm-icon: 2.4rem; } }
+[data-pdp] section[id^='MainProduct-'], [data-pdp] .page-width:has(> .breadcrumbs-wm4--pdp) { max-width: calc(var(--page-width) + 2 * var(--wm-gutter)); }
+/* ul com .page-width + .list-unstyled perdia margin auto e padding (faixa de garantias colada na borda esquerda) */
+ul.page-width.list-unstyled, ol.page-width.list-unstyled { margin-left: auto; margin-right: auto; padding-left: var(--wm-gutter); padding-right: var(--wm-gutter); }
+/* logo: o PNG tem 24 % de margem transparente de cada lado; no desktop o texto alinha com a borda do container */
+@media screen and (min-width: 990px) { .header-wm4 .logo-wm4 { flex: none; max-width: none; margin-left: calc(-.24 * 15.2rem); } }
+
+/* ---------- 2. PDP desktop: galeria + info ocupam o container inteiro (info em 1fr, sem teto de 56rem) ---------- */
+@media screen and (min-width: 990px) {
+  .pdp-wm4.product--medium .product__info-wrapper, .pdp-wm4 .product__info-container { max-width: none; }
+  .pdp-wm4.pdp-wm4 { column-gap: clamp(3.2rem, 3.4cqw, 5.6rem); }
+}
+/* tela larga e baixa (ex.: 1900 x 700): a foto nao cai abaixo de 38 % do container, para galeria e info ficarem equilibradas */
+@media screen and (min-width: 1100px) { .pdp-wm4.pdp-wm4 { --foto: min(58cqw - 10.6rem, max(100vh - 25rem, 40rem, 38cqw)); } }
+/* seletor de kit e opcoes: a fieldset do Dawn limitava a 44rem */
+.product-form__input.bundle-wm4, variant-selects .product-form__input { max-width: none !important; width: 100%; }
+/* tablet: miniaturas numa linha so (6 fotos quebravam em 5 + 1) */
+@media screen and (min-width: 750px) and (max-width: 1099px) {
+  .pdp-wm4 .thumbnail-list { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: calc((100% - 4 * 1rem) / 5); overflow-x: auto; scrollbar-width: thin; padding-bottom: .4rem; }
+}
+
+/* ---------- 3. icones: um tamanho so e centro alinhado com a 1a linha do texto ---------- */
+.nutzen-wm4 { gap: .8rem; }
+.nutzen-wm4 li { align-items: flex-start; gap: 1.2rem; line-height: 1.45; }
+.nutzen-wm4 .icon, .guarantees-wm4 .icon, .check-wm4 .icon, .lieferumfang-wm4 .icon, .facets__info-wm4 .icon { width: var(--wm-icon); height: var(--wm-icon); flex: none; margin-top: calc((1.45em - var(--wm-icon)) / 2); }
+.delivery-wm4 { align-items: flex-start; gap: 1.2rem; }
+.delivery-wm4 .icon { width: var(--wm-icon); height: var(--wm-icon); flex: none; margin-top: calc((1.45em - var(--wm-icon)) / 2); }
+/* faixa de servico da PDP: 3 colunas iguais, icone em cima e texto centralizado (sem quebra torta "Kostenloser / Versand") */
+.service-line-wm4 { gap: .8rem; padding: 1.6rem 0; }
+.service-line-wm4 li, .service-line-wm4 li:first-child, .service-line-wm4 li:last-child { flex-direction: column; justify-content: flex-start; align-items: center; gap: .8rem; text-align: center; font-size: 1.4rem; line-height: 1.3; }
+.service-line-wm4 .icon { width: var(--wm-icon); height: var(--wm-icon); }
+/* faixa de garantias da home: icone 24, texto centrado na vertical; no celular 2 x 2 com o icone em cima */
+.trust-wm4__list li { gap: 1.2rem; }
+.trust-wm4__list .icon { width: var(--wm-icon); height: var(--wm-icon); flex: none; }
+@media screen and (max-width: 749px) {
+  .trust-wm4__list li, .trust-wm4__list li:nth-child(even) { flex-direction: column; justify-content: center; gap: .8rem; padding: 1.6rem .8rem; text-align: center; }
+  .trust-wm4__list p { align-items: center; }
+}
+@media screen and (min-width: 990px) {
+  .trust-wm4__list li, .trust-wm4__list li:nth-child(even) { justify-content: center; padding: 2.4rem 1.6rem; }
+  .trust-wm4__list li:first-child { padding-left: 1.6rem; }
+}
+/* passos, servico e acordeoes: mesmo tamanho; seta do acordeao centrada na linha do titulo */
+.steps-wm4__top .icon, .service-wm4__card .icon, .anlass-kachel-wm4 > .icon { width: var(--wm-icon); height: var(--wm-icon); }
+.accordion summary { padding-right: 4.8rem; }
+.accordion summary .accordion__title { margin: 0; }
+.accordion summary .icon-caret, .accordion summary .svg-wrapper.icon-caret { position: absolute; right: .4rem; top: 50%; display: grid; place-items: center; width: 2.4rem; height: 2.4rem; margin: 0; transform: translateY(-50%); }
+.accordion summary .icon-caret .icon, .accordion summary svg.icon-caret { width: 1.8rem; height: 1.8rem; }
+.accordion details[open] > summary .icon-caret { transform: translateY(-50%) rotate(180deg); }
+
+/* ---------- 4. Kategorien: preenche o container (5 colunas iguais no desktop) ---------- */
+@media screen and (min-width: 990px) {
+  .collection-list.kacheln-wm4 { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2.4rem; }
+}
+@media screen and (min-width: 750px) and (max-width: 989px) { .collection-list.kacheln-wm4 { grid-auto-columns: 30%; gap: 1.6rem; } }
+@media screen and (max-width: 749px) { .collection-list.kacheln-wm4 { grid-auto-columns: 42%; gap: 1.2rem; } }
+.kachel-wm4 { gap: .4rem; }
+.kachel-wm4__media { aspect-ratio: 4 / 5; margin-bottom: .8rem; }
+.kachel-wm4__name { font-size: 1.6rem; overflow-wrap: break-word; hyphens: manual; }
+
+/* ---------- 5. cards: titulo inteiro (sem hifen automatico nem reticencias), foto contain sobre o creme ---------- */
+.product-card-wrapper .card__heading.h5 { hyphens: manual; -webkit-hyphens: manual; -webkit-line-clamp: 2; min-height: 2.7em; }
+.card__set-wm4 { white-space: normal; overflow: visible; text-overflow: clip; }
+.product-card-wrapper .card__inner, .product-card-wrapper .card__media .media { background: var(--wm-paper); }
+.product-card-wrapper .card__media img { object-fit: contain; }
+
+/* ---------- 6. colecao: barra lateral mais estreita e a lista de filtros na largura dela ---------- */
+@media screen and (min-width: 990px) {
+  .koll-layout-wm4 { grid-template-columns: 24rem minmax(0, 1fr); gap: 4rem; }
+  .facets-drawer-wm4.facets-drawer-wm4 { padding-right: 0; }
+  .facets-drawer-wm4 .facets__form-vertical, .facets-drawer-wm4 .facets__wrapper { width: 100%; }
+  .facets-drawer-wm4 .facets__display-vertical, .facets-drawer-wm4 .facets-wrap-vertical, .facets-drawer-wm4 .facets__list--vertical, .facets-drawer-wm4 .facet-checkbox { width: auto; min-width: 0; max-width: 100%; }
+  .facets-drawer-wm4 facet-filters-form, .facets-drawer-wm4 .facets__disclosure-vertical { display: block; width: 100%; }
+}
+
+/* ---------- 7. descricao (blocos D): uma faixa por bloco, fundo creme e branco alternados, container do site, ritmo 64/48/24 px ---------- */
+.descb-wm4 { display: block; gap: 0; }
+.descb-wm4__band { padding: 4.8rem 0; background: var(--wm-paper); }
+.descb-wm4__band:nth-child(even) { background: var(--wm-white); }
+@media screen and (min-width: 750px) { .descb-wm4__band { padding: 6.4rem 0; } }
+.descb-wm4__block { display: block; }
+.descb-wm4 h2 { margin: 0 0 1.2rem; }
+.descb-wm4 h3 { margin: 1.6rem 0 .4rem; }
+.descb-wm4 .rte p { margin: 0; max-width: 56ch; color: var(--wm-ink-soft); }
+.descb-wm4__kopf { margin: 0 0 3.2rem; }
+.descb-wm4__media { position: relative; width: 100%; overflow: hidden; border-radius: var(--wm-radius); background: var(--wm-linen); }
+.descb-wm4__media--4x5 { aspect-ratio: 4 / 5; }
+.descb-wm4__media--1x1 { aspect-ratio: 1; }
+/* imagem + texto (D1, D2 com 1 item, D3 com menos fotos que passos): imagem ate 448 px (altura ate 560 em 4:5), texto centrado na vertical */
+.descb-wm4__split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.4rem; }
+@media screen and (min-width: 750px) {
+  .descb-wm4__split { grid-template-columns: minmax(0, 44.8rem) minmax(0, 1fr); gap: clamp(3.2rem, 6vw, 9.6rem); align-items: center; }
+  .descb-wm4__split .descb-wm4__media { max-height: 56rem; }
+}
+/* colunas iguais (D2 e D3 com foto por passo): 1 coluna no celular, N no tablet e desktop */
+.descb-wm4__spalten { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3.2rem; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .descb-wm4__spalten { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 2.4rem; } }
+@media screen and (min-width: 1200px) { .descb-wm4__spalten { gap: 4rem; } }
+.descb-wm4__spalte h3 { margin-top: 1.6rem; }
+/* passos numerados */
+.descb-wm4__nr { display: inline-grid; place-items: center; flex: none; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: var(--wm-pine); color: #FFF; font-size: 1.5rem; font-weight: 600; line-height: 1; }
+.descb-wm4__schritt { display: flex; align-items: center; gap: 1.2rem; margin: 1.6rem 0 0; font-size: 1.7rem; font-weight: 600; line-height: 1.35; color: var(--wm-ink); }
+.descb-wm4__liste { display: grid; gap: 1.6rem; margin: 2.4rem 0 0; padding: 0; }
+.descb-wm4__liste li { display: flex; align-items: center; gap: 1.6rem; font-size: 1.7rem; font-weight: 500; line-height: 1.4; color: var(--wm-ink); }
+/* D4 e D5: par com a mesma altura (imagem 4:5 de ate 416 x 520 px), centrado; o titulo do HTML fica so para leitor de tela (o texto ja esta gravado na imagem) */
+.descb-wm4__paar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3.2rem; max-width: none; margin: 0; justify-content: center; }
+@media screen and (min-width: 750px) {
+  .descb-wm4__paar { grid-template-columns: repeat(2, minmax(0, 41.6rem)); gap: clamp(2.4rem, 4vw, 6.4rem); }
+  .descb-wm4__paar--eins { grid-template-columns: minmax(0, 41.6rem); }
+}
+.descb-wm4__bild, .descb-wm4__paar .descb-wm4__bild { position: relative; margin: 0; width: 100%; max-width: none; justify-self: stretch; }
+.descb-wm4__bild > h3 { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* D6: grade de 2 a 4 fotos quadradas na largura do container */
+.descb-wm4__raster { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; max-width: none; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .descb-wm4__raster { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 2.4rem; } }
+
+/* ---------- 8. bolha do carrinho e do Merkzettel: o Dawn (.header__icon span { height: 100% }) esticava a bolha na altura do botao ---------- */
+.header__icon .cart-count-bubble { height: 2rem; min-width: 2rem; }
+.header__icon .cart-count-bubble > span { height: auto; }
+/* gaveta do carrinho: nome do produto inteiro (ate 3 linhas) */
+.cart-item__name, .upsell-wm4 p a { -webkit-line-clamp: 3; }
+/* vitrine da home com 6 produtos: 3 + 3 em vez de 4 + 2 (sem buraco na 2a linha); colecao com barra lateral fica como esta */
+@media screen and (min-width: 1100px) {
+  .product-grid--wm4:not(.product-grid--wm4-sidebar):not(.product-grid--wm4-scroll):has(> .grid__item:nth-child(6):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- 9. header do desktop ao rolar: 1 linha de 68 px (logo, busca, icones sem rotulo); a linha de categorias sai.
+   Sem salto: a secao ganha margin-bottom igual a altura que saiu (136 - 69 px), entao o conteudo nao se move quando a classe liga. ---------- */
+@media screen and (min-width: 990px) {
+  :root { --wm-header-h: 7rem; }
+  body.is-scrolled-wm4 .section-header { margin-bottom: 6.7rem; }
+  body.is-scrolled-wm4 .header-wm4 .header__inline-menu { display: none; }
+  body.is-scrolled-wm4 .header.header-wm4 { grid-template-areas: 'heading search icons'; box-sizing: border-box; height: 6.8rem; padding-top: 0; padding-bottom: 0; row-gap: 0; align-items: center; }
+  body.is-scrolled-wm4 .header-wm4 .header__icon { height: 4.4rem; }
+  body.is-scrolled-wm4 .header-wm4 .header__icon .header__icon-label-wm4 { display: none; }
+}
+/* ancoras e titulos nunca ficam sob o header fixo */
+main [id], .legal-wm4__section { scroll-margin-top: calc(var(--wm-header-h) + 2.4rem); }
+
+/* ---------- 10. tipografia de leitura (07/10, criterio premium): corpo >= 16 px no desktop e 15 px no celular; linhas de 60 a 75 caracteres ---------- */
+@media screen and (min-width: 990px) {
+  .nutzen-wm4 li, .delivery-wm4, .besch-wm4, .spec-table-wm4, .check-wm4 li, .accordion__content, .akk-wm4 .accordion__content, .ent-wm4, .draft-flag-wm4, .service-wm4__card p, .descb-wm4 .rte p, .steps-wm4__card .rte p { font-size: 1.6rem; }
+}
+@media screen and (max-width: 989px) {
+  .akk-wm4 .accordion__content, .accordion__content, .delivery-wm4, .ent-wm4 { font-size: 1.5rem; }
+}
+.accordion__content p, .accordion__content li, .legal-wm4__section p, .legal-wm4__section li, .newsletter-hint-wm4, .draft-flag-wm4, .besch-wm4, .descb-wm4 .rte p { max-width: 70ch; }
+.newsletter-wm4__button { height: 4.8rem; min-height: 4.8rem; }

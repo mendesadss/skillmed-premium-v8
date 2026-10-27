@@ -1,0 +1,73 @@
+/* Wohnmira v4 · seguranca de layout e ajustes por largura (360, 390, 414, 768, 1024, 1280, 1440) */
+.image-with-text__grid > *, .multicolumn-list > *, .footer__blocks-wrapper > * { min-width: 0; }
+img, svg, video { max-width: 100%; }
+.shopify-section { overflow-x: clip; }
+.section-header, #shopify-section-template--wm__anker { overflow-x: visible; }
+@media screen and (max-width: 374px) {
+  .button--large { padding: 0 1.8rem; }
+  .buy-row-wm4 .quantity__button { width: 4rem; }
+  .buy-row-wm4 .quantity__input { width: 3rem; min-width: 3rem; }
+  .header__icon { min-width: 4.4rem; padding: 0; }
+}
+/* tablet com menu em gaveta (750 a 989): busca na segunda linha, icones sem rotulo */
+@media screen and (min-width: 750px) and (max-width: 989px) { .header.header-wm4 { column-gap: 1.2rem; } }
+/* linha de categorias: entre 990 e 1199 px o texto fica um pouco menor para caber sem quebrar */
+@media screen and (min-width: 990px) and (max-width: 1199px) { .header__menu-item { padding: 0 1rem; font-size: 1.4rem; } summary.header__menu-item { padding-right: 3.2rem; } .header__menu-item .icon-caret { right: 1rem; } }
+
+/* ===== Revisao responsiva 06/10 (prints em _prints/perf, auditoria em _fonte/prints-perf.cjs) ===== */
+/* celular: nenhum texto de leitura abaixo de 14 px (selos, notas de imagem, rodape, carrinho, gaveta, barra fixa) */
+@media screen and (max-width: 749px) {
+  .announcement-bar__message li, .badge--set-wm4, .card__set-wm4, .newsletter-hint-wm4, .footer-promise-wm4 li p span, .footer-bottom-wm4__titel,
+  .copyright__content, .cookie-wm4__text p, .bundle-wm4__sub, .sticky-atc-wm4__title, .sticky-atc-wm4__price .caption, .bild-notiz-wm4,
+  .slider-counter--current, .slider-counter--total, .slider-counter, .vergleich-wm4__note, .legal-wm4__section .caption, .legal-wm4__section a.link,
+  .facets__hint-wm4, .cart-item__meta-wm4, .cart-item__liefer-wm4, .tax-note, .cart-service-wm4, .caption { font-size: 1.4rem; }
+  .badge--set-wm4 { line-height: 1.3; }
+  .footer__copyright .copyright__content, .pdp-wm4 .bild-notiz-wm4, .bild-notiz-wm4, cart-drawer .tax-note { font-size: 1.4rem !important; }
+  /* a gaveta do menu ocupa a largura toda: a sombra do Dawn (::before do botao) aparecia como faixa cinza ao lado do X */
+  .header__icon--menu[aria-expanded='true']::before { display: none; }
+  /* ordenacao: "Empfehlung" cabia cortado no 360 */
+  .koll-sort-wm4 .select__select { padding: 0 3.4rem 0 1.2rem; font-size: 1.5rem; }
+  .koll-sort-wm4 .svg-wrapper { right: 1.1rem; }
+}
+cart-drawer .cart-quantity .quantity__button, cart-drawer .cart-quantity .quantity__input { height: 4.4rem; min-height: 4.4rem; }
+/* alvos de toque de pelo menos 44 px (logo, migalhas, links soltos) */
+.header__heading-link { display: inline-flex; align-items: center; min-height: 4.4rem; }
+.breadcrumbs-wm4 a, .service-wm4__card p > a, .termine-wm4 dt a, .legal-wm4__section p > a.link { display: inline-flex; align-items: center; min-height: 4.4rem; }
+/* gaveta de filtros: "Alle zurücksetzen" como link e o botao principal sem corte; abaixo de 420 px um sobre o outro */
+@media screen and (max-width: 989px) {
+  .facets-drawer-wm4 { width: min(40rem, calc(100vw - 2.4rem)); }
+  .facets-drawer-wm4__foot { gap: .8rem; }
+  .facets-drawer-wm4__foot .button--tertiary { min-width: 0; padding: 0 .4rem; }
+  .facets-drawer-wm4__foot .button:last-child { min-width: 0; padding: 0 1.6rem; }
+}
+@media screen and (max-width: 419px) {
+  .facets-drawer-wm4__foot { flex-direction: column-reverse; align-items: stretch; gap: .4rem; }
+  .facets-drawer-wm4__foot .button { width: 100%; }
+}
+
+/* ===== Header compacto no celular e tablet (06/10, < 990 px): 1 linha de 56 px = menu | logo | lupa, favoritos, carrinho ===== */
+.header-icons-wm4 .header__icon--suche-wm4, .suche-home-wm4, .suche-overlay-wm4 { display: none; }
+button.header__icon { border: 0; background: transparent; font: inherit; cursor: pointer; }
+@media screen and (max-width: 989px) {
+  .header.header-wm4 { grid-template-areas: 'left-icons heading icons'; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; box-sizing: border-box; height: 5.6rem; padding-top: 0; padding-bottom: 0; row-gap: 0; column-gap: .4rem; }
+  .header-wm4 .header__search-wm4 { display: none; }
+  .header-wm4 .header__heading { justify-self: center; }
+  .header-wm4 .header-icons-wm4 .header__icon--account { display: none; }
+  .header-icons-wm4 .header__icon--suche-wm4 { display: inline-flex; }
+  .header__icon { height: 4.4rem; min-width: 4.4rem; padding: 0; }
+  .cart-count-bubble { top: .2rem; right: .1rem; }
+  /* campo de busca da home: no fluxo, abaixo do cabecalho fixo; sai com a rolagem */
+  .suche-home-wm4 { display: block; padding-top: 1.2rem; padding-bottom: 1.2rem; }
+  .suche-home-wm4 .suche-wm4__panel { z-index: 25; }
+  /* painel de busca (lupa): topo da tela, por cima do cabecalho */
+  .suche-overlay-wm4:not([hidden]) { display: block; position: fixed; inset: 0; z-index: 1000; background: rgba(42, 36, 32, .45); }
+  .suche-overlay-wm4__box { max-height: 100vh; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--wm-gutter) 1.6rem; background: var(--wm-white); box-shadow: var(--wm-shadow-lg); }
+  .suche-overlay-wm4__kopf { display: flex; align-items: center; justify-content: space-between; min-height: 5.6rem; }
+  .suche-overlay-wm4__titel { margin: 0; font-size: 1.7rem; font-weight: 600; color: var(--wm-ink); }
+  .suche-overlay-wm4__zu { margin-right: -1.2rem; }
+  .suche-overlay-wm4 .suche-wm4__panel { position: static; max-height: none; padding: 1.6rem 0 0; border: 0; border-radius: 0; box-shadow: none; overflow: visible; }
+}
+@media screen and (min-width: 990px) { .suche-overlay-wm4 { display: none !important; } }
+/* resultado da busca: o Dawn manda a imagem para a area "product-image", que a loja nao define (a foto ia para uma 3a coluna) */
+.suche-wm4 .predictive-search__image { grid-area: auto; }
+@media screen and (max-width: 989px) { .suche-home-wm4 { width: 100%; box-sizing: border-box; } }

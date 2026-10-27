@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+  <title id="t">Pele simuladora em 3 camadas</title>
+  <desc id="d">Corte da pele simuladora mostrando pele, gordura e músculo, com um ponto de sutura atravessando as camadas.</desc>
+  <rect width="640" height="400" rx="28" fill="#f3f5f7"/>
+  <g transform="translate(60 70)">
+    <!-- músculo -->
+    <path d="M0 170h360v90H0z" fill="#c46a5c"/>
+    <g stroke="#a9564a" stroke-width="2" opacity=".6"><path d="M10 190h340M10 210h340M10 230h340M10 250h340"/></g>
+    <!-- gordura -->
+    <path d="M0 90h360v80H0z" fill="#f2d9a6"/>
+    <g fill="#e8c784"><circle cx="40" cy="120" r="10"/><circle cx="90" cy="140" r="12"/><circle cx="150" cy="115" r="9"/><circle cx="215" cy="142" r="11"/><circle cx="280" cy="118" r="10"/><circle cx="330" cy="145" r="9"/></g>
+    <!-- pele -->
+    <path d="M0 40h360v50H0z" fill="#efb9a0"/>
+    <path d="M0 40h360" stroke="#d99a7f" stroke-width="3"/>
+    <!-- incisão -->
+    <path d="M180 40v118" stroke="#8c3d33" stroke-width="3" stroke-dasharray="2 0"/>
+    <!-- ponto de sutura -->
+    <path d="M140 40c0-30 80-30 80 0" fill="none" stroke="#1565c0" stroke-width="4" stroke-linecap="round"/>
+    <path d="M140 40c4 60 20 100 40 108c20-8 36-48 40-108" fill="none" stroke="#1565c0" stroke-width="4" stroke-linecap="round" stroke-dasharray="7 6"/>
+    <!-- agulha -->
+    <path d="M220 40c22-40 70-40 92-6" fill="none" stroke="#56616b" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="312" cy="34" r="4" fill="#56616b"/>
+  </g>
+  <g font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="17" fill="#0b1b2e" font-weight="600">
+    <path d="M425 135h30M425 200h30M425 285h30" stroke="#5d6b7a" stroke-width="1.5"/>
+    <text x="465" y="140">Pele</text>
+    <text x="465" y="205">Gordura</text>
+    <text x="465" y="290">Músculo</text>
+  </g>
+  <g font-family="IBM Plex Mono, Menlo, monospace" font-size="12" fill="#5d6b7a">
+    <text x="465" y="158">camada mais firme</text>
+    <text x="465" y="223">macia, solta</text>
+    <text x="465" y="308">base densa</text>
+  </g>
+</svg>

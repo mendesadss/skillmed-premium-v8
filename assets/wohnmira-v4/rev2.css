@@ -1,0 +1,140 @@
+/* Porare v6 · 2a revisao independente (07/10/2026, nota 6,4, 18 itens). Ultima camada (depois de revisao.css).
+   Tabela item -> correcao em PROGRESSO.md ("2a revisao independente"). Prints em _prints/v6-rev2/. */
+
+/* ---------- item 1: coracao e quick-add nunca passam por cima do header fixo ----------
+   O Dawn deixava o z-index da secao sticky do header em 3 (computado), igual ao do coracao e do quick-add do card.
+   Header acima de tudo do conteudo (abaixo de gaveta, busca, cookies e barra fixa de compra) e cada card com o proprio contexto de empilhamento. */
+.shopify-section.section-header.shopify-section-header-sticky { z-index: 50; }
+.product-card-wrapper, .card-wrapper { isolation: isolate; }
+
+/* ---------- itens 2, 4 e 5: descricao e Paket/Maße. Um container (.page-width) e a mesma grade 1fr 1fr em todas as faixas ---------- */
+.descb-wm4__band, .specs-wm4__band { padding: 4.8rem 0; }
+@media screen and (min-width: 750px) { .descb-wm4__band, .specs-wm4__band { padding: 7.2rem 0; } }
+.specs-wm4__band { background: var(--wm-white); border-top: 1px solid var(--wm-line-soft); }
+.descb-wm4__band + .descb-wm4__band { border-top: 0; }
+.pdx-wm4 h2 { margin: 0 0 1.6rem; }
+.pdx-wm4 h3 { margin: 0; }
+.pdx-wm4 p { margin: 0; }
+.pdx-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.4rem; }
+@media screen and (min-width: 750px) {
+  .pdx-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3.2rem, 5vw, 8rem); align-items: stretch; }
+  .pdx-split--rev > .pdx-media { order: 2; }
+}
+.pdx-media { position: relative; width: 100%; overflow: hidden; border-radius: var(--wm-radius); background: var(--wm-linen); }
+.pdx-media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.pdx-media--4x3 { aspect-ratio: 4 / 3; }
+.pdx-media--1x1 { aspect-ratio: 1; }
+.pdx-media--fill { aspect-ratio: 4 / 3; }
+/* foto ao lado do texto: altura acompanha o texto (min 34 rem, max 64 rem); conteudo e imagem proporcionais, sem foto alta ao lado de 2 linhas */
+@media screen and (min-width: 750px) {
+  .pdx-split > .pdx-media--fill { aspect-ratio: auto; height: 100%; min-height: clamp(30rem, 30vw, 42rem); max-height: 64rem; align-self: center; }
+}
+.pdx-text { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: .8rem 0; }
+.pdx-lead { max-width: 58ch; font-size: 1.7rem; line-height: 1.6; color: var(--wm-ink-soft); }
+@media screen and (min-width: 990px) { .pdx-lead { font-size: 1.8rem; } }
+.pdx-intro { max-width: 76rem; }
+.pdx-kopf { margin: 0 0 3.2rem; }
+.pdx-kopf h2 { margin: 0 0 .8rem; }
+/* D2 em 3 colunas com imagem; D3 com uma foto por passo */
+.pdx-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3.2rem; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .pdx-cols { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 2.4rem; } }
+@media screen and (min-width: 1200px) { .pdx-cols { gap: 4rem; } }
+.pdx-cols > li > h3 { margin: 1.6rem 0 .4rem; font-size: 1.8rem; line-height: 1.35; }
+.pdx-cols > li > p { max-width: 46ch; font-size: 1.6rem; line-height: 1.55; color: var(--wm-ink-soft); }
+/* D2 em lista com 1 imagem ao lado */
+.pdx-vorteile { display: grid; gap: 2rem; margin: .8rem 0 0; padding: 0; }
+.pdx-vorteile li { display: flex; align-items: flex-start; gap: 1.4rem; }
+.pdx-vorteile .icon { flex: none; width: var(--wm-icon, 2.4rem); height: var(--wm-icon, 2.4rem); margin-top: .2rem; color: var(--wm-pine); }
+.pdx-vorteile h3 { margin: 0 0 .3rem; font-size: 1.7rem; line-height: 1.35; }
+.pdx-vorteile p { font-size: 1.6rem; line-height: 1.5; color: var(--wm-ink-soft); }
+@media screen and (min-width: 990px) { .pdx-vorteile h3 { font-size: 1.8rem; } }
+.pdx-intro--links .pdx-vorteile { max-width: 76rem; }
+/* D3: faixa horizontal compacta de passos (sem foto) */
+.pdx-schritte { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .pdx-schritte { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 1.6rem; } }
+.pdx-schritte > li, .pdx-schritt { display: flex; align-items: flex-start; gap: 1.4rem; }
+.pdx-schritte > li { padding: 2rem 2.2rem; border: 1px solid var(--wm-line); border-radius: var(--wm-radius); background: var(--wm-white); }
+.pdx-schritt { margin-top: 1.6rem; }
+.pdx-nr { display: inline-grid; place-items: center; flex: none; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--wm-pine); color: #FFF; font-size: 1.5rem; font-weight: 600; line-height: 1; }
+.pdx-schritte strong, .pdx-schritt strong { display: block; padding-top: .5rem; font-size: 1.7rem; font-weight: 600; line-height: 1.35; color: var(--wm-ink); }
+.pdx-schritte p, .pdx-schritt p { margin-top: .4rem; font-size: 1.6rem; line-height: 1.5; color: var(--wm-ink-soft); }
+/* D6: grade de 2 a 4 fotos, no maximo 1200 px (item 8: nao amolecer), centrada com o titulo */
+.pdx-d6 { max-width: 120rem; margin: 0 auto; }
+.pdx-d6 .pdx-kopf { text-align: center; }
+.pdx-d6 .pdx-lead { margin: 0 auto; }
+.pdx-raster { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .pdx-raster { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 2.4rem; } }
+@media screen and (max-width: 749px) { .pdx-raster[style*="--n: 3"] > li:first-child { grid-column: 1 / -1; } }
+.pdx-d6--eins > .pdx-media { max-width: 72rem; margin: 0 auto; }
+/* Paket + Maße: um componente; lista acima da tabela ao lado da foto; sem foto = duas colunas */
+.pdx-specs__teil + .pdx-specs__teil { margin-top: 3.2rem; padding-top: 3.2rem; border-top: 1px solid var(--wm-line-soft); }
+.pdx-specs .pdx-text { justify-content: center; }
+.pdx-specs .spec-table-wm4 { width: 100%; }
+.pdx-specs .lieferumfang-wm4 { margin: 0; }
+.pdx-specs--zwei { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3.2rem; }
+@media screen and (min-width: 750px) {
+  .pdx-specs--zwei { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3.2rem, 5vw, 8rem); align-items: start; }
+  .pdx-specs--zwei > .pdx-specs__teil + .pdx-specs__teil { margin-top: 0; padding-top: 0; border-top: 0; }
+}
+
+/* ---------- item 6: seletor de kit em 1 coluna enquanto a coluna de informacoes tiver menos de 520 px ---------- */
+.product__info-container.buybox-wm4 { container-type: inline-size; container-name: buybox; }
+@container buybox (max-width: 519px) {
+  .bundle-wm4--kit.bundle-wm4--kit { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+  .product-form__input.bundle-wm4--kit input[type='radio'] + label { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'name preis' 'sub preis'; align-items: center; column-gap: 1.2rem; row-gap: .1rem; min-height: 5.2rem; padding: .8rem 1.2rem; }
+  .bundle-wm4--kit .bundle-wm4__name { grid-area: name; white-space: nowrap; }
+  .bundle-wm4--kit .bundle-wm4__price { grid-area: preis; font-size: 1.6rem; }
+  .bundle-wm4--kit .bundle-wm4__sub { grid-area: sub; }
+}
+.bundle-wm4--kit .bundle-wm4__name { white-space: nowrap; }
+
+/* ---------- item 10: miniaturas na altura da foto, sem caixa com rolagem; "+N" na ultima visivel ---------- */
+@media screen and (min-width: 1100px) { .pdp-wm4 media-gallery > .thumbnail-slider { max-height: none; overflow: visible; } }
+.thumbnail-list__item[hidden] { display: none !important; }
+.thumbnail { position: relative; }
+.thumb-plus-wm4 { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(42, 36, 32, .56); color: #FFF; font-size: 1.7rem; font-weight: 600; letter-spacing: .02em; }
+
+/* ---------- item 13: vitrines da home com linhas completas (4 colunas a partir de 990 px, 2 abaixo) ---------- */
+@media screen and (min-width: 750px) and (max-width: 989px) { .product-grid--vitrine-wm4.product-grid--vitrine-wm4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (min-width: 990px) { .product-grid--vitrine-wm4.product-grid--vitrine-wm4 { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 2.4rem; row-gap: 4.8rem; } }
+
+/* ---------- item 14: "Nach Raum / Anlass stöbern" = o mesmo componente; Raum 3 x 2 e Anlass 2 x 2 (mesma altura, sem vazio) ---------- */
+@media screen and (min-width: 990px) { .shopby-wm4.shopby-wm4 { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: 4rem; align-items: start; } }
+.shopby-wm4__liste.shopby-wm4__liste { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .shopby-wm4__liste--raum.shopby-wm4__liste--raum { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.shopby-wm4__liste .anlass-kachel-wm4 { height: 100%; min-height: 7.2rem; }
+.shopby-wm4__liste .anlass-kachel-wm4 strong { overflow-wrap: normal; hyphens: manual; }
+@media screen and (max-width: 749px) { .shopby-wm4__liste.shopby-wm4__liste { grid-template-columns: minmax(0, 1fr); } .shopby-wm4__liste .anlass-kachel-wm4 { min-height: 5.6rem; } }
+
+/* ---------- item 17: filtro sem caixa com rolagem propria no desktop (a barra lateral rola com a pagina) ---------- */
+@media screen and (min-width: 990px) { .facets-drawer-wm4.facets-drawer-wm4 { position: static; max-height: none; overflow: visible; } }
+
+/* ---------- item 7: voltar ao topo no celular um pouco mais alto (fora da faixa do polegar) ---------- */
+@media screen and (max-width: 749px) { .back-to-top-wm4 { bottom: calc(2.4rem + env(safe-area-inset-bottom)); right: 1.2rem; width: 4.4rem; height: 4.4rem; } }
+
+/* ---------- item 9: hero com a foto 07 Ambiente do 3000 (arvore com as kugeln da loja) ---------- */
+.hero-wm4__media .asset-wm4.hero-wm4__img { object-position: 50% 42% !important; }
+/* a miniatura tinha o ::before de proporcao do Dawn (padding 100 %) ALEM do botao quadrado: cada item media 2 x a largura e a lista passava da foto */
+.pdp-wm4 .thumbnail-list__item::before { content: none; display: none; }
+.pdp-wm4 .thumbnail-list__item > .thumbnail { position: relative; inset: auto; width: 100%; height: auto; aspect-ratio: 1; }
+
+/* ---------- item 16: logo do rodape no mesmo eixo do header e do conteudo (o PNG tem 24,53 % de margem transparente a esquerda) ---------- */
+.footer-brand-wm4 img.logo-wm4--hell.logo-wm4--hell { flex: none; width: 15.2rem; max-width: none; height: auto; margin-left: calc(-.2453 * 15.2rem); }
+@media screen and (min-width: 990px) { .header-wm4 .logo-wm4.logo-wm4 { margin-left: calc(-.2453 * 15.2rem); } .header-wm4 .header__heading-link.header__heading-link { margin-left: -.4rem; } }
+
+/* ---------- item 18: Rechtliches com a trilha no mesmo eixo das outras paginas ---------- */
+@media screen and (min-width: 990px) {
+  .legal-wm4:not(.legal-wm4--eins) { grid-template-areas: 'crumb crumb' 'toc kopf' 'toc body'; }
+  .legal-wm4__crumb { grid-area: crumb; }
+}
+@media screen and (max-width: 989px) { .legal-wm4__crumb { margin-bottom: -3.2rem; } }
+
+/* bloco so de texto (produto sem imagem liberada, ex.: 2013): mesma grade 1fr 1fr (titulo a esquerda, texto a direita), sem vazio a direita */
+@media screen and (min-width: 750px) {
+  .pdx-intro.pdx-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3.2rem, 5vw, 8rem); max-width: none; align-items: start; }
+  .pdx-intro > h2 { grid-column: 1; margin: 0; }
+  .pdx-intro > :not(h2) { grid-column: 2; }
+  .pdx-intro .pdx-vorteile { margin-top: 0; }
+}
+/* "Mehr aus" com 2 produtos no desktop: cards no tamanho da grade de 4 (antes 2 cards de 660 px) */
+@media screen and (min-width: 1100px) { .product-grid--wm4-scroll:has(> .grid__item:nth-child(2):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

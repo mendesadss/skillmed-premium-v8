@@ -1,0 +1,55 @@
+/* Wohnmira v4 · tokens. Cores da v1 (sem mudanca de valor). Tipografia v4: so Figtree, escala 1,2, pesos 400/500/600.
+   Contraste medido sobre o papel #FAF6F0: ink 14,2:1 · ink-soft 7,2:1 · pine 9,1:1 · brass-text 5,8:1 · set-ink 6,7:1 · success 6,0:1 */
+:root {
+  --wm-paper: #FAF6F0;      /* fundo geral (papel quente) */
+  --wm-white: #FFFFFF;      /* cabecalho, cards, gaveta, campos */
+  --wm-linen: #F3ECE1;      /* secoes alternadas, barra de servico, fundo de midia */
+  --wm-line: #E2D6C5;       /* linhas de 1 px */
+  --wm-line-soft: #ECE3D6;
+  --wm-ink: #2A2420;        /* texto principal */
+  --wm-ink-soft: #5C5149;   /* texto secundario */
+  --wm-pine: #2E4A3C;       /* cor de acao (botao primario, link ativo) */
+  --wm-pine-dark: #21372C;  /* hover */
+  --wm-pine-tint: #E3EBE4;  /* estado concluido, prazo */
+  --wm-brass: #C9A063;      /* so decorativo no escuro (icones do rodape). Nunca texto no claro */
+  --wm-brass-text: #7D5A25; /* anel de foco no claro */
+  --wm-brass-light: #DDBF8A;/* foco e destaque no escuro (5,4:1 sobre o pinheiro) */
+  --wm-clay: #A4553A;       /* bolha do carrinho */
+  --wm-set-bg: #F6E2D6;
+  --wm-set-ink: #7E3A20;
+  --wm-night: #23302A;      /* rodape */
+  --wm-night-ink: #EDE6DA;
+  --wm-success: #2F6B47;
+  --wm-error: #A3341F;
+  --wm-paypal: #FFC439;
+
+  --wm-radius-btn: 4px;
+  --wm-radius: 6px;
+  --wm-radius-lg: 8px;
+  --wm-ease: cubic-bezier(.2, .7, .2, 1);
+  --wm-ease-drawer: cubic-bezier(.32, .72, 0, 1);
+  --wm-dur: 160ms;
+  --wm-dur-slow: 300ms;
+  --wm-shadow-sm: 0 1px 2px rgba(42, 36, 32, .06);
+  --wm-shadow: 0 10px 28px -14px rgba(42, 36, 32, .28);
+  --wm-shadow-lg: 0 24px 60px -24px rgba(35, 48, 42, .45);
+
+  --wm-gutter: 1.6rem;
+  --wm-header-h: 108px;
+
+  /* ESCALA TIPOGRAFICA v4 (razao 1,2 sobre 16 px; minimo 12 px so em selo)
+     display 28 a 40 (so o H1 da home) · h1 26 a 32 (titulo de pagina e de produto) · h2 22 a 26 (secao) · h3 20 · h4 17 · corpo 16 · small 14 · caption 13 */
+  --wm-fs-display: clamp(2.8rem, 2.2rem + 1.5vw, 4rem);
+  --wm-fs-h1: clamp(2.6rem, 2.2rem + .8vw, 3.2rem);
+  --wm-fs-h2: clamp(2.2rem, 2rem + .45vw, 2.6rem);
+  --wm-fs-h3: 2rem;
+  --wm-fs-h4: 1.7rem;
+  --wm-fs-body: 1.6rem;
+  --wm-fs-small: 1.4rem;
+  --wm-fs-caption: 1.3rem;
+  --wm-fs-badge: 1.2rem;
+  --wm-lh-head: 1.22;
+  --wm-lh-body: 1.5;
+}
+@media screen and (min-width: 750px) { :root { --wm-gutter: 3.2rem; } }
+@media screen and (min-width: 1200px) { :root { --wm-gutter: 4.8rem; } }

@@ -1,0 +1,83 @@
+/* ===== 5a revisao (07/10/2026): ultima camada ===== */
+/* itens 5 e 19: card do set = 3 fotos lado a lado + nome, os 3 itens, preco, economia e botao. Com 1 set o card vira horizontal e ocupa a largura toda do container; com 2 sets, 2 colunas. */
+.set-wm4__fotos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin: 0; padding: 0; }
+.set-wm4__fotos a { display: block; text-decoration: none; }
+.set-wm4__fotos img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--wm-radius-btn, .4rem); background: var(--wm-white); }
+.set-wm4__info { display: flex; flex-direction: column; gap: 1.4rem; min-width: 0; }
+.set-wm4__namen { margin: 0; padding: 0; display: grid; gap: .5rem; }
+.set-wm4__namen li { position: relative; padding-left: 1.8rem; font-size: 1.4rem; line-height: 1.4; }
+.set-wm4__namen li::before { content: ""; position: absolute; left: .2rem; top: .75em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--wm-set-ink); }
+.set-wm4__namen a { color: var(--wm-ink); text-decoration: none; }
+.set-wm4__namen a:hover { text-decoration: underline; }
+.set-wm4__preis { margin-top: 0; }
+.set-wm4__spart { font-weight: 600; }
+@media screen and (min-width: 750px) {
+  .sets-wm4 > .set-wm4:only-child { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 4rem; align-items: center; padding: 3.2rem; }
+  .sets-wm4 > .set-wm4:only-child .set-wm4__fotos { gap: 1.6rem; }
+  .sets-wm4 > .set-wm4:only-child .set-wm4__kopf h3 { font-size: 2.4rem; }
+  .sets-wm4 > .set-wm4:only-child .set-wm4__namen li { font-size: 1.5rem; }
+  .sets-wm4 > .set-wm4:only-child .set-wm4__preis strong { font-size: 2.6rem; }
+  .sets-wm4 > .set-wm4:only-child .button { align-self: flex-start; width: auto; min-width: 26rem; }
+}
+/* item 13: faixa de Natal com 2 acoes (botao do set + link para a colecao) */
+.editorial-wm4__aktionen { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; }
+.button--light-outline { --wm-btn-bg: transparent; --wm-btn-fg: var(--wm-paper); --wm-btn-bd: rgba(250, 246, 240, .7); --wm-btn-bg-h: rgba(250, 246, 240, .14); --wm-btn-fg-h: #FFFFFF; --wm-btn-bd-h: #FFFFFF; }
+/* item 18: hero no celular = recorte 1:1 proprio (_fonte/hero-bilder.py), 1170 px reais ou mais para 390 px x DPR 3; sem recorte extra por object-position */
+@media screen and (max-width: 749px) {
+  #Banner-template--wm__hero .hero-wm4__media { aspect-ratio: var(--har, 1 / 1); height: auto; flex: none; } /* 08/10: proporcao da imagem do celular (4:5 dos banners Codex 08/10), --har no data-hero */ /* o Dawn fixa 34rem (banner--medium) e cortava o recorte */
+  .hero-wm4__media .asset-wm4.hero-wm4__img { object-fit: cover; object-position: var(--hpm, 50% 50%) !important; }
+  /* 08/10: imagem 4:5 com altura limitada para o titulo e o 1o botao caberem na 1a tela (390x844 e 360x740); posM no saison.json mantem o produto principal */
+  #Banner-template--wm__hero .hero-wm4__media { max-height: var(--hmax, 40svh); }
+}
+/* item 11: gaveta no celular com sugestoes compactas: foto pequena, nome, preco e botao sempre visiveis (antes a foto 1:1 de 15 rem empurrava o botao para fora do corte) */
+@media screen and (max-width: 749px) {
+  .upsell-liste-wm4 .upsell-wm4 { flex: 0 0 27rem; grid-template-columns: 6rem minmax(0, 1fr); grid-template-rows: auto auto; gap: .8rem 1rem; padding: 1rem; align-items: center; }
+  .upsell-liste-wm4 .upsell-wm4 img { grid-row: 1; width: 6rem; height: 6rem; }
+  .upsell-liste-wm4 .upsell-wm4 p { grid-column: 2; grid-row: 1; }
+  .upsell-liste-wm4 .upsell-wm4 p a { -webkit-line-clamp: 3; }
+  .upsell-liste-wm4 .upsell-wm4 .button { grid-column: 1 / -1; grid-row: 2; }
+}
+/* item 11: o item recem-adicionado leva a rolagem da gaveta; uma moldura leve mostra qual e */
+.cart-item.is-neu-wm4 { scroll-margin-block: 1.2rem; }
+
+/* 07/10 (copy): descricao longa "Produktbeschreibung" = ultima faixa da descricao, antes de Maße & Material. Mesma grade 1fr 1fr das faixas so de texto
+   (titulo a esquerda, texto a direita a partir de 990 px), coluna de leitura de no maximo 65ch, subtitulos h3 */
+.pdx-lang__text { max-width: 65ch; }
+.pdx-lang__text h3 { margin: 2.8rem 0 .6rem; font-size: 1.7rem; line-height: 1.35; }
+.pdx-lang__text h3:first-child { margin-top: 0; }
+.pdx-lang__text p { font-size: 1.6rem; line-height: 1.65; color: var(--wm-ink-soft); }
+@media screen and (min-width: 990px) {
+  .pdx-lang { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3.2rem, 5vw, 8rem); align-items: start; }
+  .pdx-lang > h2 { margin: 0; }
+  .pdx-lang__text h3 { font-size: 1.8rem; }
+  .pdx-lang__text p { font-size: 1.7rem; }
+}
+
+/* 08/10 (hero v2): desktop e tablet (>= 750 px) = FOTO PAISAGEM de largura total (full-bleed) preenchendo a faixa, texto por cima na mesma borda do container do header, sobre degrade do lado do texto.
+   Tom por foto (data-ton): "hell" = degrade creme + texto escuro (hero-home-desktop); "dunkel" = degrade marrom escuro + texto branco (banner-winter). Celular: foto 1:1 em cima e texto abaixo (regras de max-width 749 acima). */
+@media screen and (min-width: 750px) {
+  #Banner-template--wm__hero.hero-wm4.banner { display: flex; align-items: center; justify-content: center; min-height: clamp(56rem, 33vw, 64rem); max-width: none; width: 100%; margin: 0; padding: 0; background: var(--wm-linen); }
+  #Banner-template--wm__hero .hero-wm4__media { position: absolute !important; inset: 0; width: 100%; max-width: none; max-height: none; height: 100%; aspect-ratio: auto; border-radius: 0; }
+  #Banner-template--wm__hero .hero-wm4__media .asset-wm4.hero-wm4__img { object-fit: cover; object-position: var(--hp, 50% 50%) !important; }
+  #Banner-template--wm__hero .hero-wm4__content { position: relative; z-index: 1; width: 100%; max-width: calc(var(--page-width) + 2 * var(--wm-gutter)); margin: 0 auto; padding: 5.6rem var(--wm-gutter); }
+  #Banner-template--wm__hero .hero-wm4__box { width: 100%; max-width: 46rem; min-width: 0; }
+  #Banner-template--wm__hero .banner__text p { max-width: 44ch; font-size: var(--wm-fs-body); }
+  #Banner-template--wm__hero .banner__heading { font-size: clamp(3rem, 3.4vw, 4.4rem); }
+  /* hell */
+  #Banner-template--wm__hero[data-ton="hell"] .hero-wm4__media::after { display: block; background: linear-gradient(90deg, rgba(250, 246, 240, .9) 0%, rgba(250, 246, 240, .74) 30%, rgba(250, 246, 240, 0) 50%); } /* 08/10: banners claros (parede creme lisa a esquerda), degrade mais curto para nao lavar a tigela e o tapete */
+  #Banner-template--wm__hero[data-ton="hell"] .banner__text p { color: var(--wm-ink); }
+  /* dunkel */
+  #Banner-template--wm__hero[data-ton="dunkel"] .hero-wm4__media::after { display: block; background: linear-gradient(90deg, rgba(30, 20, 12, .86) 0%, rgba(30, 20, 12, .78) 36%, rgba(30, 20, 12, 0) 68%); }
+  #Banner-template--wm__hero[data-ton="dunkel"] .banner__heading, #Banner-template--wm__hero[data-ton="dunkel"] .banner__text p { color: #FFFFFF; }
+  #Banner-template--wm__hero[data-ton="dunkel"] .button--primary { --wm-btn-bg: var(--wm-paper); --wm-btn-fg: var(--wm-pine); --wm-btn-bd: var(--wm-paper); --wm-btn-bg-h: #FFFFFF; --wm-btn-fg-h: var(--wm-pine-dark); --wm-btn-bd-h: #FFFFFF; }
+  #Banner-template--wm__hero[data-ton="dunkel"] .button--secondary { --wm-btn-bg: transparent; --wm-btn-fg: var(--wm-paper); --wm-btn-bd: rgba(250, 246, 240, .7); --wm-btn-bg-h: rgba(250, 246, 240, .14); --wm-btn-fg-h: #FFFFFF; --wm-btn-bd-h: #FFFFFF; }
+}
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  #Banner-template--wm__hero.hero-wm4.banner { min-height: 46rem; }
+  #Banner-template--wm__hero .hero-wm4__content { padding: 4rem var(--wm-gutter); }
+  #Banner-template--wm__hero .hero-wm4__box { max-width: 40rem; }
+  #Banner-template--wm__hero .banner__heading { font-size: clamp(3rem, 4.6vw, 3.8rem); }
+  #Banner-template--wm__hero[data-ton="hell"] .hero-wm4__media::after { background: linear-gradient(90deg, rgba(250, 246, 240, .94) 0%, rgba(250, 246, 240, .88) 55%, rgba(250, 246, 240, .1) 90%); }
+  #Banner-template--wm__hero[data-ton="dunkel"] .hero-wm4__media::after { background: linear-gradient(90deg, rgba(30, 20, 12, .86) 0%, rgba(30, 20, 12, .78) 55%, rgba(30, 20, 12, .1) 90%); }
+  #Banner-template--wm__hero .hero-wm4__buttons .button { flex: 1 1 100%; min-width: 0; }
+}

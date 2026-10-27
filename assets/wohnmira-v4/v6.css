@@ -1,0 +1,113 @@
+/* Porare v6 (06/10/2026) · otimizacoes do relatorio de mercado: kit 2er/3er, faixa de servico, acordeoes, cookies, newsletter no rodape, paginas novas */
+
+/* ---------- PDP: seletor de kit (Einzeln, 2er-Set, 3er-Set) em 3 colunas ---------- */
+.bundle-wm4--kit { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.product-form__input.bundle-wm4--kit input[type='radio'] + label { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: .1rem; min-height: 7rem; padding: 1rem 1.1rem; }
+.bundle-wm4--kit .bundle-wm4__sub { grid-column: auto; line-height: 1.3; color: var(--wm-set-ink); font-weight: 500; }
+.bundle-wm4--kit input:first-of-type + label .bundle-wm4__sub { color: var(--wm-ink-soft); font-weight: 400; }
+.bundle-wm4--kit .bundle-wm4__price { font-size: 1.5rem; }
+@media screen and (max-width: 749px) {
+  .product-form__input.bundle-wm4--kit input[type='radio'] + label { min-height: 6rem; padding: .7rem .9rem; }
+  .bundle-wm4--kit .bundle-wm4__sub { font-size: 1.3rem; }
+  .delivery-wm4 { font-size: 1.4rem; line-height: 1.35; }
+}
+
+/* ---------- PDP: disponibilidade com data (a data e o texto principal; sem linha extra) ---------- */
+.delivery-wm4__datum { display: inline; }
+
+/* ---------- PDP: faixa de servico em linha abaixo do botao ---------- */
+.service-line-wm4 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; margin: 1.2rem 0 0; padding: 1rem 0; border-top: 1px solid var(--wm-line); border-bottom: 1px solid var(--wm-line); }
+.service-line-wm4 li { display: flex; align-items: center; justify-content: center; gap: .7rem; min-width: 0; margin: 0; font-size: 1.4rem; line-height: 1.3; font-weight: 500; color: var(--wm-ink); text-align: left; }
+.service-line-wm4 .icon { flex: none; width: 2rem; height: 2rem; color: var(--wm-pine); }
+@media screen and (max-width: 749px) {
+  .service-line-wm4 { gap: .4rem; padding: .8rem 0; }
+  .service-line-wm4 li { flex-direction: column; gap: .3rem; text-align: center; font-size: 1.4rem; }
+}
+
+/* ---------- PDP: acordeoes (Versand, Rueckgabe, Produktsicherheit, Entsorgung) ---------- */
+.akk-wm4 { padding: 0 2.4rem; border: 0; border-radius: var(--wm-radius); background: var(--wm-white); }
+.akk-wm4 details:last-child { border-bottom: 0; }
+.akk-wm4 .accordion__content { font-size: 1.5rem; line-height: 1.6; color: var(--wm-ink-soft); }
+.akk-wm4 .accordion__content p { margin: 0 0 1rem; }
+.akk-wm4 .accordion__content ul { margin: 0 0 1rem; padding-left: 2rem; }
+.akk-wm4 .accordion__content a { color: var(--wm-ink); }
+.ent-wm4 { display: flex; align-items: flex-start; gap: 1rem; }
+.ent-wm4 .icon { flex: none; width: 3rem; height: 3rem; color: var(--wm-ink); }
+.ent-wm4 > span { flex: 1; min-width: 0; }
+@media screen and (max-width: 749px) { .akk-wm4 { padding: 0 1.6rem; } .akk-wm4 .accordion__content { font-size: 1.4rem; } }
+
+/* ---------- banner de cookies: 3 botoes do mesmo tamanho e destaque ---------- */
+.cookie-wm4__buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cookie-wm4__buttons .button { width: 100%; min-height: 4.8rem; }
+.cookie-wm4__buttons .button:last-child { grid-column: 1 / -1; }
+.cookie-wm4__details[hidden] { display: none; }
+.cookie-wm4__fix { margin: 0; font-size: 1.4rem; color: var(--wm-ink-soft); }
+@media screen and (min-width: 990px) { .cookie-wm4__buttons { grid-template-columns: repeat(3, 15rem); } .cookie-wm4__buttons .button:last-child { grid-column: auto; } }
+
+/* ---------- rodape: newsletter com 10 % ---------- */
+.footer-news-wm4 { display: grid; gap: 1.6rem; margin-top: 4.8rem; padding-top: 3.2rem; border-top: 1px solid rgba(237, 230, 218, .14); }
+.footer-news-wm4__text p { margin: 0; max-width: 52ch; font-size: 1.5rem; line-height: 1.5; color: rgba(237, 230, 218, .82); }
+.footer-news-wm4__row { display: flex; gap: .8rem; align-items: stretch; }
+.footer-news-wm4__row .field { flex: 1; min-width: 0; }
+.footer-news-wm4__button { flex: none; --wm-btn-bg: var(--wm-brass); --wm-btn-fg: var(--wm-night); --wm-btn-bd: var(--wm-brass); --wm-btn-bg-h: var(--wm-brass-light); --wm-btn-fg-h: var(--wm-night); --wm-btn-bd-h: var(--wm-brass-light); }
+.footer-news-wm4__hint { margin: 1rem 0 0; max-width: 64ch; font-size: 1.3rem; line-height: 1.5; color: rgba(237, 230, 218, .78); }
+.footer-news-wm4__hint a { color: var(--wm-night-ink); }
+.footer-news-wm4 .form__message { margin-top: .8rem; color: var(--wm-night-ink); }
+.footer-news-wm4 .field__input { background: var(--wm-white); color: var(--wm-ink); }
+@media screen and (max-width: 749px) { .footer-news-wm4__hint { font-size: 1.4rem; } .footer-news-wm4__row { flex-direction: column; } }
+@media screen and (min-width: 990px) { .footer-news-wm4 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 4rem; align-items: start; } }
+
+/* ---------- paginas novas ---------- */
+.legal-wm4--eins { display: block; }
+.legal-wm4--eins .legal-wm4__body { max-width: 86rem; }
+.legal-wm4__section--erste { margin-top: 2.4rem; padding-top: 0; border-top: 0; }
+.legal-wm4__section--erste p, .legal-wm4__section--erste li { color: var(--wm-ink-soft); max-width: 72ch; }
+.legal-wm4__section--erste h2 { margin: 3.2rem 0 1rem; font-size: var(--wm-fs-h3, 2rem); }
+.pay-page-wm4 { margin: 0 0 2.4rem; }
+.pay-page-wm4 .list-payment { display: flex; flex-wrap: wrap; gap: .8rem; margin: 0; padding: 0; }
+.pay-liste-wm4 { display: grid; gap: 2rem; margin: 0 0 2.4rem; padding: 0; }
+.pay-liste-wm4 h2 { margin: 0 0 .4rem; }
+.pay-liste-wm4 p { margin: 0; }
+
+/* ---------- barra superior com 3 beneficios: no celular 1 linha so, 1 item por vez em rotacao suave (9 s); sem movimento: so o 1o item ---------- */
+@media screen and (max-width: 749px) {
+  .announcement-bar__message { position: relative; display: block; width: 100%; flex: 1 1 100%; height: 3.2rem; padding: 0; overflow: hidden; }
+  .announcement-bar__message li { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; white-space: nowrap; opacity: 0; animation: wm-rot 9s infinite; }
+  .announcement-bar__message li:nth-child(2) { animation-delay: 3s; }
+  .announcement-bar__message li:nth-child(3) { animation-delay: 6s; }
+  .announcement-bar__message li + li::before { content: none; margin: 0; }
+}
+@keyframes wm-rot { 0%, 28% { opacity: 1; } 33%, 95% { opacity: 0; } 100% { opacity: 1; } }
+@media screen and (max-width: 749px) and (prefers-reduced-motion: reduce) {
+  .announcement-bar__message li { animation: none; opacity: 0; }
+  .announcement-bar__message li:first-child { opacity: 1; }
+}
+
+/* ---------- imagens finais: blocos D da descricao (plano de imagens, secao 11). Dawn image-with-text (D1) e multicolumn (D2, D3, D6); D4 e D5 = imagem com texto gravado ---------- */
+.descb-wm4 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4.8rem; }
+.descb-wm4 > * { min-width: 0; }
+.descb-wm4__media { position: relative; overflow: hidden; border-radius: var(--wm-radius); background: var(--wm-linen); }
+.descb-wm4__media--4x5 { aspect-ratio: 4 / 5; }
+.descb-wm4__media--1x1 { aspect-ratio: 1; }
+.descb-wm4__media.image-with-text__media, .descb-wm4__media.media { height: auto !important; min-height: 0 !important; width: 100%; }
+.descb-wm4__media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.descb-wm4 h2, .descb-wm4 h3 { margin: 0 0 1rem; }
+.descb-wm4 .rte p { margin: 0; color: var(--wm-ink-soft); max-width: 52ch; }
+.descb-wm4__d1 .image-with-text__grid { align-items: center; }
+.descb-wm4__d1 .image-with-text__media-item { max-width: 52rem; }
+.descb-wm4__d1 .image-with-text .grid__item::after, .descb-wm4 .grid__item::after { content: none; }
+.descb-wm4__text.image-with-text__content { padding: 2.4rem 0 0; background: transparent; box-shadow: none; border-radius: 0; height: auto; }
+.descb-wm4__d2 .multicolumn-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3.2rem 2.4rem; margin: 0; padding: 0; list-style: none; }
+.descb-wm4__d2 .multicolumn-list__item { width: auto; max-width: none; padding: 0; margin: 0; }
+.descb-wm4__d2 .multicolumn-card__info { padding: 1.4rem 0 0; }
+.descb-wm4__paar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3.2rem; }
+.descb-wm4__bild { margin: 0; max-width: 52rem; width: 100%; justify-self: center; }
+.descb-wm4__paar .descb-wm4__bild { max-width: none; }
+.descb-wm4__kopf { margin: 0 0 2.4rem; }
+.descb-wm4__raster { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1.6rem; margin: 0; padding: 0; max-width: 84rem; }
+@media screen and (min-width: 750px) {
+  .descb-wm4 { gap: 6.4rem; }
+  .descb-wm4__d2 .multicolumn-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .descb-wm4__paar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4rem; max-width: 112rem; margin: 0 auto; }
+  .descb-wm4__text.image-with-text__content { padding: 0 0 0 clamp(3.2rem, 5vw, 8rem); }
+}

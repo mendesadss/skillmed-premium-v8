@@ -1,0 +1,49 @@
+/* Porare v6 · 3a revisao independente (07/10/2026, nota 7,5). Ultima camada (depois de rev2.css).
+   Tabela item -> correcao em PROGRESSO.md ("3a revisao independente"). Prints em _prints/v6-rev3/. */
+
+/* ---------- B1, B2: numero + unidade e composto com numero sem quebra; "Lieferbar ·" nunca sozinho no fim da linha ---------- */
+.nobr-wm4 { white-space: nowrap; }
+
+/* ---------- M2: fotos ao lado do texto em 1:1 (as imagens sao 1:1 ou 4:5). Antes a altura seguia o texto (ate 1,5 x mais larga que alta)
+   e cortava coroa (3002), "WASH ME" (1006) e cabecas; o recorte de cada imagem fica em _fonte/pos-imagens.json (object-position) ---------- */
+@media screen and (min-width: 750px) {
+  .pdx-split > .pdx-media--fill { aspect-ratio: 1; height: auto; min-height: 0; max-height: 64rem; align-self: center; }
+}
+
+/* ---------- D6 (1 ou varias fotos) no mesmo eixo das outras faixas: 48 a 1392 em 1440, titulo a esquerda ---------- */
+.pdx-d6 { max-width: none; margin: 0; }
+.pdx-d6 .pdx-kopf { text-align: left; }
+.pdx-d6 .pdx-lead { margin: 0; }
+
+/* ---------- Paket sem foto e com 1 ou 2 itens: uma faixa so (Maße com a linha Lieferumfang), sem coluna quase vazia ---------- */
+.pdx-specs--eins > .pdx-specs__teil { max-width: 76rem; }
+.pdx-specs--eins .specs-wm4__hinweis { margin-top: 1.6rem; }
+
+/* ---------- M8: gaveta em 360: nome longo ("Weihnachtskugeln") quebra dentro da coluna, sem passar por baixo do preco ---------- */
+.cart-drawer .cart-item__details, .cart-drawer .cart-item__name { min-width: 0; }
+.cart-item__name { overflow-wrap: anywhere; hyphens: auto; -webkit-hyphens: auto; }
+
+/* ---------- B4: "Mehr aus" com 2 ou 3 produtos no desktop: cards do tamanho da grade de 4, centrados (sem meia linha vazia a direita) ---------- */
+@media screen and (min-width: 1100px) {
+  .product-grid--wm4-scroll[data-mehr]:has(> .grid__item:nth-child(2):last-child) { grid-template-columns: repeat(2, calc((100% - 3 * var(--grid-desktop-horizontal-spacing, 2.4rem)) / 4)); justify-content: center; }
+  .product-grid--wm4-scroll[data-mehr]:has(> .grid__item:nth-child(3):last-child) { grid-template-columns: repeat(3, calc((100% - 3 * var(--grid-desktop-horizontal-spacing, 2.4rem)) / 4)); justify-content: center; }
+}
+
+/* ---------- B8: celular e toque: o adicionar rapido sai de cima da foto e fica na linha do preco, no canto direito ---------- */
+@media not all and (min-width: 990px) and (hover: hover) and (pointer: fine) {
+  .product-card-wrapper { position: relative; }
+  .product-card-wrapper .quick-add { top: auto; bottom: 0; right: 0; }
+  .product-card-wrapper .card__information .card-information { padding-right: 5.2rem; min-height: 4.4rem; } /* so a linha de preco e Set; o titulo usa a largura toda */
+}
+
+/* ---------- M9: "Warum Porare" so texto com icones, 3 colunas no container ---------- */
+.warum-wm4 > .h2 { margin: 0 0 2.4rem; }
+.warum-wm4__liste.punkte-wm4 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; margin: 0; }
+@media screen and (min-width: 750px) {
+  .warum-wm4__liste.punkte-wm4 { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(2.4rem, 4vw, 6.4rem); }
+  .warum-wm4__liste.punkte-wm4 li { padding: 2rem 0 0; }
+}
+
+/* ---------- B5 (efeito colateral visto no print): com Kategorie escondida, os grupos recolhidos (Anlass, Preis, Sets) ficavam lado a lado
+   ao lado de Raum no painel de filtro do celular (o wrapper do Dawn e flex row wrap). Um grupo por linha em todas as larguras ---------- */
+#FacetsWrapperDesktop > details { flex: 1 1 100%; width: 100%; }

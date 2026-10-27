@@ -1,0 +1,129 @@
+/* Porare v6 · 4a revisao independente (07/10/2026, nota 8,06). Ultima camada (depois de rev3.css).
+   Tabela item -> correcao em PROGRESSO.md ("4a revisao independente"). Prints em _prints/v6-rev4/. */
+
+/* ---------- 6: celular: voltar ao topo acima da zona do adicionar rapido dos cards (88 px do rodape da tela) ---------- */
+@media screen and (max-width: 749px) { .back-to-top-wm4 { bottom: calc(8.8rem + env(safe-area-inset-bottom)); } }
+
+/* ---------- 7: gaveta: sem hifenizacao automatica, nome em ate 3 linhas e, com a gaveta abaixo de 400 px, preco abaixo do nome ---------- */
+cart-drawer cart-drawer-items { container-type: inline-size; container-name: korb; }
+cart-drawer .drawer__contents, cart-drawer .drawer__cart-items-wrapper { min-width: 0; max-width: 100%; }
+cart-drawer .drawer__cart-items-wrapper { flex: 1 1 100%; }
+.cart-item__name { hyphens: manual; -webkit-hyphens: manual; overflow-wrap: break-word; -webkit-line-clamp: 3; }
+@container korb (max-width: 351px) {
+  .cart-drawer .cart-item { grid-template-columns: 9.6rem minmax(0, 1fr); width: 100%; max-width: 100%; }
+  .cart-drawer .cart-items, .cart-drawer .cart-items tbody { width: 100%; max-width: 100%; table-layout: fixed; }
+  .cart-item__name { display: -webkit-box; }
+  .cart-drawer .cart-item__media { grid-row: 1 / 4; }
+  .cart-drawer .cart-item__details { grid-column: 2; grid-row: 1; }
+  .cart-drawer .cart-item__totals { grid-column: 2; grid-row: 2; justify-content: flex-start; text-align: left; }
+  .cart-drawer .cart-items .cart-item__quantity { grid-column: 2; grid-row: 3; flex-wrap: wrap; gap: .6rem 1.2rem; }
+}
+
+/* ---------- 8: container estreito: "Lieferbar" e a data em linhas proprias, sem o separador no comeco da linha ---------- */
+@container buybox (max-width: 519px) {
+  .delivery-wm4__sep { display: none; }
+  .delivery-wm4__zeile { display: block; }
+}
+
+/* ---------- 10: seletor de pacote em um formato so: nome, preco e, abaixo, "conteudo" + "Sie sparen X" ---------- */
+.bundle-wm4__sub .bs-inhalt, .bundle-wm4__sub .bs-spart { display: block; }
+.bundle-wm4--kit .bundle-wm4__sub .bs-inhalt { color: var(--wm-ink-soft); font-weight: 400; }
+.bundle-wm4--kit .bundle-wm4__sub .bs-spart { color: var(--wm-set-ink); font-weight: 500; }
+@container buybox (max-width: 519px) {
+  .bundle-wm4__sub .bs-inhalt, .bundle-wm4__sub .bs-spart { display: inline; }
+  .bundle-wm4__sub .bs-spart::before { content: ' · '; color: var(--wm-ink-soft); font-weight: 400; }
+}
+
+/* ---------- 4: selo discreto na PDP de produto com publicar:false (a PDP direta continua acessivel) ---------- */
+.entwurf-pdp-wm4 { display: inline-block; margin: 0 0 1rem; padding: .2rem .9rem; border: 1px solid var(--wm-line); border-radius: 99rem; background: var(--wm-linen); color: var(--wm-ink-soft); font-size: 1.3rem; line-height: 1.4; }
+.entwurf-pdp-wm4[hidden] { display: none; }
+
+/* ---------- 5: Maße & Material sem foto: grade 1fr 1fr, titulo e nota a esquerda, tabela a direita ---------- */
+.pdx-specs--eins { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.4rem; }
+.pdx-specs--eins > .pdx-specs__teil { max-width: none; }
+.pdx-specs__kopf h2 { margin: 0 0 1.6rem; }
+.pdx-specs--eins .specs-wm4__hinweis { margin: 0; padding: 0; border-top: 0; }
+@media screen and (min-width: 750px) {
+  .pdx-specs--eins { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3.2rem, 5vw, 8rem); align-items: start; }
+}
+
+/* ---------- 3: legenda sob a foto do Paket (a foto mostra menos unidades que a lista) ---------- */
+.pdx-fig { display: flex; flex-direction: column; gap: 1rem; margin: 0; min-width: 0; }
+@media screen and (min-width: 750px) { .pdx-split > .pdx-fig { align-self: center; } }
+.pdx-fig > .pdx-media--fill { aspect-ratio: 1; height: auto; min-height: 0; max-height: 64rem; }
+.pdx-legende { margin: 0; font-size: 1.4rem; line-height: 1.4; color: var(--wm-ink-soft); }
+
+/* ---------- 11: "Auf einen Blick" em lista: titulo 16 px, apoio 14 px; imagem ao lado ate 560 px, 1:1 tambem no celular (nao corta as cabecas) ---------- */
+.pdx-vorteile h3 { font-size: 1.6rem; line-height: 1.35; }
+.pdx-vorteile p { font-size: 1.4rem; line-height: 1.5; }
+.pdx-split--liste > .pdx-media--fill { aspect-ratio: 1; height: auto; }
+@media screen and (min-width: 750px) {
+  .pdx-split--liste > .pdx-media--fill { max-width: 56rem; width: 100%; justify-self: start; }
+  .pdx-split--liste.pdx-split--rev > .pdx-media--fill { justify-self: end; }
+}
+
+/* ---------- 14: titulo e preco dos cards (home, colecao, Passt dazu, Mehr aus, busca): titulo 16 px peso 500, ate 2 linhas, preco colado logo abaixo ---------- */
+.product-card-wrapper .card__heading.h5 { margin: 0 0 .7rem; font-size: 1.6rem; font-weight: 500; line-height: 1.35; letter-spacing: 0; color: var(--wm-ink); -webkit-line-clamp: 2; min-height: 0; }
+.product-card-wrapper .card__heading a, .product-card-wrapper .card__heading a:hover, .product-card-wrapper .card__heading a:focus-visible { text-decoration: none; color: inherit; }
+@media (hover: hover) { .product-card-wrapper .card__heading a:hover { color: var(--wm-pine); } }
+.product-card-wrapper .card-information { gap: 0; }
+.product-card-wrapper .card-information .price { font-size: 1.6rem; font-weight: 600; line-height: 1.35; font-variant-numeric: tabular-nums; }
+.card__set-wm4 { margin: .2rem 0 0; font-size: 1.3rem; line-height: 1.4; color: var(--wm-ink-soft); }
+/* celular (2 colunas de ~169 px): 3 linhas so quando o titulo nao cabe em 2 (3001: "Weihnachtsbaum, 90 cm" = 179 px); nunca reticencias que escondam a medida */
+@media screen and (max-width: 749px) { .product-card-wrapper .card__heading.h5 { -webkit-line-clamp: 3; } }
+
+/* ======================= etapas A a D (07/10/2026): Mengenrabatt, Passt dazu na gaveta, sets prontos, calendario sazonal ======================= */
+
+/* A: faixa na home, linha na PDP, barra e resumo na gaveta */
+.rabatt-band-wm4 { border-top: 1px solid var(--wm-line-soft); border-bottom: 1px solid var(--wm-line-soft); }
+.rabatt-band-wm4 p { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 0; padding: 1.2rem var(--wm-gutter, 1.6rem); font-size: 1.5rem; line-height: 1.4; color: var(--wm-ink); text-align: left; }
+.rabatt-band-wm4 .icon { flex: none; width: 2.2rem; height: 2.2rem; color: var(--wm-pine); }
+.rabatt-zeile-wm4 { display: flex; align-items: center; gap: .8rem; margin: .4rem 0 0; font-size: 1.4rem; line-height: 1.4; color: var(--wm-set-ink); font-weight: 500; }
+.rabatt-zeile-wm4 .icon { flex: none; width: 1.8rem; height: 1.8rem; }
+.rabatt-wm4 { flex: none; padding: 1rem 2.4rem 1.2rem; border-bottom: 1px solid var(--wm-line); background: var(--wm-white); }
+.rabatt-wm4[hidden] { display: none; }
+.rabatt-wm4 p { display: flex; align-items: center; gap: .8rem; margin: 0 0 .8rem; font-size: 1.4rem; font-weight: 600; line-height: 1.35; color: var(--wm-ink); }
+.rabatt-wm4 p.is-aktiv-wm4 { color: var(--wm-success); }
+.rabatt-wm4 .icon { flex: none; width: 1.8rem; height: 1.8rem; }
+.rabatt-wm4 .progress-wm4 { height: .6rem; }
+cart-drawer.is-empty .rabatt-wm4 { display: none; }
+cart-drawer .summe-wm4 > div.is-an-wm4 { display: flex; }
+cart-drawer .summe-wm4__rabatt dd { color: var(--wm-success); font-weight: 600; }
+cart-drawer .summe-wm4 > div[hidden] { display: none; }
+
+/* B: Passt dazu na gaveta: lista no desktop, carrossel compacto no celular (dentro da area rolavel, nunca empurra o botao de checkout) */
+.upsell-liste-wm4 { display: block; }
+@media screen and (max-width: 749px) {
+  .cart-upsell-wm4 .upsell-wm4:nth-of-type(n+2) { display: grid; }
+  .upsell-liste-wm4 { display: flex; gap: 1rem; margin: 0 -2.4rem; padding: 0 2.4rem .4rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; }
+  .upsell-liste-wm4 .upsell-wm4 { flex: 0 0 15rem; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; gap: .6rem; padding: .8rem; border: 1px solid var(--wm-line-soft); border-radius: var(--wm-radius); background: var(--wm-white); scroll-snap-align: start; align-items: start; }
+  .upsell-liste-wm4 .upsell-wm4 + .upsell-wm4 { border-top: 1px solid var(--wm-line-soft); }
+  .upsell-liste-wm4 .upsell-wm4 img { width: 100%; height: auto; aspect-ratio: 1; }
+  .upsell-liste-wm4 .upsell-wm4 p a { -webkit-line-clamp: 2; font-size: 1.3rem; }
+  .upsell-liste-wm4 .upsell-wm4 .button { width: 100%; min-height: 4.4rem; }
+  cart-drawer .cart-upsell-wm4 h3 { margin-bottom: .6rem; }
+}
+
+/* C: sets prontos (home e PDP) */
+.head-wm4__sub { margin: .6rem 0 0; font-size: 1.5rem; color: var(--wm-ink-soft); }
+.sets-wm4 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .sets-wm4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4rem; } }
+.set-wm4 { display: flex; flex-direction: column; gap: 1.6rem; padding: 2.4rem; border: 1px solid var(--wm-line); border-radius: var(--wm-radius); background: var(--wm-white); }
+.set-wm4__kopf h3 { margin: 0 0 .4rem; }
+.set-wm4__kopf p { margin: 0; font-size: 1.5rem; color: var(--wm-ink-soft); }
+.set-wm4__teile { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin: 0; padding: 0; }
+.set-wm4__teile a { display: block; text-decoration: none; color: var(--wm-ink); }
+.set-wm4__teile img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--wm-radius-btn, .4rem); background: var(--wm-white); }
+.set-wm4__teile span { display: block; margin-top: .6rem; font-size: 1.3rem; line-height: 1.35; }
+.set-wm4__preis { display: flex; flex-direction: column; gap: .2rem; margin-top: auto; }
+.set-wm4__preis strong { font-size: 2rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--wm-ink); }
+.set-wm4__preis span { font-size: 1.4rem; color: var(--wm-set-ink); }
+.set-box-wm4 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.6rem; margin: 0 0 1.6rem; padding: 1.2rem 1.4rem; border: 1px solid var(--wm-line); border-radius: var(--wm-radius); background: var(--wm-linen); }
+.set-box-wm4[hidden] { display: none; }
+.set-box-wm4__text { display: flex; flex-direction: column; gap: .2rem; min-width: 0; flex: 1 1 22rem; font-size: 1.4rem; line-height: 1.4; color: var(--wm-ink-soft); }
+.set-box-wm4__text strong { font-size: 1.5rem; color: var(--wm-ink); }
+
+/* D: aviso honesto nas PDPs de Natal depois de 05/12 */
+.weihnachts-hinweis-wm4 { display: flex; align-items: flex-start; gap: .8rem; margin: 0 0 1.6rem; padding: 1.2rem 1.4rem; border: 1px solid var(--wm-line); border-radius: var(--wm-radius); background: var(--wm-linen); font-size: 1.5rem; font-weight: 600; line-height: 1.4; color: var(--wm-ink); }
+.weihnachts-hinweis-wm4[hidden] { display: none; }
+.weihnachts-hinweis-wm4 .icon { flex: none; width: 2rem; height: 2rem; margin-top: .1rem; }

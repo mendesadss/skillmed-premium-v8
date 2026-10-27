@@ -1,0 +1,317 @@
+/* ===================================================================================================
+   Porare v7 (09/10/2026): camada final sobre a v6. Padroes das lojas de referencia (04-concorrentes/design-referencias-2026-10-09):
+   serifa editorial nos titulos, header de 1 linha, hero editorial, 4 cartoes de confianca, "Nach Raum" em cartoes de foto,
+   pilares numerados, cards com fundo fotografico uniforme, PDP com pagamento colado ao botao, caixa de prazo, pacote em radio,
+   Maßskizze. Nada de preco riscado, contador, avaliacao ou selo. Lacunas e decisoes: LACUNAS-V7.md. No tema: MAPA-DAWN.md, "v7".
+   =================================================================================================== */
+
+/* ---------- 1. tipografia editorial: h1/h2 em Cormorant Garamond 600; corpo, h3 a h5, botoes e precos seguem Figtree ---------- */
+:root {
+  --wm-serif: 'Cormorant Garamond', 'Cormorant Fallback', 'Times New Roman', serif;
+  --wm-fs-display: clamp(3.4rem, 2.6rem + 2.2vw, 5.2rem);
+  --wm-fs-h1: clamp(3rem, 2.5rem + 1.2vw, 4rem);
+  --wm-fs-h2: clamp(2.7rem, 2.3rem + .9vw, 3.4rem);
+}
+h1, .h0, .h1, h2, .h2 { font-family: var(--wm-serif); font-weight: 600; letter-spacing: 0; line-height: 1.12; }
+h2.h4, h2.h5, .h4, .h5, h3, .h3 { font-family: var(--font-heading-family); }
+/* titulos que no esboco usam h2 mas sao rotulos de componente (acordeao, pagamento, filtros): ficam na sans */
+.accordion__title, .facets__heading, .drawer__heading, .cart-drawer h2, .cookie-wm4 h2, .footer h2, .footer-block__heading, .suche-overlay-wm4 h2,
+.legal-wm4 h2.h4, .zahlung-wm4 h2, .newsletter-wm4 h2.h5 { font-family: var(--font-heading-family); letter-spacing: -.005em; line-height: 1.3; }
+.eyebrow-wm4 { letter-spacing: .14em; text-transform: uppercase; font-size: 1.2rem; font-weight: 600; }
+.head-wm4 { align-items: flex-end; }
+
+/* ---------- 2. header de 1 linha (>= 1200): logo | menu (7 itens) | lupa, Merkzettel, Warenkorb. 990 a 1199: logo e icones / menu centrado.
+   A busca do header vira a lupa (mesmo painel do celular); o "Anmelden" (conta ainda inativa) sai do header e fica no menu do celular. ---------- */
+@media screen and (min-width: 990px) {
+  :root { --wm-header-h: 10.4rem; }
+  .header.header-wm4 { grid-template-areas: 'heading . icons' 'navigation navigation navigation'; grid-template-columns: auto minmax(0, 1fr) auto; row-gap: 0; padding-top: 1rem; padding-bottom: 0; align-items: center; }
+  .header-wm4 .header__search-wm4 { display: none !important; }
+  .header-icons-wm4 .header__icon--suche-wm4 { display: inline-flex; }
+  .header-wm4 .header-icons-wm4 .header__icon--account { display: none; }
+  .header-wm4 .header-icons-wm4 { gap: .2rem !important; }
+  .header-wm4 .header__icon { height: 4.8rem; min-width: 4.8rem; padding: 0; }
+  .header-wm4 .header__icon .header__icon-label-wm4 { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; display: block; }
+  .header-wm4 .cart-count-bubble { top: .2rem; right: .1rem; }
+  .header-wm4 .header__inline-menu { justify-self: center; margin: 0; }
+  .header-wm4 .header__menu-item { min-height: 4.4rem; padding: 0 1.1rem; font-size: 1.3rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  /* ao rolar: nada muda de altura (sem salto, sem esconder o menu) */
+  body.is-scrolled-wm4 .section-header { margin-bottom: 0; }
+  body.is-scrolled-wm4 .header-wm4 .header__inline-menu { display: block; }
+  body.is-scrolled-wm4 .header.header-wm4 { grid-template-areas: 'heading . icons' 'navigation navigation navigation'; height: auto; padding-top: 1rem; row-gap: 0; }
+  body.is-scrolled-wm4 .header-wm4 .header__icon { height: 4.8rem; }
+}
+@media screen and (min-width: 1200px) {
+  :root { --wm-header-h: 8rem; }
+  .header.header-wm4, body.is-scrolled-wm4 .header.header-wm4 { grid-template-areas: 'heading navigation icons'; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 3.2rem; box-sizing: border-box; height: 8rem; padding-top: 0; padding-bottom: 0; }
+  .header-wm4 .header__menu-item { padding: 0 1.2rem; }
+}
+@media screen and (min-width: 1440px) { .header-wm4 .header__menu-item { padding: 0 1.5rem; } }
+
+/* painel da lupa no desktop: faixa branca no topo, conteudo no container */
+@media screen and (min-width: 990px) {
+  .suche-overlay-wm4:not([hidden]) { display: block !important; position: fixed; inset: 0; z-index: 1000; background: rgba(42, 36, 32, .45); }
+  .suche-overlay-wm4__box { max-height: 100vh; overflow-y: auto; padding: 0 0 2.4rem; background: var(--wm-white); box-shadow: var(--wm-shadow-lg); }
+  .suche-overlay-wm4__box > * { width: 100%; max-width: 76rem; margin-left: auto; margin-right: auto; padding-left: var(--wm-gutter); padding-right: var(--wm-gutter); box-sizing: border-box; }
+  .suche-overlay-wm4__kopf { display: flex; align-items: center; justify-content: space-between; min-height: 7.2rem; }
+  .suche-overlay-wm4__titel { margin: 0; font-size: 1.7rem; font-weight: 600; color: var(--wm-ink); }
+  .suche-overlay-wm4 .suche-wm4__panel { position: static; max-height: none; padding: 1.6rem 0 0; border: 0; border-radius: 0; box-shadow: none; overflow: visible; }
+}
+
+/* ---------- 3. hero editorial: eyebrow + titulo serifado grande + 2 botoes ---------- */
+.hero-wm4__eyebrow { margin: 0 0 1.2rem; color: var(--wm-pine); }
+#Banner-template--wm__hero[data-ton="dunkel"] .hero-wm4__eyebrow { color: #F1E4CC; }
+#Banner-template--wm__hero .banner__heading { font-family: var(--wm-serif); font-weight: 600; line-height: 1.04; letter-spacing: -.005em; }
+@media screen and (max-width: 749px) {
+  #Banner-template--wm__hero .banner__heading { font-size: clamp(3.4rem, 9vw, 4rem); margin-bottom: 1rem; }
+  .hero-wm4__eyebrow { margin-bottom: .8rem; }
+}
+@media screen and (min-width: 750px) { #Banner-template--wm__hero .banner__heading { font-size: clamp(4rem, 4.2vw, 6rem); } #Banner-template--wm__hero .hero-wm4__box { max-width: 52rem; } }
+
+/* ---------- 4. quatro cartoes de confianca logo depois do hero (titulo + 1 linha) ---------- */
+.trust-wm4--karten { border-bottom: 0; background: var(--wm-paper); }
+.trust-wm4--karten .trust-wm4__list { gap: .8rem; padding-top: 1.6rem; padding-bottom: 1.6rem; }
+.trust-wm4--karten .trust-wm4__list li, .trust-wm4--karten .trust-wm4__list li:nth-child(n) { flex-direction: row; justify-content: flex-start; align-items: flex-start; gap: 1.2rem; padding: 1.4rem 1.4rem; border: 1px solid var(--wm-line-soft) !important; border-radius: var(--wm-radius-lg); background: var(--wm-white); text-align: left; }
+.trust-wm4--karten .trust-wm4__list p { align-items: flex-start; gap: .2rem; }
+.trust-wm4--karten .trust-wm4__list strong { font-size: 1.4rem; line-height: 1.3; }
+.trust-wm4--karten .trust-wm4__sub { font-size: 1.3rem; line-height: 1.4; color: var(--wm-ink-soft); }
+@media screen and (max-width: 749px) {
+  .trust-wm4--karten .trust-wm4__list li, .trust-wm4--karten .trust-wm4__list li:nth-child(n) { flex-direction: column; gap: .6rem; padding: 1.2rem; }
+  .trust-wm4--karten .trust-wm4__list p > span.trust-wm4__sub { display: block; }
+}
+@media screen and (min-width: 750px) {
+  .trust-wm4--karten .trust-wm4__list { gap: 1.6rem; padding-top: 2.4rem; padding-bottom: 2.4rem; }
+  .trust-wm4--karten .trust-wm4__list li, .trust-wm4--karten .trust-wm4__list li:nth-child(n) { padding: 2rem; }
+  .trust-wm4--karten .trust-wm4__list strong { font-size: 1.5rem; }
+}
+
+/* ---------- 5. Nach Raum stöbern: 6 cartoes de foto (1:1, foto inteira, canto arredondado), rotulo branco sobre a foto ---------- */
+.shopby-wm4, .shopby-wm4.shopby-wm4 { grid-template-columns: minmax(0, 1fr); gap: 4.8rem; }
+.raum-karten-wm4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin: 0; padding: 0; }
+@media screen and (min-width: 750px) { .raum-karten-wm4 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; } }
+.raum-karte-wm4 { position: relative; display: block; border-radius: 1.2rem; overflow: hidden; color: var(--wm-ink); text-decoration: none; background: var(--wm-linen); }
+.raum-karte-wm4__media { display: block; aspect-ratio: 1 / 1; }
+.raum-karte-wm4__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--wm-dur-slow) var(--wm-ease); }
+.raum-karte-wm4:hover .raum-karte-wm4__media img { transform: scale(1.03); }
+.raum-karte-wm4__text { position: absolute; left: 1rem; bottom: 1rem; display: flex; flex-direction: column; gap: .1rem; max-width: calc(100% - 2rem); padding: .8rem 1.2rem; border-radius: var(--wm-radius-lg); background: rgba(255, 255, 255, .95); box-shadow: var(--wm-shadow-sm); }
+.raum-karte-wm4__text strong { font-family: var(--wm-serif); font-size: 2rem; font-weight: 600; line-height: 1.1; }
+.raum-karte-wm4__text span { font-size: 1.3rem; color: var(--wm-ink-soft); }
+.raum-karte-wm4:focus-visible { outline: 2px solid var(--wm-brass-text); outline-offset: 3px; }
+@media screen and (min-width: 750px) { .raum-karte-wm4__text { left: 1.6rem; bottom: 1.6rem; padding: 1rem 1.6rem; } .raum-karte-wm4__text strong { font-size: 2.4rem; } }
+@media screen and (min-width: 990px) { .shopby-wm4__liste--anlass { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ---------- 6. Warum Porare: 3 pilares numerados (01 a 03, numeral serifado) ---------- */
+.warum-wm4__liste li { grid-template-columns: 4.8rem minmax(0, 1fr); align-items: baseline; }
+.warum-wm4__nr { font-family: var(--wm-serif); font-size: 3.2rem; font-weight: 600; line-height: 1; color: var(--wm-brass-text); }
+@media screen and (min-width: 750px) { .warum-wm4__liste li { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; } .warum-wm4__nr { font-size: 4rem; } }
+
+/* ---------- 7. cards: um so padrao fotografico (fundo linho uniforme; fundo branco do packshot se funde por multiply), botao so no hover (mouse) ---------- */
+.product-card-wrapper .card__inner, .product-card-wrapper .card__media, .product-card-wrapper .media { background: #F4EEE6 !important; }
+.product-card-wrapper .card__inner { border-radius: var(--wm-radius-lg); overflow: hidden; }
+.product-card-wrapper .card__media img { mix-blend-mode: multiply; }
+.product-card-wrapper .card__heading { font-size: 1.5rem; font-weight: 500; line-height: 1.35; }
+.product-card-wrapper .price-item--regular { font-weight: 600; }
+@media (hover: hover) and (pointer: fine) and (min-width: 990px) {
+  .product-card-wrapper .quick-add { opacity: 0 !important; transform: translateY(.6rem); }
+  .product-card-wrapper:hover .quick-add, .product-card-wrapper:focus-within .quick-add, .product-card-wrapper .quick-add:has(.is-added-wm4, .is-loading-wm4) { opacity: 1 !important; transform: none; }
+}
+/* miniaturas de gaveta, busca, sets e sticky com o mesmo fundo */
+.cart-item__image, .predictive-search__image, .sticky-atc-wm4__bild { background: #F4EEE6 !important; }
+
+/* ---------- 8. PDP ---------- */
+.pdp-wm4 .product__title h1 { font-size: clamp(2.8rem, 2.3rem + 1vw, 3.6rem); line-height: 1.1; }
+/* desconto por quantidade: linha discreta com icone, mesma cor do texto (sem vermelho de promocao) */
+.rabatt-zeile-wm4 { color: var(--wm-ink) !important; }
+.rabatt-zeile-wm4 .icon { color: var(--wm-pine) !important; }
+/* caixa de prazo com as datas calculadas */
+.buybox-wm4 .delivery-wm4 { padding: 1.2rem 1.4rem; border: 1px solid var(--wm-line-soft); border-radius: var(--wm-radius-lg); background: #F3F7F3; }
+/* pacote em radio: circulo a esquerda, marcado = ponto verde; preco e economia reais (sem riscado) */
+.product-form__input.bundle-wm4 { grid-template-columns: minmax(0, 1fr); }
+.product-form__input.bundle-wm4 input[type='radio'] + label { position: relative; padding-left: 4.4rem; background: var(--wm-white); }
+.product-form__input.bundle-wm4 input[type='radio'] + label::before { content: ''; position: absolute; left: 1.4rem; top: 50%; width: 1.8rem; height: 1.8rem; margin-top: -.9rem; border: 1.5px solid rgba(42, 36, 32, .5); border-radius: 50%; background: var(--wm-white); box-sizing: border-box; }
+.product-form__input.bundle-wm4 input[type='radio']:checked + label::before { border-color: var(--wm-pine); background: radial-gradient(circle, var(--wm-pine) 0 .45rem, var(--wm-white) .5rem); }
+.bundle-wm4__sub [data-spart], .bundle-wm4__sub strong { color: var(--wm-set-ink); }
+/* pagamento colado ao botao */
+.buybox-wm4 > .payment-wm4--kauf { order: 0; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin: 1rem 0 0; }
+.payment-wm4__label { font-size: 1.3rem; color: var(--wm-ink-soft); }
+.buybox-wm4 > .service-line-wm4 { margin-top: 1.6rem; }
+/* Maßskizze (so com altura e largura explicitas na ficha) */
+.mass-skizze-wm4 { margin: 2.4rem 0 0; max-width: 34rem; }
+.mass-skizze-wm4__svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mass-skizze-wm4 .ms-flaeche { fill: #F4EEE6; stroke: var(--wm-ink); stroke-width: 1.2; stroke-linejoin: round; }
+.mass-skizze-wm4 .ms-flaeche--hell { fill: #FBF8F3; }
+.mass-skizze-wm4 .ms-flaeche--dunkel { fill: #E9E0D3; }
+.mass-skizze-wm4 .ms-linie { fill: none; stroke: var(--wm-pine); stroke-width: 1.2; }
+.mass-skizze-wm4 .ms-text { font-family: var(--font-body-family); font-size: 13px; font-weight: 600; fill: var(--wm-ink); }
+.mass-skizze-wm4 figcaption { margin-top: .4rem; font-size: 1.3rem; color: var(--wm-ink-soft); }
+/* ficha tecnica: tabela limpa de 2 colunas */
+.spec-table-wm4 th { font-weight: 500; color: var(--wm-ink-soft); }
+.spec-table-wm4 td { font-weight: 500; color: var(--wm-ink); }
+
+/* ---------- 9. colecao: titulo serifado grande ---------- */
+.collection-hero__title { font-size: clamp(3.2rem, 2.6rem + 1.6vw, 4.6rem); }
+
+/* ---------- 10. correcoes da conferencia (09/10, tarde) ---------- */
+/* Nach Raum no celular: 2 colunas (o rev2 forcava 1 coluna para os tiles de texto; com foto 1:1 ficava 6 telas de altura) */
+@media screen and (max-width: 749px) { .raum-karten-wm4.shopby-wm4__liste.shopby-wm4__liste { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; } .raum-karte-wm4__text { left: .6rem; bottom: .6rem; max-width: calc(100% - 1.2rem); padding: .6rem .9rem; } .raum-karte-wm4__text strong { font-size: 1.7rem; } .raum-karte-wm4__text span { font-size: 1.2rem; } }
+/* hero no celular baixo (<= 760 px de altura): eyebrow mais junto do titulo para o 1o botao caber na 1a tela */
+@media screen and (max-width: 749px) and (max-height: 760px) { .hero-wm4__eyebrow { margin-bottom: .4rem; font-size: 1.1rem; } #Banner-template--wm__hero .banner__heading { font-size: clamp(3rem, 8.4vw, 3.6rem); margin-bottom: .6rem; } }
+/* revisao 1, C2: circulo do radio do pacote acima do fundo do rotulo (o ::before do Dawn pill vem com z-index -1 e inset 0) */
+.product-form__input.bundle-wm4 input[type='radio'] + label::before { z-index: 1; inset: auto; right: auto; bottom: auto; transform: none; opacity: 1; box-shadow: none; }
+/* revisao 1, C3: numerais alinhados na serifa (a Cormorant usa numerais antigos por padrao: "01" lia "oI", "2 l" baixo) */
+h1, .h0, .h1, h2, .h2, .warum-wm4__nr, .raum-karte-wm4__text strong, #Banner-template--wm__hero .banner__heading, .collection-hero__title { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+/* revisao 1, I5: no celular o PayPal Express e o Merken seguem a ordem do HTML (logo abaixo do botao), nao vao mais para o fim */
+@media screen and (max-width: 749px) { .buybox-wm4 > .buy-extra-wm4, .buybox-wm4 > .payment-wm4--kauf { order: 0; } }
+/* C2 (ajuste): o inset:auto apagava a posicao; repoe esquerda e centro vertical */
+.product-form__input.bundle-wm4 input[type='radio'] + label::before { left: 1.4rem; top: 50%; margin-top: -.9rem; }
+/* revisao 1, I1: bloco editorial (banner de Natal 4:3) na proporcao da propria foto, sem faixas creme */
+.editorial-wm4__media.media { height: auto !important; padding-bottom: 0 !important; background: transparent; }
+.editorial-wm4__media.media > img { position: static !important; display: block; width: 100%; height: auto !important; object-fit: cover !important; }
+/* revisao 1, I2: fotos do set quadradas (antes esticavam para 223 x 240 e mostravam faixa), fundo linho igual aos cards */
+.set-wm4__fotos img { height: auto !important; aspect-ratio: 1 / 1; background: #F4EEE6 !important; mix-blend-mode: multiply; }
+/* revisao 1, padrao 27: no celular e tablet a barra "Filter / Sortieren" fica presa logo abaixo do header ao rolar a colecao */
+@media screen and (max-width: 989px) {
+  .koll-toolbar-wm4 { position: sticky; top: var(--wm-sticky-top-wm7, 5.7rem); z-index: 4; margin-left: calc(-1 * var(--wm-gutter, 1.5rem)); margin-right: calc(-1 * var(--wm-gutter, 1.5rem)); padding: .8rem var(--wm-gutter, 1.5rem); background: var(--wm-paper); box-shadow: 0 1px 0 var(--wm-line-soft); }
+}
+/* revisao 1, I9: "Nach Raum" em 1 linha de 6 no desktop (antes 2 linhas de 3, quase 2 telas) */
+@media screen and (min-width: 990px) { .raum-karten-wm4.shopby-wm4__liste.shopby-wm4__liste { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1.6rem; } .raum-karte-wm4__text { left: 1rem; bottom: 1rem; max-width: calc(100% - 2rem); padding: .7rem 1.1rem; } .raum-karte-wm4__text strong { font-size: 2rem; } }
+/* revisao 2: "Sie sparen 22,46 €" nao quebra no meio */
+.set-wm4__spart, .bundle-wm4__save, [data-spart], .bs-spart { white-space: nowrap; }
+
+/* ===================================================================================================
+   11. rodada 3 (09/10): tablet da PDP e do hero, seletor de pacote no desktop, polimento P1 a P15 e N1
+   =================================================================================================== */
+/* item 1 (tablet 750 a 989): PDP em 1 coluna (galeria em cima, compra embaixo, largura do container); sem coluna estreita nem vazio sob a galeria */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pdp-wm4.pdp-wm4.product--medium { display: block; }
+  .pdp-wm4.product--medium .product__media-wrapper, .pdp-wm4.product--medium .product__info-wrapper { width: 100%; max-width: none; padding-left: 0; }
+  .pdp-wm4 .product__column-sticky.product__column-sticky { position: static; }
+  .pdp-wm4.product--medium .product__info-wrapper { margin-top: 2.4rem; }
+  .pdp-wm4 .product__info-container, .pdp-wm4 .product__info-container > * { max-width: none; }
+  .pdp-wm4 .product-media-container { width: min(100%, 56rem) !important; }
+}
+/* item 2 (tablet 750 a 989): hero com degrade mais leve (a foto aparece) e botoes lado a lado. Coluna de texto mais estreita (34 rem) para o degrade acabar mais cedo.
+   Contraste medido por pixel sob o texto (hero escondido, amostra do fundo contra a cor do texto): pior caso 5,4 (750 px, 20/11), demais 5,7 a 8,1; piso AA = 4,5 */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  #Banner-template--wm__hero .hero-wm4__box { max-width: 34rem; }
+  #Banner-template--wm__hero[data-ton="hell"] .hero-wm4__media::after { background: linear-gradient(90deg, rgba(250, 246, 240, .84) 0%, rgba(250, 246, 240, .64) 46%, rgba(250, 246, 240, 0) 72%); }
+  #Banner-template--wm__hero[data-ton="dunkel"] .hero-wm4__media::after { background: linear-gradient(90deg, rgba(30, 20, 12, .8) 0%, rgba(30, 20, 12, .68) 46%, rgba(30, 20, 12, 0) 72%); }
+  #Banner-template--wm__hero .hero-wm4__buttons { flex-wrap: nowrap; gap: .8rem; margin-top: 1.6rem; }
+  #Banner-template--wm__hero .hero-wm4__buttons .button { flex: 1 1 0; min-width: 0; padding-left: 1rem; padding-right: 1rem; }
+}
+/* item 3 (desktop >= 990, vale tambem no tablet >= 750): seletor de pacote compacto, uma linha por opcao: nome + subtitulo a esquerda, preco a direita (igual ao celular) */
+@media screen and (min-width: 750px) {
+  .bundle-wm4--kit.bundle-wm4--kit { gap: .6rem; }
+  .product-form__input.bundle-wm4--kit input[type='radio'] + label { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'name preis' 'sub preis'; align-items: center; column-gap: 1.2rem; row-gap: .1rem; min-height: 5.2rem; padding: .8rem 1.4rem .8rem 4.4rem; }
+  .bundle-wm4--kit .bundle-wm4__name { grid-area: name; }
+  .bundle-wm4--kit .bundle-wm4__price { grid-area: preis; font-size: 1.6rem; }
+  .bundle-wm4--kit .bundle-wm4__sub { grid-area: sub; }
+  .bundle-wm4__sub .bs-inhalt, .bundle-wm4__sub .bs-spart { display: inline; }
+  .bundle-wm4__sub .bs-spart::before { content: ' · '; color: var(--wm-ink-soft); font-weight: 400; }
+}
+/* P1: icone do Mengenrabatt no topo da 1a linha (nao centrado em texto de 3 linhas); corpo igual ao das linhas de beneficio (1,5 rem) */
+.rabatt-zeile-wm4 { align-items: flex-start; font-size: 1.5rem; }
+.rabatt-zeile-wm4 .icon { margin-top: .2rem; }
+/* P2: respiro entre o h1 e o preco na PDP */
+.pdp-wm4 .product__title { margin-bottom: 1.2rem; }
+.pdp-wm4 .product__title h1 { margin-bottom: 0; }
+/* P3: card em coluna e a area de texto cresce, para o botao do celular ficar na base de todos os cards da linha */
+.product-card-wrapper, .product-grid > .grid__item { height: 100%; }
+.product-card-wrapper .card__content { flex: 1 1 auto; }
+/* P5: titulo do card sem linha curta sobrando ("Weihnachtsbaum / 90 cm, / gebogen"); o espaco fixo continua so entre numero e unidade */
+.product-card-wrapper .card__heading, .product-card-wrapper .card__heading a { text-wrap: balance; }
+/* P7: o espaco da barra fixa de compra (celular) sai do body (faixa creme) e vai para o rodape, na cor dele */
+@media screen and (max-width: 989px) {
+  body.has-sticky-wm4:not(.has-cookie-wm4) { padding-bottom: 0; }
+  body.has-sticky-wm4:not(.has-cookie-wm4) .footer__content-bottom { padding-bottom: calc(7.2rem + env(safe-area-inset-bottom)); }
+}
+/* P14: introducao do FAQ presa ao rolar (desktop); a coluna da esquerda deixa de ficar vazia */
+@media screen and (min-width: 990px) { .faq-wm4 { align-items: start; } .faq-wm4__head { position: sticky; top: 12rem; align-self: start; } }
+/* P15: rodape no celular com Shop e Service em acordeao (details/summary); no desktop e tablet tudo aberto e a linha de titulo nao age como botao */
+.footer-akk-wm4 > summary { list-style: none; cursor: pointer; }
+.footer-akk-wm4 > summary::-webkit-details-marker { display: none; }
+.footer-akk-wm4 > summary .footer-block__heading { margin: 0; }
+@media screen and (max-width: 749px) {
+  .footer-akk-wm4 { border-top: 1px solid rgba(237, 230, 218, .14); }
+  .footer-akk-wm4 > summary { display: flex; align-items: center; justify-content: space-between; min-height: 4.8rem; }
+  .footer-akk-wm4 > summary::after { content: ''; flex: none; width: .9rem; height: .9rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-25%) rotate(45deg); transition: transform var(--wm-dur) var(--wm-ease); color: var(--wm-night-ink); }
+  .footer-akk-wm4[open] > summary::after { transform: translateY(25%) rotate(-135deg); }
+  .footer-akk-wm4[open] > summary { margin-bottom: .4rem; }
+}
+@media screen and (min-width: 750px) {
+  .footer-akk-wm4 > summary { cursor: default; pointer-events: none; }
+  .footer-akk-wm4 > summary .footer-block__heading { margin: 0 0 1rem; }
+}
+/* P15 (ajuste): no celular os 3 blocos do rodape em 1 coluna (antes Shop e Service ficavam lado a lado, em meia largura) */
+@media screen and (max-width: 749px) { .footer-grid-wm4 { grid-template-columns: minmax(0, 1fr); gap: 0; } .footer-block--brand-wm4 { margin-bottom: 2rem; } }
+/* N1 (rev2): o bloco da foto do banner de Natal ficava quadrado (rev6) com a foto 4:3 dentro: ~90 px de verde vazio; a caixa passa a ter a proporcao da foto */
+.editorial-wm4__media.media { aspect-ratio: auto !important; }
+/* rev2, card "Gemuetlich-Set" da home (desktop): as fotos comecavam ~45 px abaixo do titulo (grid centrado); topo alinhado com o texto */
+@media screen and (min-width: 750px) { .sets-wm4 > .set-wm4:only-child { align-items: start; } }
+
+/* ===================================================================================================
+   12. rodada 4 (09/10): revisao independente 3 (C-I1 a C-I4, P5, P-a, P-b)
+   =================================================================================================== */
+/* C-I1: seletor de pacote abaixo de 600 px: "Sie sparen ..." em linha propria e o trecho "n x 2 Waermflaschen" nunca quebra sozinho */
+@media screen and (max-width: 599px) {
+  .bundle-wm4__sub .bs-inhalt, .bundle-wm4__sub .bs-spart { display: block; }
+  .bundle-wm4__sub .bs-spart::before { content: none; }
+  .bundle-wm4__sub .bs-inhalt { white-space: nowrap; }
+  .product-form__input.bundle-wm4--kit input[type='radio'] + label { column-gap: 1.6rem; }
+}
+/* C-I2: card do Set no tablet (750 a 989) empilhado como no celular: fotos em linha de largura total, texto embaixo */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .sets-wm4 > .set-wm4:only-child { display: flex; flex-direction: column; gap: 2rem; padding: 2.4rem; }
+  .sets-wm4 > .set-wm4:only-child .set-wm4__fotos { gap: 1.2rem; }
+  .sets-wm4 > .set-wm4:only-child .button { width: 100%; }
+}
+/* C-I3: coluna de midia da PDP acompanha a rolagem no desktop (sem ~430 px de creme vazio ao lado da compra) */
+@media screen and (min-width: 990px) {
+  .pdp-wm4 .product__media-wrapper { position: sticky; top: calc(var(--wm-header-h) + 1.6rem); align-self: start; }
+}
+/* C-I4: hero do tablet: titulo e texto em 30 rem (a lampada fica livre ao lado), degrade termina antes dela, botoes com padding normal */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  #Banner-template--wm__hero .hero-wm4__box { max-width: 40rem; }
+  #Banner-template--wm__hero .banner__heading, #Banner-template--wm__hero .banner__text p { max-width: 30rem; }
+  #Banner-template--wm__hero[data-ton="hell"] .hero-wm4__media::after { background: linear-gradient(90deg, rgba(250, 246, 240, .84) 0%, rgba(250, 246, 240, .7) 38%, rgba(250, 246, 240, 0) 60%); }
+  #Banner-template--wm__hero[data-ton="dunkel"] .hero-wm4__media::after { background: linear-gradient(90deg, rgba(30, 20, 12, .82) 0%, rgba(30, 20, 12, .7) 34%, rgba(30, 20, 12, 0) 56%); }
+  #Banner-template--wm__hero .hero-wm4__buttons .button { flex: 1 1 auto; padding-left: 2.4rem; padding-right: 2.4rem; }
+}
+/* P5: o titulo "Weihnachtsbaum 90 cm, gebogen, hellgruen" tem 168 px a 16 px e o card so 169 (154 em 360): 3 linhas. Fonte do titulo do card 15 px (14 px abaixo de 380) e sem balance */
+@media screen and (max-width: 749px) {
+  .product-card-wrapper .card__heading.h5 { font-size: 1.5rem; }
+  .product-card-wrapper .card__heading, .product-card-wrapper .card__heading a { text-wrap: wrap; }
+}
+@media screen and (max-width: 379px) { .product-card-wrapper .card__heading.h5 { font-size: 1.4rem; } }
+@media screen and (max-width: 369px) { .product-card-wrapper .card__heading.h5 { font-size: 1.3rem; } }
+/* P-b: tablet (750 a 989) com stepper e botao de compra na mesma linha */
+@media screen and (min-width: 750px) and (max-width: 989px) { .buy-row-wm4 { grid-template-columns: auto minmax(0, 1fr); } .buy-row-wm4 .quantity { justify-self: stretch; } }
+
+/* ---------- 13. banner da colecao com foto (09/10, pedido do Mendes): texto a esquerda, foto 1:1 inteira a direita ---------- */
+.koll-hero-wm4 .collection-hero__inner { display: grid; grid-template-columns: minmax(0, 1fr) 11.2rem; gap: 1.2rem; align-items: start; }
+.koll-hero-wm4__bild { grid-column: 2; grid-row: 1; }
+.koll-hero-wm4__fig { margin: .8rem 0 0; aspect-ratio: 1 / 1; border-radius: var(--wm-radius-lg); overflow: hidden; background: #F4EEE6; }
+.koll-hero-wm4__fig img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.koll-hero-wm4 .koll-chips-wm4 { grid-column: 1 / -1; }
+@media screen and (min-width: 750px) { .koll-hero-wm4 .collection-hero__inner { grid-template-columns: minmax(0, 1fr) 26rem; gap: 3.2rem; align-items: center; } .koll-hero-wm4__fig { margin: 1.6rem 0; } }
+@media screen and (min-width: 990px) { .koll-hero-wm4 .collection-hero__inner { grid-template-columns: minmax(0, 1fr) 36rem; gap: 4.8rem; } }
+/* banner horizontal da colecao (largura total, acima do titulo, foto inteira na propria proporcao) */
+.koll-banner-wm4 { grid-column: 1 / -1; grid-row: 1; }
+.koll-banner-wm4__fig { position: relative; margin: .8rem 0 .4rem; border-radius: var(--wm-radius-lg); overflow: hidden; background: #F4EEE6; }
+.koll-banner-wm4__img { display: block; width: 100%; height: auto; }
+.koll-hero-wm4 .collection-hero__text-wrapper { grid-row: 2; }
+.koll-hero-wm4 .koll-hero-wm4__bild { grid-row: 2; }
+.koll-hero-wm4 .collection-hero__inner:has(.koll-banner-wm4__fig:not([hidden])) { grid-template-columns: minmax(0, 1fr); }
+.koll-hero-wm4 .collection-hero__inner:has(.koll-banner-wm4__fig:not([hidden])) .koll-hero-wm4__bild { display: none; }
+.koll-hero-wm4 .koll-banner-wm4:not(:has(.koll-banner-wm4__fig:not([hidden]))) { display: none; }
+@media screen and (min-width: 750px) { .koll-banner-wm4__fig { margin: 1.6rem 0 0; } }
+/* banner da colecao no desktop: faixa 4:1 (a foto 3:1 / 2,4:1 cobre a faixa, corte vertical centrado, como o hero); celular mostra a foto inteira */
+@media screen and (min-width: 750px) { .koll-banner-wm4__fig { aspect-ratio: 3.4 / 1; } .koll-banner-wm4__img { height: 100%; object-fit: cover; object-position: 50% 45%; } }
+/* overlay de texto sobre o banner da colecao (v7, estilo box da home); so no desktop — no mobile o texto ja esta abaixo do banner */
+.koll-banner-overlay-wm4 { display: none; }
+@media screen and (min-width: 750px) {
+  .koll-banner-overlay-wm4 { position: absolute; inset: 0; display: flex; align-items: center; padding: 0 max(var(--wm-gutter), calc((100% - 136rem) / 2 + var(--wm-gutter))); }
+  .koll-banner-overlay-wm4__box { max-width: 44rem; padding: 3.2rem; background: rgba(250,246,240,.92); border-radius: var(--wm-radius-lg); backdrop-filter: blur(6px); }
+  .koll-banner-overlay-wm4__eyebrow { margin: 0 0 .4rem; font-size: 1.2rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--wm-ink-soft); }
+  .koll-banner-overlay-wm4__titel { margin: 0 0 .8rem; font-size: clamp(2.4rem, 3vw, 3.6rem); font-weight: 700; line-height: 1.1; color: var(--wm-ink); }
+  .koll-banner-overlay-wm4__text { margin: 0; font-size: 1.5rem; line-height: 1.5; color: var(--wm-ink-soft); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}

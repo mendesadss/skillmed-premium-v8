@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+  <title id="t">Kit SkillMed embalado para presente</title>
+  <desc id="d">Caixa de presente com laço, estojo inox gravado ao lado e cartão com mensagem.</desc>
+  <defs>
+    <linearGradient id="aco" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f6f8"/><stop offset=".45" stop-color="#c9d0d6"/><stop offset=".58" stop-color="#eceff2"/><stop offset="1" stop-color="#b3bbc3"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="#e8f1fb"/>
+  <!-- caixa -->
+  <rect x="70" y="150" width="250" height="190" rx="12" fill="#0b1b2e"/>
+  <rect x="56" y="120" width="278" height="56" rx="10" fill="#13263d"/>
+  <rect x="182" y="120" width="26" height="220" fill="#1565c0"/>
+  <path d="M195 120c-30-40-80-40-70-10s50 12 70 10zm0 0c30-40 80-40 70-10s-50 12-70 10z" fill="#1565c0"/>
+  <!-- estojo -->
+  <g transform="translate(360 210) rotate(-6)">
+    <rect width="220" height="96" rx="14" fill="#5d6873"/>
+    <rect width="220" height="90" rx="14" fill="url(#aco)"/>
+    <rect x="7" y="7" width="206" height="76" rx="9" fill="none" stroke="#fff" stroke-opacity=".7"/>
+    <text x="110" y="54" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="17" letter-spacing="3" fill="#4a5560">PEDRO H.</text>
+  </g>
+  <!-- cartão -->
+  <g transform="translate(380 70) rotate(5)">
+    <rect width="190" height="118" rx="8" fill="#ffffff" stroke="#c9d3de"/>
+    <path d="M22 36h120M22 58h146M22 80h96" stroke="#c9d3de" stroke-width="6" stroke-linecap="round"/>
+    <path d="M150 92c-6-8-18-2-12 8l12 10 12-10c6-10-6-16-12-8z" fill="#0b8a3e"/>
+  </g>
+</svg>
