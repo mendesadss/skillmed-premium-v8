@@ -98,7 +98,7 @@
   var propsHtml = function (l) { var ks = Object.keys(l.props || {}); return ks.length ? '<dl class="cart-props-sm">' + ks.map(function (k) { return '<div><dt>' + esc(k) + ':</dt><dd' + (k === 'Nome para gravação' ? ' class="nome-sm"' : '') + '>' + esc(l.props[k]) + '</dd></div>'; }).join('') + '</dl>' : ''; };
   var fotoLinha = function (line) {
     var props = line.props || {}, keys = { 'Medicina': 'med', 'Veterinária': 'vet', 'Odontologia': 'odonto', 'Enfermagem': 'enf' }, course = keys[props.Curso] || 'med';
-    if (line.id === 'estojo') { var art = (course === 'med' || course === 'vet') ? (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : props.Arte === 'Padrão' ? '00' : '00') : '01'; return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + art + '/01-480.webp'; }
+    if (line.id === 'estojo') { var art = (course === 'med' || course === 'vet') ? (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : '00') : (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : '01'); return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + art + '/01-480.webp'; }
     if (line.id === 'semestre' && course === 'vet') return 'assets/catalogo-v5/04-kit-semestre-vet/01-480.webp';
     return SM.klein(SM.produto(line.id));
   };
@@ -392,8 +392,8 @@
     var CURSO = {
       med: { nome: 'Medicina', id: 'kit', col: 'medicina', artes: 'med', ext: 'webp', artesN: 8 },
       vet: { nome: 'Veterinária', id: 'vet', col: 'veterinaria', artes: 'vet', ext: 'webp', artesN: 8 },
-      odonto: { nome: 'Odontologia', id: 'odonto', col: 'odontologia', artes: 'odonto', ext: 'webp', artesN: 1, soArte: '01' },
-      enf: { nome: 'Enfermagem', id: 'kit', col: 'enfermagem', artes: 'enf', ext: 'webp', artesN: 0 }
+      odonto: { nome: 'Odontologia', id: 'odonto', col: 'odontologia', artes: 'odonto', ext: 'webp', artesN: 6, semPadrao: true },
+      enf: { nome: 'Enfermagem', id: 'kit', col: 'enfermagem', artes: 'enf', ext: 'webp', artesN: 8, semPadrao: true }
     };
     var FONTES = { classica: 'Clássica', manuscrita: 'Manuscrita', moderna: 'Moderna' };
     var KNOME = { kit: 'Skillmed Sutura Pro', semestre: 'Kit Semestre Completo', estojo: 'Só o estojo inox gravado' };
@@ -436,7 +436,7 @@
     };
     var estado = function () {
       var c = $('input[name=curso]:checked').value, k = $('input[name=kit]:checked').value, dEl = $('input[name=desenho]:checked'), d = dEl ? dEl.value : '00';
-      if (CURSO[c].soArte) { if (d !== CURSO[c].soArte) { marca('input[name=desenho][value="' + CURSO[c].soArte + '"]'); d = CURSO[c].soArte; } }
+      if (CURSO[c].semPadrao && (d === '00' || Number(d) > CURSO[c].artesN)) { marca('input[name=desenho][value="01"]'); d = '01'; }
       else if (Number(d) > CURSO[c].artesN) { marca('input[name=desenho][value="00"]'); d = '00'; }
       if (CURSO[c].artesN === 0) d = '';
       if ((c === 'odonto' || c === 'enf') && k === 'semestre') { marca('input[name=kit][value="kit"]'); k = 'kit'; }
@@ -448,7 +448,7 @@
     var atualizar = function () {
       var s = estado(), cn = CURSO[s.curso].nome, dc = KDC[s.curso] || KDC.med || {}, semArte = CURSO[s.curso].artesN === 0, sem = s.kit === 'semestre';
       var pastaGaleria = sem ? (s.curso === 'vet' ? '04-kit-semestre-vet' : '04-kit-semestre') : dc.pasta, presente = $('[data-presente]').checked ? SM.produto('presente').preis : 0;
-      var nums = sem ? KD.galeria.semestre : s.curso === 'odonto' ? KD.galeria.odonto : s.curso === 'vet' ? KD.galeria.vet : KD.galeria.padrao, nomeKit = KNOME[s.kit];
+      var nums = sem ? (s.curso === 'vet' ? KD.galeria.semestreVet : KD.galeria.semestre) : s.curso === 'odonto' ? KD.galeria.odonto : s.curso === 'vet' ? KD.galeria.vet : KD.galeria.padrao, nomeKit = KNOME[s.kit];
       // Kit Semestre existe apenas para Medicina e Veterinaria
       var semSemestre = s.curso === 'odonto' || s.curso === 'enf';
       $('#template--sm__main-kit-semestre').disabled = semSemestre;
@@ -489,7 +489,7 @@
       $('[data-schritt="2"]').classList.toggle('is-done-sm', mexeu.desenho || semArte); $('[data-schritt="3"]').classList.toggle('is-done-sm', semNome || s.nome.length > 1);
       $$('[data-leg]').forEach(function (li, i) { li.classList.toggle('is-on-sm', i === focoLeg); });
       $$('[data-arte-option]').forEach(function (label) {
-        var input = label.querySelector('input'), valor = input.value, disponivel = CURSO[s.curso].artesN > 0 && Number(valor) <= CURSO[s.curso].artesN && (!CURSO[s.curso].soArte || valor === CURSO[s.curso].soArte);
+        var input = label.querySelector('input'), valor = input.value, disponivel = CURSO[s.curso].artesN > 0 && Number(valor) <= CURSO[s.curso].artesN && !(CURSO[s.curso].semPadrao && valor === '00');
         label.hidden = !disponivel; input.disabled = !disponivel;
         if (disponivel) {
           var img = label.querySelector('[data-arte-img]');
@@ -502,7 +502,7 @@
       var trocar = function (img, n, alt) { img.src = src(pastaGaleria, n, 960); img.srcset = src(pastaGaleria, n, 480) + ' 480w, ' + src(pastaGaleria, n, 960) + ' 960w'; img.alt = alt; };
       $$('.product__media-item').forEach(function (li, i) { var on = i < nums.length; li.classList.toggle('is-off-sm', !on); if (on) trocar(li.querySelector('img'), nums[i], nomeKit + ' ' + cn + ', foto ' + (i + 1)); });
       $$('.thumbnail-list__item').forEach(function (li, i) { var on = i < nums.length; li.classList.toggle('is-off-sm', !on); if (on) li.querySelector('img').src = src(pastaGaleria, nums[i], 480); });
-      $$('.product-story-sm__item').forEach(function (li, i) { var on = i < nums.length; li.classList.toggle('is-off-sm', !on); if (on) { trocar(li.querySelector('img'), nums[i], nomeKit + ' ' + cn + ', cena ' + (i + 1)); var lg = li.querySelector('figcaption strong'), leg = KD.galeria.legendas && !sem && KD.galeria.legendas[nums[i]]; if (lg && leg) lg.textContent = leg; } });
+      $$('.product-story-sm__item').forEach(function (li, i) { var on = i < nums.length; li.classList.toggle('is-off-sm', !on); if (on) { trocar(li.querySelector('img'), nums[i], nomeKit + ' ' + cn + ', cena ' + (i + 1)); var lg = li.querySelector('figcaption strong'), leg = (sem ? KD.galeria.legendasSemestre : s.curso === 'odonto' ? KD.galeria.legendasOdonto : KD.galeria.legendas || {})[nums[i]]; if (lg && leg) lg.textContent = leg; } });
       var imgLang = $('.pdx-lang__bild img'); if (imgLang) trocar(imgLang, nums[nums.length - 1], nomeKit + ' ' + cn + ', visão do conjunto');
       var imgDet = $('.pdx-specs .pdx-media img'); if (imgDet) trocar(imgDet, nums[1] || nums[0], nomeKit + ' ' + cn + ', peças do kit');
       var gt = $('[data-gal-total]'); if (gt) gt.textContent = nums.length;
@@ -516,13 +516,13 @@
       // descricao: para quem e e como funciona, pelo curso
       setTxt('[data-para-quem]', dc.para || '');
       setTxt('[data-como]', semArte ? 'Você digita o nome e confere a prévia. O estojo inox é gravado a laser com o nome e o curso, e o kit chega pronto para treinar.' : 'Você escolhe o curso e o desenho, digita o nome e confere a prévia. O estojo inox é gravado a laser e o kit chega pronto para treinar' + (dc.pele || sem ? ', com a pele simuladora' + (sem ? ' extra' : ' de brinde') : '') + '.');
-      setTxt('[data-d2-titulo]', semArte ? 'Nome e curso gravados' : 'Padrão + 8 desenhos');
+      setTxt('[data-d2-titulo]', semArte ? 'Nome e curso gravados' : s.curso === 'enf' ? '8 artes de Enfermagem' : s.curso === 'odonto' ? '6 artes de Odontologia' : 'Padrão + 8 desenhos');
       setTxt('[data-d2-texto]', semArte ? 'Prévia do nome e curso, sem símbolo inventado.' : 'Escolha o que combina com o curso.');
       var detalhe = $('.pdx-wm4--d2 img'); if (detalhe) { var baseDetalhe = 'assets/img/personalizacao/' + CURSO[s.curso].artes + '/' + (s.curso === 'med' && s.desenho !== '00' ? '07' : (s.desenho || '01')) + '-v5.webp'; detalhe.src = baseDetalhe; detalhe.removeAttribute('srcset'); detalhe.alt = 'Gravação personalizada para ' + cn + ' com o texto Seu nome aqui'; }
       var fotoBarra = $('.sticky-atc-wm4__bild'); if (fotoBarra) fotoBarra.src = src(pastaGaleria, 1, 480);
       if (window.SMMockup) window.SMMockup.render($('[data-mock]'), {
         nome: semNome ? '' : (s.nome || 'Seu nome aqui'), curso: s.curso === 'vet' ? 'Medicina Veterinária' : cn, desenho: rot(s.desenho), fonte: s.fonte,
-        desenhoUrl: (s.curso === 'med' || s.curso === 'vet' || s.curso === 'odonto') ? 'assets/img/personalizacao/artes-v5/' + s.curso + '-' + s.desenho + '.png' : ''
+        desenhoUrl: (s.curso === 'med' || s.curso === 'vet') ? 'assets/img/personalizacao/artes-v5/' + s.curso + '-' + s.desenho + '.png' : ''
       });
     };
     pform.addEventListener('change', function (ev) {
@@ -559,7 +559,7 @@
     var colocar = function () {
       guardar(); var s = estado(), m = $('#perso-msg').value.trim();
       units.forEach(function (u) {
-        var d = CURSO[s.curso].artesN === 0 ? '' : CURSO[s.curso].soArte ? CURSO[s.curso].soArte : (Number(u.desenho) > CURSO[s.curso].artesN ? '00' : u.desenho);
+        var d = CURSO[s.curso].artesN === 0 ? '' : CURSO[s.curso].semPadrao ? ((u.desenho === '00' || Number(u.desenho) > CURSO[s.curso].artesN) ? '01' : u.desenho) : (Number(u.desenho) > CURSO[s.curso].artesN ? '00' : u.desenho);
         var props = { 'Curso': CURSO[s.curso].nome, 'Arte': d ? rot(d) : 'Sem desenho', 'Nome para gravação': u.semNome ? 'Sem nome' : u.nome.trim(), 'Fonte': FONTES[u.fonte || 'classica'] };
         adicionar(s.pid, props, { silencioso: true });
         if ($('[data-presente]').checked) adicionar('presente', { 'Para o estojo de': props['Nome para gravação'], 'Mensagem do cartão': m || 'Sem mensagem' }, { silencioso: true });

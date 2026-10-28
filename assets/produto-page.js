@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fios24: '10-fios-24', laminas: '11-laminas', fios5: '12-fios-5', peledyn: '09-pele-simuladora'
   };
   // Novas composicoes v6. As cenas antigas nao entram nas galerias refeitas.
-  var galleries = { default: [1, 2, 6], vet: [1, 2, 5, 6], semestre: [1], pele: [1, 2, 6], fios24: [1, 2, 6], laminas: [1, 6], fios5: [1, 6], estojo: [1, 2, 3], peledyn: [2, 1, 6] };
+  var galleries = { default: [1, 2, 6], vet: [1, 2, 5, 6], semestre: [1, 2, 3, 4, 5, 6], pele: [1, 2, 6], fios24: [1, 2, 6], laminas: [1, 6], fios5: [1, 6], estojo: [1, 2, 3], peledyn: [2, 1, 6] };
   var descriptions = {
     vet: 'Conjunto de treino para estudantes de Veterinária, com instrumentais, pele simuladora e organização para a rotina acadêmica.',
     odonto: 'Kit de sutura para prática odontológica, com modelos dentais, instrumentais e estojo de transporte.',
@@ -51,10 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var thumbs = document.querySelector('[data-product-thumbs]');
   var source = function (n, width) { return 'assets/catalogo-v5/' + folder + '/' + String(nums[n - 1]).padStart(2, '0') + '-' + width + '.webp'; };
   var selectedImage = 1, customizationSynced = false;
-  var captions = id === 'estojo' ? ['Estojo completo', 'Gravação em detalhe', 'Escala na mão'] : id === 'vet' ? ['Conjunto completo', 'Gravação em detalhe', 'Pele com pontos', 'Escala na mão'] : ['Visão principal', 'Composição complementar', 'Detalhe 1', 'Detalhe 2', 'Detalhe 3', 'Visão complementar'];
+  var captionsSemestre = ['Kit Semestre Completo', 'Mesmo kit, disposição 2', 'Mesmo kit, disposição 3', 'Mesmo kit, disposição 4', 'Mesmo kit, disposição 5', 'Mesmo kit, disposição 6'];
+  var captions = id === 'semestre' ? captionsSemestre : id === 'estojo' ? ['Estojo completo', 'Gravação em detalhe', 'Escala na mão'] : id === 'vet' ? ['Conjunto completo', 'Gravação em detalhe', 'Pele com pontos', 'Escala na mão'] : ['Visão principal', 'Composição complementar', 'Detalhe 1', 'Detalhe 2', 'Detalhe 3', 'Visão complementar'];
   Array.prototype.forEach.call(document.querySelectorAll('[data-product-description-image]'), function (image) {
     var number = Number(image.getAttribute('data-product-description-image'));
-    if (number > nums.length) { image.closest('li').remove(); return; }
+    if (number > nums.length) { image.closest('li').classList.add('is-off-sm'); return; }
     image.src = source(number, 960);
     image.srcset = source(number, 480) + ' 480w, ' + source(number, 960) + ' 960w';
     image.sizes = '(min-width: 990px) 31vw, (min-width: 750px) 47vw, calc(100vw - 30px)';
@@ -73,7 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
       button.setAttribute('aria-current', String(index + 1 === n));
     });
   };
-  for (var n = 1; n <= nums.length; n += 1) {
+  var buildThumbs = function () {
+    thumbs.innerHTML = '';
+    for (var n = 1; n <= nums.length; n += 1) {
     (function (number) {
       var button = document.createElement('button');
       button.type = 'button';
@@ -83,15 +86,29 @@ document.addEventListener('DOMContentLoaded', function () {
       button.addEventListener('click', function () { show(number); });
       thumbs.appendChild(button);
     })(n);
-  }
+    }
+    Array.prototype.forEach.call(thumbs.querySelectorAll('button'), function (button, index) { button.setAttribute('aria-current', String(index + 1 === selectedImage)); });
+  };
+  buildThumbs();
   var syncCustomization = function (state) {
     var nextFolder = folder;
-    if (id === 'estojo') { nextFolder = '05-estojo-personalizado/opcoes/' + state.course + '-' + state.art; nums = state.art === '00' || (state.course !== 'med' && state.course !== 'vet') ? [1, 2, 3] : [1, 3, 6]; }
-    if (id === 'semestre') nextFolder = state.course === 'vet' ? '04-kit-semestre-vet' : '04-kit-semestre';
-    if (customizationSynced && nextFolder === folder) return;
-    folder = nextFolder; customizationSynced = true;
-    Array.prototype.forEach.call(thumbs.querySelectorAll('img'), function (image, index) { image.src = source(index + 1, 480); });
-    Array.prototype.forEach.call(document.querySelectorAll('[data-product-description-image]'), function (image, index) { image.src = source(index + 1, 960); image.srcset = source(index + 1, 480) + ' 480w, ' + source(index + 1, 960) + ' 960w'; });
+    var nextNums = nums;
+    if (id === 'estojo') { nextFolder = '05-estojo-personalizado/opcoes/' + state.course + '-' + state.art; nextNums = (state.course === 'enf' || state.course === 'odonto') ? [1, 2] : state.art === '00' ? [1, 2, 3] : [1, 3, 6]; }
+    if (id === 'semestre') { nextFolder = state.course === 'vet' ? '04-kit-semestre-vet' : '04-kit-semestre'; nextNums = state.course === 'vet' ? [1] : [1, 2, 3, 4, 5, 6]; }
+    if (customizationSynced && nextFolder === folder && nextNums.join() === nums.join()) return;
+    folder = nextFolder; nums = nextNums; customizationSynced = true;
+    buildThumbs();
+    Array.prototype.forEach.call(document.querySelectorAll('[data-product-description-image]'), function (image) {
+      var number = Number(image.getAttribute('data-product-description-image')), item = image.closest('li');
+      item.classList.toggle('is-off-sm', number > nums.length);
+      if (number > nums.length) return;
+      image.src = source(number, 960); image.srcset = source(number, 480) + ' 480w, ' + source(number, 960) + ' 960w'; image.alt = title + ', ' + captions[number - 1].toLowerCase();
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-product-description-caption]'), function (caption) {
+      var number = Number(caption.getAttribute('data-product-description-caption'));
+      if (number <= nums.length) caption.textContent = captions[number - 1];
+    });
+    if (selectedImage > nums.length) selectedImage = 1;
     show(selectedImage);
   };
   if (customizer) {

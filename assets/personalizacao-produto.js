@@ -1,12 +1,12 @@
 /* Personalizacao no proprio PDP: SKU fixo, mesmas artes comprovadas e mesmo mockup. */
 (function () {
   'use strict';
-  var courses={medicina:{key:'med',name:'Medicina',arts:8},veterinaria:{key:'vet',name:'Veterinária',arts:8},odontologia:{key:'odonto',name:'Odontologia',arts:1,only:'01'},enfermagem:{key:'enf',name:'Enfermagem',arts:0}};
+  var courses={medicina:{key:'med',name:'Medicina',arts:8},veterinaria:{key:'vet',name:'Veterinária',arts:8},odontologia:{key:'odonto',name:'Odontologia',arts:6,semPadrao:true},enfermagem:{key:'enf',name:'Enfermagem',arts:8,semPadrao:true}};
   window.SMProductCustomization={mount:function(form,product,button){
     if(!form||!product.perso)return;
     var SM=window.SM,esc=SM.esc,$=function(s){return form.querySelector(s);};
     var available=product.cursos.filter(function(c){return courses[c];}),course=available[0],art='00',noName=false,font='classica',FONTS={classica:'Clássica',manuscrita:'Manuscrita',moderna:'Moderna'};
-  var padraoArt=function(c){return courses[c].only||(courses[c].arts?'00':'01');},rot=function(a){return a==='00'?'Padrão':a;};    var requested=new URLSearchParams(location.search).get('curso');
+  var padraoArt=function(c){return courses[c].semPadrao?'01':(courses[c].arts?'00':'01');},rot=function(a){return a==='00'?'Padrão':a;};    var requested=new URLSearchParams(location.search).get('curso');
     available.forEach(function(c){if(requested===c||requested===courses[c].key)course=c;});
     art=padraoArt(course);
     form.hidden=false;
@@ -19,11 +19,11 @@
       $('[data-product-art-title]').textContent=cfg.arts?'Escolha a arte':'Personalização do nome';
       $('[data-product-arts]').hidden=!cfg.arts;note.hidden=!!cfg.arts;
       note.textContent='Prévia de nome e curso, sem símbolo adicional.';
-      $('[data-product-arts]').innerHTML=Array.from({length:cfg.arts?cfg.arts+1:0},function(_,i){return String(i).padStart(2,'0');}).filter(function(n){return !cfg.only||n===cfg.only;}).map(function(n){return '<label><input type="radio" name="product-art" value="'+n+'"'+(n===art?' checked':'')+' aria-label="Arte '+rot(n)+'"><span><img src="assets/img/personalizacao/'+cfg.key+'/'+n+'-mini-v5.webp" width="300" height="150" alt="Arte '+rot(n)+' de '+cfg.name+'" loading="lazy"><i>'+rot(n)+'</i></span></label>';}).join('');
+      $('[data-product-arts]').innerHTML=Array.from({length:cfg.arts?cfg.arts+1:0},function(_,i){return String(i).padStart(2,'0');}).filter(function(n){return !(cfg.semPadrao&&n==='00');}).map(function(n){return '<label><input type="radio" name="product-art" value="'+n+'"'+(n===art?' checked':'')+' aria-label="Arte '+rot(n)+'"><span><img src="assets/img/personalizacao/'+cfg.key+'/'+n+'-mini-v5.webp" width="300" height="150" alt="Arte '+rot(n)+' de '+cfg.name+'" loading="lazy"><i>'+rot(n)+'</i></span></label>';}).join('');
     }
     function update(){
       var cfg=courses[course],value=noName?'':name.value.trim();
-      window.SMMockup.render($('[data-product-mock]'),{nome:noName?'':value||'Seu nome aqui',curso:cfg.key==='vet'?'Medicina Veterinária':cfg.name,desenho:rot(art),fonte:font,desenhoUrl:cfg.arts?'assets/img/personalizacao/artes-v5/'+cfg.key+'-'+art+'.png':'',productKind:'estojo'});
+      window.SMMockup.render($('[data-product-mock]'),{nome:noName?'':value||'Seu nome aqui',curso:cfg.key==='vet'?'Medicina Veterinária':cfg.name,desenho:rot(art),fonte:font,desenhoUrl:cfg.arts&&!cfg.semPadrao?'assets/img/personalizacao/artes-v5/'+cfg.key+'-'+art+'.png':'',productKind:'estojo'});
       $('[data-product-name-count]').textContent=name.value.length+'/20';
       $('[data-product-personal-summary]').textContent=cfg.name+' · '+(cfg.arts?'Arte '+rot(art):'Sem símbolo')+' · '+(noName?'Sem nome':value||'Seu nome aqui');
       confirm.checked=false;confirm.removeAttribute('aria-invalid');error.hidden=true;
