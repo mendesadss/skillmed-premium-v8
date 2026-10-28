@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var syncCustomization = function (state) {
     var nextFolder = folder;
     var nextNums = nums;
-    if (id === 'estojo') { nextFolder = '05-estojo-personalizado/opcoes/' + state.course + '-' + state.art; nextNums = (state.course === 'enf' || state.course === 'odonto') ? [1, 2] : state.art === '00' ? [1, 2, 3] : [1, 3, 6]; }
+    if (id === 'estojo') { nextFolder = '05-estojo-personalizado/opcoes/' + state.course + '-' + state.art; nextNums = (state.course === 'enf' || state.course === 'odonto') ? [1] : state.art === '00' ? [1, 2, 3] : [1, 3, 6]; }
     if (id === 'semestre') { nextFolder = state.course === 'vet' ? '04-kit-semestre-vet' : '04-kit-semestre'; nextNums = state.course === 'vet' ? [1] : [1, 2, 3, 4, 5, 6]; }
     if (customizationSynced && nextFolder === folder && nextNums.join() === nums.join()) return;
     folder = nextFolder; nums = nextNums; customizationSynced = true;

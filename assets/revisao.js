@@ -367,7 +367,8 @@ textarea:focus,input:focus{outline:2px solid #0d1b2e;outline-offset:1px}
   $('[data-sair]').onclick = () => { gravar('skm-rev', null); location.href = location.pathname + location.search.replace(/([?&])revisao=1&?/, '$1').replace(/[?&]$/, ''); };
   $('[data-intro-ok]').onclick = () => { gravar('skm-rev-intro', '1'); fecharPaineis(); setCaneta(true); aviso('Toque no ponto que você quer mudar'); };
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (alvo) fecharForm(); else if (canetaOn) setCaneta(false); fecharPaineis(); } });
-  let raf; const reposicionar = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { desenharPinos(); if (alvo) realce(alvo, true); }); };
+  // Espera a página parar de mudar (carrossel, prévia ao digitar) antes de recalcular os alfinetes.
+  let espera; const reposicionar = () => { clearTimeout(espera); espera = setTimeout(() => requestAnimationFrame(() => { desenharPinos(); if (alvo) realce(alvo, true); }), 200); };
   addEventListener('resize', reposicionar); addEventListener('load', reposicionar);
   new MutationObserver(reposicionar).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
 

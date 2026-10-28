@@ -2,17 +2,32 @@
 (function () {
   'use strict';
   var escapeXml = function (s) { return String(s || '').replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
-  /* Artes do lote r2 (ZIP do dono). Arte limpa 1800x700 sem o placeholder (assets/img/personalizacao/artes-v5/<u>.webp);
-     cx, cy = centro da area do nome, w = largura maxima, fs = corpo base, tudo em coordenadas da arte (1800x700). */
-  var ZIP = {
-    'Enfermagem|01': { u: 'enf-01', cx: 921, cy: 629, w: 560, fs: 78 }, 'Enfermagem|02': { u: 'enf-02', cx: 919, cy: 637, w: 550, fs: 78 },
-    'Enfermagem|03': { u: 'enf-03', cx: 907, cy: 640, w: 510, fs: 75 }, 'Enfermagem|04': { u: 'enf-04', cx: 882, cy: 640, w: 560, fs: 78 },
-    'Enfermagem|05': { u: 'enf-05', cx: 1281, cy: 515, w: 480, fs: 70 }, 'Enfermagem|06': { u: 'enf-06', cx: 671, cy: 529, w: 510, fs: 70 },
-    'Enfermagem|07': { u: 'enf-07', cx: 704, cy: 568, w: 540, fs: 72 }, 'Enfermagem|08': { u: 'enf-08', cx: 1382, cy: 513, w: 360, fs: 52 },
-    'Odontologia|02': { u: 'odonto-02', cx: 876, cy: 120, w: 700, fs: 84 }, 'Odontologia|03': { u: 'odonto-03', cx: 908, cy: 325, w: 620, fs: 70 },
-    'Odontologia|04': { u: 'odonto-04', cx: 942, cy: 70, w: 560, fs: 60 }, 'Odontologia|05': { u: 'odonto-05', cx: 1140, cy: 205, w: 880, fs: 92 },
-    'Odontologia|06': { u: 'odonto-06', cx: 895, cy: 110, w: 640, fs: 72 }
+  /* Artes ORIGINAIS do dono (ZIP + horizontal anterior de Odontologia). Fundo = a imagem do dono sem o placeholder
+     (assets/img/personalizacao/originais-limpas/<u>.webp, tela 2:1 W x H nativa); o nome entra no mesmo centro (cx) e linha de base (y).
+     w = largura maxima, fs = corpo da fonte "Classica" da arte (c), km/kd = fator para Manuscrita/Moderna, cor = cinza do tracado do dono. */
+  var CLASSICAS = {
+    dancing: { fam: 'Dancing Script,Snell Roundhand,cursive', peso: '400' },
+    lora: { fam: 'Lora,Georgia,serif', peso: '500' },
+    josefin: { fam: 'Josefin Sans,Helvetica Neue,Arial,sans-serif', peso: '400' }
   };
+  var ZIP = {
+    "Enfermagem|01": { u: "enf-01", W: 628, H: 314, cx: 315, y: 264, w: 293, c: "dancing", fs: 39.1, km: 1.16, kd: 0.66, cor: "rgb(32,32,35)" },
+    "Enfermagem|02": { u: "enf-02", W: 618, H: 309, cx: 313, y: 260, w: 288, c: "dancing", fs: 38.3, km: 1.16, kd: 0.66, cor: "rgb(34,34,37)" },
+    "Enfermagem|03": { u: "enf-03", W: 618, H: 309, cx: 319, y: 261, w: 299, c: "dancing", fs: 39.8, km: 1.16, kd: 0.66, cor: "rgb(35,36,38)" },
+    "Enfermagem|04": { u: "enf-04", W: 772, H: 386, cx: 375, y: 333, w: 373, c: "dancing", fs: 49.6, km: 1.16, kd: 0.66, cor: "rgb(22,22,24)" },
+    "Enfermagem|05": { u: "enf-05", W: 538, H: 269, cx: 381, y: 191, w: 192, c: "dancing", fs: 25.5, km: 1.16, kd: 0.66, cor: "rgb(31,29,30)" },
+    "Enfermagem|06": { u: "enf-06", W: 540, H: 270, cx: 193, y: 196, w: 203, c: "dancing", fs: 27, km: 1.16, kd: 0.66, cor: "rgb(28,27,28)" },
+    "Enfermagem|07": { u: "enf-07", W: 538, H: 269, cx: 211, y: 202, w: 216, c: "dancing", fs: 28.8, km: 1.16, kd: 0.66, cor: "rgb(28,26,27)" },
+    "Enfermagem|08": { u: "enf-08", W: 1652, H: 826, cx: 1230, y: 552, w: 522, c: "josefin", fs: 52.1, km: 1.5, kd: 0.88, cor: "rgb(37,37,38)" },
+    "Odontologia|01": { u: "odonto-01", W: 1200, H: 600, cx: 680, y: 295, w: 545, c: "lora", fs: 45.5, km: 1.29, kd: 0.94, cor: "rgb(18,16,15)" },
+    "Odontologia|02": { u: "odonto-02", W: 530, H: 265, cx: 256, y: 79, w: 291, c: "dancing", fs: 50.5, km: 1.13, kd: 0.67, cor: "rgb(40,37,33)" },
+    "Odontologia|03": { u: "odonto-03", W: 528, H: 264, cx: 267, y: 128, w: 194, c: "lora", fs: 25.2, km: 1.5, kd: 0.9, cor: "rgb(23,20,17)" },
+    "Odontologia|04": { u: "odonto-04", W: 526, H: 263, cx: 275, y: 65, w: 204, c: "lora", fs: 26.5, km: 1.5, kd: 0.9, cor: "rgb(25,21,19)" },
+    "Odontologia|05": { u: "odonto-05", W: 528, H: 264, cx: 332, y: 108, w: 299, c: "dancing", fs: 51.8, km: 1.13, kd: 0.67, cor: "rgb(25,22,19)" },
+    "Odontologia|06": { u: "odonto-06", W: 596, H: 298, cx: 304, y: 89, w: 213, c: "lora", fs: 27.6, km: 1.5, kd: 0.9, cor: "rgb(23,19,17)" }
+  };
+  var ativos = [];
+  if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', function () { ativos.forEach(function (a) { window.SMMockup.render(a[0], a[1]); }); });
   window.SMMockup = {
     render: function (element, options) {
       if (!element) return;
@@ -25,28 +40,17 @@
       var fx = FONTES[options.fonte] || FONTES.classica;
       var zip = ZIP[course + '|' + options.desenho];
       if (zip) {
-        var fz = fx.fam || 'Georgia,serif';
-        element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="' + escapeXml('Prévia da gravação: ' + (name || 'Sem nome') + ', ' + course + ', arte ' + options.desenho) + '">' +
-          '<image href="assets/img/personalizacao/estojo-novo-v5.webp" width="1200" height="600"/>' +
-          '<g transform="translate(160 96) scale(0.48889)"><image href="assets/img/personalizacao/artes-v5/' + zip.u + '.webp" width="1800" height="700" style="mix-blend-mode:multiply"/>' +
-          '<text data-live-engraving="true" x="' + zip.cx + '" y="' + zip.cy + '" text-anchor="middle" dominant-baseline="central" fill="#0A0C0D" font-family="' + fz + '" font-style="' + fx.estilo + '" font-weight="' + fx.peso + '" font-size="' + Math.round(zip.fs * fx.k) + '">' + escapeXml(name) + '</text></g></svg>';
+        var ativo = ativos.filter(function (a) { return a[0] === element; })[0];
+        if (ativo) ativo[1] = options; else ativos.push([element, options]);
+        var cl = CLASSICAS[zip.c], fk = options.fonte, fam, peso, tam;
+        if (fk === 'manuscrita') { fam = 'Great Vibes,Snell Roundhand,cursive'; peso = '400'; tam = zip.fs * zip.km; }
+        else if (fk === 'moderna') { fam = 'Montserrat,Helvetica Neue,Arial,sans-serif'; peso = '500'; tam = zip.fs * zip.kd; }
+        else { fam = cl.fam; peso = cl.peso; tam = zip.fs; }
+        element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + zip.W + ' ' + zip.H + '" role="img" aria-label="' + escapeXml('Prévia da gravação: ' + (name || 'Sem nome') + ', ' + course + ', arte ' + options.desenho) + '">' +
+          '<image href="assets/img/personalizacao/originais-limpas/' + zip.u + '.webp" width="' + zip.W + '" height="' + zip.H + '"/>' +
+          '<text data-live-engraving="true" x="' + zip.cx + '" y="' + zip.y + '" text-anchor="middle" fill="' + zip.cor + '" fill-opacity=".94" font-family="' + fam + '" font-weight="' + peso + '" font-size="' + (Math.round(tam * 10) / 10) + '">' + escapeXml(name) + '</text></svg>';
         var tz = element.querySelector('[data-live-engraving]');
-        try { var lz = tz.getComputedTextLength(); if (lz > zip.w) tz.setAttribute('font-size', String(Math.max(20, Math.floor(zip.fs * fx.k * zip.w / lz)))); } catch (error) { /* mede na proxima renderizacao */ }
-        return;
-      }
-      if (course === 'Odontologia') {
-        /* layout do dono na horizontal: dente a esquerda, nome ao centro com linha e curso, instrumentos a direita */
-        var fo = fx.fam || 'Georgia,serif', to = (name.length > 16 ? 40 : 48) * fx.k;
-        element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="' + escapeXml('Prévia da gravação: ' + (name || 'Sem nome') + ', Odontologia') + '">' +
-          '<image href="assets/img/personalizacao/estojo-novo-v5.webp" width="1200" height="600"/>' +
-          '<image href="assets/img/personalizacao/artes-v5/odonto-dente.png" x="205" y="170" width="214" height="200" preserveAspectRatio="xMidYMid meet" style="mix-blend-mode:multiply"/>' +
-          '<rect x="441" y="165" width="2" height="196" fill="#0A0C0D" opacity=".88"/>' +
-          '<g opacity=".88"><rect x="468" y="282" width="150" height="2" fill="#0A0C0D"/><circle cx="650" cy="283" r="4" fill="#0A0C0D"/><rect x="682" y="282" width="150" height="2" fill="#0A0C0D"/></g>' +
-          '<image href="assets/img/personalizacao/artes-v5/odonto-instrumentos.png" x="858" y="161" width="124" height="208" preserveAspectRatio="xMidYMid meet" style="mix-blend-mode:multiply"/>' +
-          '<text data-live-engraving="true" x="650" y="262" text-anchor="middle" fill="#0A0C0D" font-family="' + fo + '" font-style="' + fx.estilo + '" font-weight="' + fx.peso + '" font-size="' + to + '">' + escapeXml(name) + '</text>' +
-          '<text x="650" y="334" text-anchor="middle" fill="#343738" font-family="Georgia,serif" font-style="italic" font-size="32">Odontologia</text></svg>';
-        var tx = element.querySelector('[data-live-engraving]');
-        try { if (tx.getComputedTextLength() > 360) { tx.setAttribute('textLength', '360'); tx.setAttribute('lengthAdjust', 'spacingAndGlyphs'); } } catch (error) { /* mede na proxima renderizacao */ }
+        try { var lz = tz.getComputedTextLength(); if (lz > zip.w) tz.setAttribute('font-size', String(Math.max(zip.fs * 0.4, Math.floor(tam * zip.w / lz * 10) / 10))); } catch (error) { /* mede na proxima renderizacao */ }
         return;
       }
       var padrao = options.desenho === 'Padrão' || options.desenho === '00' || !(course === 'Medicina' || course === 'Medicina Veterinária');

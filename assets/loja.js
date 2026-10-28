@@ -99,6 +99,7 @@
   var fotoLinha = function (line) {
     var props = line.props || {}, keys = { 'Medicina': 'med', 'Veterinária': 'vet', 'Odontologia': 'odonto', 'Enfermagem': 'enf' }, course = keys[props.Curso] || 'med';
     if (line.id === 'estojo') { var art = (course === 'med' || course === 'vet') ? (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : '00') : (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : '01'); return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + art + '/01-480.webp'; }
+    if ((course === 'enf' || course === 'odonto') && /^0[1-8]$/.test(props.Arte || '')) return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + props.Arte + '/01-480.webp';
     if (line.id === 'semestre' && course === 'vet') return 'assets/catalogo-v5/04-kit-semestre-vet/01-480.webp';
     return SM.klein(SM.produto(line.id));
   };
@@ -402,7 +403,9 @@
     var par2 = new URLSearchParams(location.search);
     if (par2.get('kit') === 'estojo') { location.replace('produto.html?id=estojo&curso=' + encodeURIComponent(par2.get('curso') || 'med')); return; }
     var marca = function (sel) { var x = $(sel); if (x) x.checked = true; };
-    if (par2.get('curso') && CURSO[par2.get('curso')]) { marca('input[name=curso][value="' + par2.get('curso') + '"]'); mexeu.curso = true; }
+    var ALIAS = { medicina: 'med', med: 'med', veterinaria: 'vet', vet: 'vet', odontologia: 'odonto', odonto: 'odonto', enfermagem: 'enf', enf: 'enf' };
+    var cursoUrl = ALIAS[String(par2.get('curso') || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim()];
+    if (cursoUrl && CURSO[cursoUrl]) { marca('input[name=curso][value="' + cursoUrl + '"]'); mexeu.curso = true; }
     if (par2.get('kit') && KNOME[par2.get('kit')]) marca('input[name=kit][value="' + par2.get('kit') + '"]');
     if (par2.get('presente') === '1') { $('[data-presente]').checked = true; $('[data-msg-box]').hidden = false; }
     var nokitUl = $('[data-nokit-lista]'), nokitIco = nokitUl && nokitUl.querySelector('svg') ? nokitUl.querySelector('svg').outerHTML : '';
