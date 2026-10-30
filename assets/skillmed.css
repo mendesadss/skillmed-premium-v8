@@ -754,3 +754,39 @@ html.sm-reveal-on .sm-reveal.is-in { opacity: 1; transform: none; }
 .fonte-classica-sm { font-family: Georgia, serif; font-style: italic; }
 .fonte-manuscrita-sm { font-family: "Great Vibes", "Snell Roundhand", cursive; font-size: 2.1rem !important; font-weight: 400 !important; }
 .fonte-moderna-sm { font-family: Montserrat, "Helvetica Neue", Arial, sans-serif; font-size: 1.5rem !important; }
+
+/* rodada 5: texto da pele em blocos curtos (item 11) */
+.pele-blocos-sm { display: grid; gap: 1.2rem; margin: 1.6rem 0 2rem; padding: 0; }
+.pele-blocos-sm li { padding: .2rem 0 .2rem 1.4rem; border-left: 3px solid #1859BE; }
+.pele-blocos-sm h3 { margin: 0 0 .3rem; }
+.pele-blocos-sm p { margin: 0; font-size: 1.5rem; line-height: 1.5; color: #44546A; }
+/* rodada 5: slot de video do estojo sendo gravado (item 12). Reserva a proporcao 16:9 e nao afeta o LCP (preload none, carrega perto da tela) */
+.video-gravacao-sm { margin: 1.6rem 0; }
+.video-gravacao-sm[hidden] { display: none; }
+.video-gravacao-sm video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--wm-radius, 6px); background: #E3EAF3; }
+.video-gravacao-sm figcaption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1.2rem; margin-top: .8rem; font-size: 1.4rem; color: #44546A; }
+.video-gravacao-sm__pp { min-height: 4.4rem; padding: 0 1.2rem; border: 1px solid #D5DFEC; border-radius: 4px; background: #fff; color: #0C1A2E; font: inherit; cursor: pointer; }
+
+/* rodada 5 (item 9): no celular a previa ocupa a largura toda da coluna e as miniaturas de arte ficam maiores, para o nome ficar legivel */
+@media screen and (max-width: 749px) {
+  .perso-sm .perso-sm__mock { max-width: none; width: 100%; }
+  .perso-sm .perso-sm__desenhos > label { flex: 0 0 15.2rem; }
+}
+
+/* rodada 5 (item 1): carrossel da home. Com 1 slide nao muda nada; com 2 ou mais ganha controles abaixo da imagem */
+.hero-car-sm { position: relative; }
+.hero-car-sm__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.hero-car-sm__track::-webkit-scrollbar { display: none; }
+.hero-car-sm__slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.hero-car-sm__slide--img img { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 1040; object-fit: cover; }
+@media screen and (min-width: 750px) { .hero-car-sm__slide--img img { aspect-ratio: 2400 / 816; max-height: 52rem; } }
+.hero-car-sm__link { display: block; }
+.hero-car-sm__ctl { display: flex; align-items: center; justify-content: center; gap: .8rem; padding-block: 1rem; }
+.hero-car-sm__btn, .hero-car-sm__pp { min-width: 4.4rem; min-height: 4.4rem; border: 1px solid #D5DFEC; border-radius: 4px; background: #fff; color: #0C1A2E; font: inherit; font-size: 1.4rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0 1rem; }
+.hero-car-sm__btn svg { width: 2rem; height: 2rem; }
+.hero-car-sm__dots { display: flex; gap: .2rem; }
+.hero-car-sm__dot { position: relative; width: 4.4rem; height: 4.4rem; border: 0; background: none; cursor: pointer; }
+.hero-car-sm__dot::after { content: ""; position: absolute; left: 50%; top: 50%; width: 1rem; height: 1rem; margin: -.5rem 0 0 -.5rem; border-radius: 50%; background: #C3D0E0; transition: background .2s, transform .2s; }
+.hero-car-sm__dot[aria-current="true"]::after { background: #1859BE; transform: scale(1.3); }
+.hero-car-sm__btn:focus-visible, .hero-car-sm__pp:focus-visible, .hero-car-sm__dot:focus-visible { outline: 2px solid #1859BE; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .hero-car-sm__track { scroll-behavior: auto; } .hero-car-sm__dot::after { transition: none; } }

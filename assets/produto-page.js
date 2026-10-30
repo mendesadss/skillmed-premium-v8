@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var folders = {
     vet: '02-kit-veterinaria', odonto: '03-kit-odonto', semestre: '04-kit-semestre', estojo: '05-estojo-personalizado',
     puncao: '06-simulador-puncao', coleta: '07-simulador-coleta', dental: '08-simulador-dental', pele: '09-pele-simuladora',
-    fios24: '10-fios-24', laminas: '11-laminas', fios5: '12-fios-5', peledyn: '09-pele-simuladora'
+    fios24: '10-fios-24', laminas: '11-laminas', fios5: '12-fios-5', peledyn: '09b-pele-dynamic'
   };
   // Novas composicoes v6. As cenas antigas nao entram nas galerias refeitas.
-  var galleries = { default: [1, 2, 6], vet: [1, 2, 5, 6], semestre: [1, 2, 3, 4, 5, 6], pele: [1, 2, 6], fios24: [1, 2, 6], laminas: [1, 6], fios5: [1, 6], estojo: [1, 2, 3], peledyn: [2, 1, 6] };
+  var galleries = { default: [1, 2, 6], vet: [1, 2, 5, 6], semestre: [1, 2, 3, 4, 5, 6], pele: [1, 2, 6], fios24: [1, 2, 6], laminas: [1, 6], fios5: [1, 6], estojo: [1, 2, 3], peledyn: [1] };
   var descriptions = {
     vet: 'Conjunto de treino para estudantes de Veterinária, com instrumentais, pele simuladora e organização para a rotina acadêmica.',
     odonto: 'Kit de sutura para prática odontológica, com modelos dentais, instrumentais e estojo de transporte.',
@@ -17,11 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
     pele: 'Pele simuladora reutilizável para prática de diferentes padrões de sutura em ambiente de ensino.',
     fios24: 'Caixa com 24 fios agulhados de nylon para reposição durante os ciclos de treino.',
     laminas: 'Conjunto com cinco lâminas nº 15 em embalagens individuais para práticas acadêmicas supervisionadas.',
-    peledyn: 'Pele Simuladora Dynamic para treino de sutura em ambiente de ensino. Serve como refil de pele para continuar treinando.',
+    peledyn: 'Pele Simuladora Dynamic para treino de sutura em ambiente de ensino. Vendida só a pele, avulsa: não acompanha fios de nylon. Serve como refil de pele para continuar treinando.',
     fios5: 'Kit compacto com cinco fios de nylon 4-0 para reposição e continuidade do treino.'
   };
   var requested = new URLSearchParams(location.search).get('id');
   if (requested === 'odonto') { location.replace('kit.html?curso=odonto'); return; }
+  if (requested === 'semestre') { location.replace('kit.html'); return; }
   var id = folders[requested] ? requested : 'puncao';
   var product = window.SM && window.SM.produto ? window.SM.produto(id) : null;
   if (!product) return;

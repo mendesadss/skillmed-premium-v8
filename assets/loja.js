@@ -25,7 +25,7 @@
 
   /* ---------- estado: carrinho (linhas com propriedades) e favoritos ---------- */
   var KEY = 'sm-carrinho-v2', FKEY = 'sm-favoritos-v2', MAXQ = 30;
-  var KITS = ['kit', 'vet', 'odonto', 'semestre'];
+  var KITS = ['kit', 'vet', 'odonto'];
   var carrinho = ler(KEY, []).filter(function (l) { return l && SM.produto(l.id); });
   var favoritos = ler(FKEY, []).filter(function (id) { return SM.produto(id); });
   function salvar() { gravar(KEY, carrinho); }
@@ -397,7 +397,7 @@
       enf: { nome: 'Enfermagem', id: 'kit', col: 'enfermagem', artes: 'enf', ext: 'webp', artesN: 8, semPadrao: true }
     };
     var FONTES = { classica: 'Clássica', manuscrita: 'Manuscrita', moderna: 'Moderna' };
-    var KNOME = { kit: 'Skillmed Sutura Pro', semestre: 'Kit Semestre Completo', estojo: 'Só o estojo inox gravado' };
+    var KNOME = { kit: 'Skillmed Sutura Pro', estojo: 'Só o estojo inox gravado' };
     var SEM_EXTRAS = ['Caixa com 24 fios de nylon 4-0', 'Caixa de lâminas de bisturi nº 15', 'Pele simuladora extra com 6 fios'];
     var nome = $('#perso-nome'), semNome = false, focoLeg = 0, mexeu = { curso: false, desenho: false };
     var par2 = new URLSearchParams(location.search);
@@ -452,13 +452,10 @@
       var s = estado(), cn = CURSO[s.curso].nome, dc = KDC[s.curso] || KDC.med || {}, semArte = CURSO[s.curso].artesN === 0, sem = s.kit === 'semestre';
       var pastaGaleria = sem ? (s.curso === 'vet' ? '04-kit-semestre-vet' : '04-kit-semestre') : dc.pasta, presente = $('[data-presente]').checked ? SM.produto('presente').preis : 0;
       var nums = sem ? (s.curso === 'vet' ? KD.galeria.semestreVet : KD.galeria.semestre) : s.curso === 'odonto' ? KD.galeria.odonto : s.curso === 'vet' ? KD.galeria.vet : KD.galeria.padrao, nomeKit = KNOME[s.kit];
-      // Kit Semestre existe apenas para Medicina e Veterinaria
-      var semSemestre = s.curso === 'odonto' || s.curso === 'enf';
-      $('#template--sm__main-kit-semestre').disabled = semSemestre;
-      $('[data-kit-label="semestre"]').hidden = semSemestre; $('#template--sm__main-kit-semestre').hidden = semSemestre;
+      // Kit Semestre desligado (rodada 5): sem=false e sem opcao no seletor
       $('[data-kit-preis="kit"]').textContent = brl(SM.produto(CURSO[s.curso].id).preis);
       $('[data-v-label]').textContent = nomeKit;
-      var sv = $('[data-v-save]'); sv.textContent = semSemestre ? 'O Kit Semestre Completo está disponível para Medicina e Veterinária.' : sem ? sv.getAttribute('data-sem-texto') : '';
+      var sv = $('[data-v-save]'); if (sv) sv.textContent = '';
       // preco no botao do curso so onde difere do kit de Medicina
       $$('[data-kurs-preis]').forEach(function (el) { var c = el.getAttribute('data-kurs-preis'); el.textContent = brl(SM.produto(CURSO[c].id).preis); el.hidden = s.kit !== 'kit'; });
       ['odonto', 'enf'].forEach(function (c) { var radio = $('input[name=curso][value="' + c + '"]'); radio.disabled = sem; radio.closest('label').classList.toggle('is-off-sm', sem); });
@@ -507,7 +504,7 @@
       $$('.thumbnail-list__item').forEach(function (li, i) { var on = i < nums.length; li.classList.toggle('is-off-sm', !on); if (on) li.querySelector('img').src = src(pastaGaleria, nums[i], 480); });
       $$('.product-story-sm__item').forEach(function (li, i) { var on = i < nums.length; li.classList.toggle('is-off-sm', !on); if (on) { trocar(li.querySelector('img'), nums[i], nomeKit + ' ' + cn + ', cena ' + (i + 1)); var lg = li.querySelector('figcaption strong'), leg = (sem ? KD.galeria.legendasSemestre : s.curso === 'odonto' ? KD.galeria.legendasOdonto : KD.galeria.legendas || {})[nums[i]]; if (lg && leg) lg.textContent = leg; } });
       var imgLang = $('.pdx-lang__bild img'); if (imgLang) trocar(imgLang, nums[nums.length - 1], nomeKit + ' ' + cn + ', visão do conjunto');
-      var imgDet = $('.pdx-specs .pdx-media img'); if (imgDet) trocar(imgDet, nums[1] || nums[0], nomeKit + ' ' + cn + ', peças do kit');
+      var imgDet = $('.pdx-specs .pdx-media img'); if (imgDet) trocar(imgDet, nums[0], nomeKit + ' ' + cn + ', kit completo com estojo, instrumentais e pele');
       var gt = $('[data-gal-total]'); if (gt) gt.textContent = nums.length;
       if (SM.galeriaRecalc) SM.galeriaRecalc();
       // o que vem no kit e especificacoes
@@ -582,11 +579,49 @@
     montarUnids(); fixaAt(); atualizar();
   }
 
+  /* ---------- carrossel da home: setas, pontos, deslize (scroll-snap), pausa. Sem rotacao automatica se o visitante prefere menos movimento ---------- */
+  var heroCar = SM.heroCar = function () {
+    var root = $('[data-hero-car]'); if (!root || root.getAttribute('data-ok')) return;
+    var track = $('[data-hero-track]', root), slides = Array.prototype.slice.call(track.children); if (slides.length < 2) return;
+    root.setAttribute('data-ok', '1'); root.classList.add('is-multi-sm');
+    var ctl = document.createElement('div'); ctl.className = 'hero-car-sm__ctl page-width';
+    ctl.innerHTML = '<button type="button" class="hero-car-sm__btn" data-hc-prev aria-label="Banner anterior">' + ICO('<path d="m15 6-6 6 6 6"/>') + '</button>' +
+      '<div class="hero-car-sm__dots" role="group" aria-label="Escolher banner">' + slides.map(function (x, i) { return '<button type="button" class="hero-car-sm__dot" data-hc-dot="' + i + '" aria-label="Ir para o banner ' + (i + 1) + ' de ' + slides.length + '"></button>'; }).join('') + '</div>' +
+      '<button type="button" class="hero-car-sm__btn" data-hc-next aria-label="Próximo banner">' + ICO('<path d="m9 6 6 6-6 6"/>') + '</button>' +
+      (reduziert ? '' : '<button type="button" class="hero-car-sm__pp" data-hc-pp aria-pressed="false">Pausar</button>');
+    root.appendChild(ctl);
+    var atual = 0, parou = !!reduziert, timer = null, programado = false;
+    var idx = function () { var w = track.clientWidth || 1; return Math.max(0, Math.min(slides.length - 1, Math.round(track.scrollLeft / w))); };
+    var marca = function () {
+      atual = idx();
+      $$('[data-hc-dot]', ctl).forEach(function (d, i) { d.setAttribute('aria-current', String(i === atual)); });
+      slides.forEach(function (x, i) { x.setAttribute('aria-hidden', i === atual ? 'false' : 'true'); $$('a, button', x).forEach(function (f) { f.tabIndex = i === atual ? 0 : -1; }); });
+    };
+    var ir = function (i) { i = (i + slides.length) % slides.length; track.scrollTo({ left: i * track.clientWidth, behavior: reduziert ? 'auto' : 'smooth' }); };
+    var para = function () { parou = true; if (timer) { clearInterval(timer); timer = null; } var b = $('[data-hc-pp]', ctl); if (b) { b.textContent = 'Reproduzir'; b.setAttribute('aria-pressed', 'true'); } };
+    var anda = function () { if (parou || reduziert || document.hidden) return; ir(atual + 1); };
+    $('[data-hc-prev]', ctl).addEventListener('click', function () { para(); ir(atual - 1); });
+    $('[data-hc-next]', ctl).addEventListener('click', function () { para(); ir(atual + 1); });
+    ctl.addEventListener('click', function (ev) { var d = ev.target.closest('[data-hc-dot]'); if (d) { para(); ir(Number(d.getAttribute('data-hc-dot'))); } });
+    var pp = $('[data-hc-pp]', ctl);
+    if (pp) pp.addEventListener('click', function () { if (parou) { parou = false; pp.textContent = 'Pausar'; pp.setAttribute('aria-pressed', 'false'); timer = setInterval(anda, 8000); } else para(); });
+    track.addEventListener('scroll', function () { if (programado) return; programado = true; requestAnimationFrame(function () { programado = false; marca(); }); }, { passive: true });
+    /* tocar, passar o mouse ou focar interrompe a rotacao; ela so volta pelo botao */
+    ['touchstart', 'pointerdown', 'focusin'].forEach(function (n) { root.addEventListener(n, para, { passive: true }); });
+    track.addEventListener('mouseenter', function () { if (!parou) { clearInterval(timer); timer = null; } });
+    track.addEventListener('mouseleave', function () { if (!parou && !timer && !reduziert) timer = setInterval(anda, 8000); });
+    root.addEventListener('keydown', function (ev) { if (ev.key === 'ArrowLeft') { para(); ir(atual - 1); } else if (ev.key === 'ArrowRight') { para(); ir(atual + 1); } });
+    window.addEventListener('resize', function () { track.scrollTo({ left: atual * track.clientWidth, behavior: 'auto' }); });
+    marca(); if (!parou) timer = setInterval(anda, 8000);
+  };
+  heroCar();
+
   /* ---------- videos: so baixam perto da tela, mudos, pausam fora dela, botao de pausa (WCAG 2.2.2) ---------- */
   $$('video.sm-vid').forEach(function (v) {
+    if (!v.getAttribute('data-src') && !v.getAttribute('data-webm')) return; /* slot sem video: nada a carregar */
     var btn = v.parentElement.querySelector('[data-vid-pp]'), manual = false;
     var set = function (tocando) { if (btn) { btn.textContent = tocando ? 'Pausar vídeo' : 'Ver vídeo'; btn.setAttribute('aria-pressed', String(!tocando)); } };
-    var carregar = function () { if (!v.getAttribute('src')) v.src = v.getAttribute('data-src'); };
+    var carregar = function () { if (!v.getAttribute('src')) v.src = (!v.getAttribute('data-src') || (v.getAttribute('data-webm') && !v.canPlayType('video/mp4'))) ? v.getAttribute('data-webm') : v.getAttribute('data-src'); };
     var tocar = function () { carregar(); var pr = v.play(); if (pr && pr.then) pr.then(function () { set(true); }).catch(function () { set(false); }); };
     if (btn) btn.addEventListener('click', function () { if (v.paused) { manual = false; tocar(); } else { manual = true; v.pause(); set(false); } });
     set(false);
