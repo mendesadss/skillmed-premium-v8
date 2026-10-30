@@ -1,7 +1,7 @@
 /* Personalizacao no proprio PDP: SKU fixo, mesmas artes comprovadas e mesmo mockup. */
 (function () {
   'use strict';
-  var courses={medicina:{key:'med',name:'Medicina',arts:8},veterinaria:{key:'vet',name:'Veterinária',arts:8},odontologia:{key:'odonto',name:'Odontologia',arts:6,semPadrao:true},enfermagem:{key:'enf',name:'Enfermagem',arts:8,semPadrao:true}};
+  var courses={medicina:{key:'med',name:'Medicina',arts:8},veterinaria:{key:'vet',name:'Veterinária',arts:8},odontologia:{key:'odonto',name:'Odontologia',arts:5,semPadrao:true},enfermagem:{key:'enf',name:'Enfermagem',arts:5,semPadrao:true}};
   window.SMProductCustomization={mount:function(form,product,button){
     if(!form||!product.perso)return;
     var SM=window.SM,esc=SM.esc,$=function(s){return form.querySelector(s);};

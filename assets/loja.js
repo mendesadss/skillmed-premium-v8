@@ -98,8 +98,8 @@
   var propsHtml = function (l) { var ks = Object.keys(l.props || {}); return ks.length ? '<dl class="cart-props-sm">' + ks.map(function (k) { return '<div><dt>' + esc(k) + ':</dt><dd' + (k === 'Nome para gravação' ? ' class="nome-sm"' : '') + '>' + esc(l.props[k]) + '</dd></div>'; }).join('') + '</dl>' : ''; };
   var fotoLinha = function (line) {
     var props = line.props || {}, keys = { 'Medicina': 'med', 'Veterinária': 'vet', 'Odontologia': 'odonto', 'Enfermagem': 'enf' }, course = keys[props.Curso] || 'med';
-    if (line.id === 'estojo') { var art = (course === 'med' || course === 'vet') ? (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : '00') : (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : '01'); return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + art + '/01-480.webp'; }
-    if ((course === 'enf' || course === 'odonto') && /^0[1-8]$/.test(props.Arte || '')) return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + props.Arte + '/01-480.webp';
+    if (line.id === 'estojo') { var art = (course === 'med' || course === 'vet') ? (/^0[1-8]$/.test(props.Arte || '') ? props.Arte : '00') : (/^0[1-5]$/.test(props.Arte || '') ? props.Arte : '01'); return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + art + '/01-480.webp'; }
+    if ((course === 'enf' || course === 'odonto') && /^0[1-5]$/.test(props.Arte || '')) return 'assets/catalogo-v5/05-estojo-personalizado/opcoes/' + course + '-' + props.Arte + '/01-480.webp';
     if (line.id === 'semestre' && course === 'vet') return 'assets/catalogo-v5/04-kit-semestre-vet/01-480.webp';
     return SM.klein(SM.produto(line.id));
   };
@@ -393,8 +393,8 @@
     var CURSO = {
       med: { nome: 'Medicina', id: 'kit', col: 'medicina', artes: 'med', ext: 'webp', artesN: 8 },
       vet: { nome: 'Veterinária', id: 'vet', col: 'veterinaria', artes: 'vet', ext: 'webp', artesN: 8 },
-      odonto: { nome: 'Odontologia', id: 'odonto', col: 'odontologia', artes: 'odonto', ext: 'webp', artesN: 6, semPadrao: true },
-      enf: { nome: 'Enfermagem', id: 'kit', col: 'enfermagem', artes: 'enf', ext: 'webp', artesN: 8, semPadrao: true }
+      odonto: { nome: 'Odontologia', id: 'odonto', col: 'odontologia', artes: 'odonto', ext: 'webp', artesN: 5, semPadrao: true },
+      enf: { nome: 'Enfermagem', id: 'kit', col: 'enfermagem', artes: 'enf', ext: 'webp', artesN: 5, semPadrao: true }
     };
     var FONTES = { classica: 'Clássica', manuscrita: 'Manuscrita', moderna: 'Moderna' };
     var KNOME = { kit: 'Skillmed Sutura Pro', estojo: 'Só o estojo inox gravado' };
@@ -516,7 +516,7 @@
       // descricao: para quem e e como funciona, pelo curso
       setTxt('[data-para-quem]', dc.para || '');
       setTxt('[data-como]', semArte ? 'Você digita o nome e confere a prévia. O estojo inox é gravado a laser com o nome e o curso, e o kit chega pronto para treinar.' : 'Você escolhe o curso e o desenho, digita o nome e confere a prévia. O estojo inox é gravado a laser e o kit chega pronto para treinar' + (dc.pele || sem ? ', com a pele simuladora' + (sem ? ' extra' : ' de brinde') : '') + '.');
-      setTxt('[data-d2-titulo]', semArte ? 'Nome e curso gravados' : s.curso === 'enf' ? '8 artes de Enfermagem' : s.curso === 'odonto' ? '6 artes de Odontologia' : 'Padrão + 8 desenhos');
+      setTxt('[data-d2-titulo]', semArte ? 'Nome e curso gravados' : s.curso === 'enf' ? '5 artes de Enfermagem' : s.curso === 'odonto' ? '5 artes de Odontologia' : 'Padrão + 8 desenhos');
       setTxt('[data-d2-texto]', semArte ? 'Prévia do nome e curso, sem símbolo inventado.' : 'Escolha o que combina com o curso.');
       var detalhe = $('.pdx-wm4--d2 img'); if (detalhe) { var baseDetalhe = 'assets/img/personalizacao/' + CURSO[s.curso].artes + '/' + (s.curso === 'med' && s.desenho !== '00' ? '07' : (s.desenho || '01')) + '-v5.webp'; detalhe.src = baseDetalhe; detalhe.removeAttribute('srcset'); detalhe.alt = 'Gravação personalizada para ' + cn + ' com o texto Seu nome aqui'; }
       var fotoBarra = $('.sticky-atc-wm4__bild'); if (fotoBarra) fotoBarra.src = src(pastaGaleria, 1, 480);
